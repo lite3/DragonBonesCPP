@@ -7,6 +7,8 @@
 #include "events/FrameEvent.h"
 #include "events/SoundEvent.h"
 #include "events/SoundEventManager.h"
+#include "renderer/Cocos2dxFactory.h"
+#include <string>
 #include <stdexcept>
 namespace dragonBones
 {
@@ -284,7 +286,7 @@ namespace dragonBones
          * @return A Bone instance or null if no Bone with that name exist.
          * @see dragonBones.Bone
          */
-        Bone* Armature::getBone(const String &boneName)
+        Bone* Armature::getBone(const std::string &boneName)
         {
             int i = _boneList.size();
             while(i --)
@@ -539,5 +541,42 @@ namespace dragonBones
         bool Armature::sortSlot(Slot *slot1, Slot *slot2)
         {
             return slot1->getZOrder() < slot2->getZOrder();
+        }
+
+        cocos2d::Rect Armature::getBoundingBox() const
+        {
+            float minx, miny, maxx, maxy = 0;
+
+            bool first = true;
+
+            cocos2d::Rect boundingBox;
+
+            for (const auto bone : _boneList)
+            {
+                if (! bone->getVisible()){ continue; }
+                auto cocosNode = static_cast<dragonBones::CocosNode*>(bone->getDisplay());
+                auto r = cocosNode->getNode()->getBoundingBox();
+                if(first)
+                {
+                    minx = r.getMinX();
+                    miny = r.getMinY();
+                    maxx = r.getMaxX();
+                    maxy = r.getMaxY();
+
+                    first = false;
+                }
+                else
+                {
+                    minx = r.getMinX() < boundingBox.getMinX() ? r.getMinX() : boundingBox.getMinX();
+                    miny = r.getMinY() < boundingBox.getMinY() ? r.getMinY() : boundingBox.getMinY();
+                    maxx = r.getMaxX() > boundingBox.getMaxX() ? r.getMaxX() : boundingBox.getMaxX();
+                    maxy = r.getMaxY() > boundingBox.getMaxY() ? r.getMaxY() : boundingBox.getMaxY();
+                }
+                boundingBox.setRect(minx, miny, maxx - minx, maxy - miny);
+            }
+
+            auto cocosNode = static_cast<const dragonBones::CocosNode*>(const_cast<Armature*>(this)->getDisplay());
+
+            return cocos2d::RectApplyTransform(boundingBox, cocosNode->node->getNodeToParentTransform());
         }
 }

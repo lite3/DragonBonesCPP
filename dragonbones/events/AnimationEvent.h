@@ -1,7 +1,7 @@
 #ifndef __ANIMATION_EVENT_H__
 #define __ANIMATION_EVENT_H__
 #include "utils/preDB.h"
-#include "Event.h"
+#include "events/Event.h"
 namespace dragonBones
 {    
     class AnimationState;

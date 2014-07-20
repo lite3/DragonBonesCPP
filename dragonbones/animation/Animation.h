@@ -56,11 +56,11 @@ namespace dragonBones
     class Animation
     {
     public:
-        static const String NONE;
-        static const String SAME_LAYER;
-        static const String SAME_GROUP;
-        static const String SAME_LAYER_AND_GROUP;
-        static const String ALL;
+        static const std::string NONE;
+        static const std::string SAME_LAYER;
+        static const std::string SAME_GROUP;
+        static const std::string SAME_LAYER_AND_GROUP;
+        static const std::string ALL;
         
         /**
          * Whether animation tweening is enabled or not.
@@ -76,18 +76,18 @@ namespace dragonBones
         /**
          * Unrecommended API. Recommend use getAnimationList.
          */
-        const std::vector<String> &getMovementList();
+        const std::vector<std::string> &getMovementList();
         
         /**
          * Unrecommended API. Recommend use getLastAnimationName.
          */
-        const String &getMovementID();
+        const std::string &getMovementID();
         
         /**
          * The name of the last AnimationData played.
          * @see dragonBones.objects.animationData->
          */
-        const String &getLastAnimationName();
+        const std::string &getLastAnimationName();
         
         AnimationState *_lastAnimationState;
         /**
@@ -96,12 +96,12 @@ namespace dragonBones
          */
         AnimationState *getLastAnimationState();
         
-        std::vector<String> _animationList;
+        std::vector<std::string> _animationList;
         /**
          * An vector containing all AnimationData names the Animation can play.
          * @see dragonBones.objects.animationData->
          */
-        const std::vector<String> &getAnimationList();
+        const std::vector<std::string> &getAnimationList();
         
         bool _isPlaying;
         bool getIsPlaying();
@@ -151,13 +151,13 @@ namespace dragonBones
          * @see dragonBones.animation.animationState->
          */
         AnimationState* gotoAndPlay(
-            const String &animationName, 
+            const std::string &animationName, 
             Number fadeInTime = -1, 
             Number duration = -1, 
             Number loop = NaN, 
             uint layer = 0, 
-            const String &group = "",
-            const String &fadeOutMode = SAME_LAYER_AND_GROUP,
+            const std::string &group = "",
+            const std::string &fadeOutMode = SAME_LAYER_AND_GROUP,
             bool displayControl = true,
             bool pauseFadeOut = true,
             bool pauseFadeIn = true
@@ -175,9 +175,9 @@ namespace dragonBones
          * @return A AnimationState instance.
          * @see dragonBones.animation.animationState->
          */
-        AnimationState* getState(const String &name, uint layer = 0);
+        AnimationState* getState(const std::string &name, uint layer = 0);
         
-        bool hasAnimation(const String &animationName);
+        bool hasAnimation(const std::string &animationName);
         
         void advanceTime(Number passedTime);
         
@@ -189,6 +189,9 @@ namespace dragonBones
         void addState(AnimationState *animationState);
         
         void removeState(AnimationState *animationState);
+
+        /** for cocos2dx 3.x lua binding */
+        virtual void __virtual_foo(){};
     };
 };
 #endif // __ANIMATION_H__

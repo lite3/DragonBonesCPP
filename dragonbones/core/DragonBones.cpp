@@ -1,4 +1,4 @@
-#include "DragonBones.h"
+#include "core/DragonBones.h"
 namespace dragonBones
 {
     const String DragonBones::DATA_VERSION = "2.3";

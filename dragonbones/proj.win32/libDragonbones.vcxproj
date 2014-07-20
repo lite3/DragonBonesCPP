@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2633E5D1-C31E-466B-844C-67E6B82D9682}</ProjectGuid>
+    <RootNamespace>libDragonbones</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '10.0'">v100</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '11.0'">v110</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '11.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v110_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '10.0'">v100</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '11.0'">v110</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '11.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\2d\cocos2d_headers.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\2d\cocos2d_headers.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration).win32\</OutDir>
+    <IntDir>$(Configuration).win32\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration).win32\</OutDir>
+    <IntDir>$(Configuration).win32\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>
+      </SDLCheck>
+      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)cocos;$(EngineRoot)cocos\audio\include;$(EngineRoot)cocos\editor-support\dragonbones;$(EngineRoot)cocos\editor-support;$(EngineRoot)external;$(EngineRoot)external\tinyxml2;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)cocos\scripting\lua-bindings\manual;$(EngineRoot)external\lua\tolua;$(EngineRoot)external\lua\luajit\include;$(EngineRoot)extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_LIB;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MinimalRebuild>false</MinimalRebuild>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>
+      </SDLCheck>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_LIB;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)cocos;$(EngineRoot)cocos\audio\include;$(EngineRoot)cocos\editor-support;$(EngineRoot)external;$(EngineRoot)external\tinyxml2;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\animation\Animation.cpp" />
+    <ClCompile Include="..\animation\AnimationState.cpp" />
+    <ClCompile Include="..\animation\TimelineState.cpp" />
+    <ClCompile Include="..\Armature.cpp" />
+    <ClCompile Include="..\Bone.cpp" />
+    <ClCompile Include="..\core\DBObject.cpp" />
+    <ClCompile Include="..\core\DragonBones.cpp" />
+    <ClCompile Include="..\events\AnimationEvent.cpp" />
+    <ClCompile Include="..\events\ArmatureEvent.cpp" />
+    <ClCompile Include="..\events\Event.cpp" />
+    <ClCompile Include="..\events\FrameEvent.cpp" />
+    <ClCompile Include="..\events\SoundEvent.cpp" />
+    <ClCompile Include="..\events\SoundEventManager.cpp" />
+    <ClCompile Include="..\factories\BaseFactory.cpp" />
+    <ClCompile Include="..\objects\dbtinyxml2.cpp" />
+    <ClCompile Include="..\objects\DisplayData.cpp" />
+    <ClCompile Include="..\objects\TransformTimeline.cpp" />
+    <ClCompile Include="..\objects\XMLDataParser.cpp" />
+    <ClCompile Include="..\renderer\CCDragonBonesNode.cpp" />
+    <ClCompile Include="..\renderer\Cocos2dxAtlasNode.cpp" />
+    <ClCompile Include="..\renderer\Cocos2dxDisplayBridge.cpp" />
+    <ClCompile Include="..\renderer\Cocos2dxFactory.cpp" />
+    <ClCompile Include="..\renderer\Cocos2dxTextureAtlas.cpp" />
+    <ClCompile Include="..\Slot.cpp" />
+    <ClCompile Include="..\utils\BytesType.cpp" />
+    <ClCompile Include="..\utils\ConstValues.cpp" />
+    <ClCompile Include="..\utils\DBDataUtil.cpp" />
+    <ClCompile Include="..\utils\DBGeometry.cpp" />
+    <ClCompile Include="..\utils\TransformUtil.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\animation\Animation.h" />
+    <ClInclude Include="..\animation\AnimationState.h" />
+    <ClInclude Include="..\animation\IAnimatable.h" />
+    <ClInclude Include="..\animation\TimelineState.h" />
+    <ClInclude Include="..\Armature.h" />
+    <ClInclude Include="..\Bone.h" />
+    <ClInclude Include="..\core\DBObject.h" />
+    <ClInclude Include="..\core\DragonBones.h" />
+    <ClInclude Include="..\display\IDisplayBridge.h" />
+    <ClInclude Include="..\DragonBonesHeaders.h" />
+    <ClInclude Include="..\events\AnimationEvent.h" />
+    <ClInclude Include="..\events\ArmatureEvent.h" />
+    <ClInclude Include="..\events\Event.h" />
+    <ClInclude Include="..\events\FrameEvent.h" />
+    <ClInclude Include="..\events\SoundEvent.h" />
+    <ClInclude Include="..\events\SoundEventManager.h" />
+    <ClInclude Include="..\factories\BaseFactory.h" />
+    <ClInclude Include="..\objects\AnimationData.h" />
+    <ClInclude Include="..\objects\ArmatureData.h" />
+    <ClInclude Include="..\objects\BoneData.h" />
+    <ClInclude Include="..\objects\dbtinyxml2.h" />
+    <ClInclude Include="..\objects\DBTransform.h" />
+    <ClInclude Include="..\objects\DisplayData.h" />
+    <ClInclude Include="..\objects\Frame.h" />
+    <ClInclude Include="..\objects\SkeletonData.h" />
+    <ClInclude Include="..\objects\SkinData.h" />
+    <ClInclude Include="..\objects\SlotData.h" />
+    <ClInclude Include="..\objects\TextureAtlasData.h" />
+    <ClInclude Include="..\objects\Timeline.h" />
+    <ClInclude Include="..\objects\TransformFrame.h" />
+    <ClInclude Include="..\objects\TransformTimeline.h" />
+    <ClInclude Include="..\objects\XMLDataParser.h" />
+    <ClInclude Include="..\renderer\CCDragonBonesNode.h" />
+    <ClInclude Include="..\renderer\Cocos2dxAtlasNode.h" />
+    <ClInclude Include="..\renderer\Cocos2dxDisplayBridge.h" />
+    <ClInclude Include="..\renderer\Cocos2dxFactory.h" />
+    <ClInclude Include="..\renderer\Cocos2dxTextureAtlas.h" />
+    <ClInclude Include="..\Slot.h" />
+    <ClInclude Include="..\textures\ITextureAtlas.h" />
+    <ClInclude Include="..\utils\BytesType.h" />
+    <ClInclude Include="..\utils\checkBytesTailisXML.h" />
+    <ClInclude Include="..\utils\ConstValues.h" />
+    <ClInclude Include="..\utils\DBDataUtil.h" />
+    <ClInclude Include="..\utils\DBGeometry.h" />
+    <ClInclude Include="..\utils\preDB.h" />
+    <ClInclude Include="..\utils\TransformUtil.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

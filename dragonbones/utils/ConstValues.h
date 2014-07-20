@@ -1,6 +1,6 @@
 #ifndef __CONST_VALUES_H__
 #define __CONST_VALUES_H__
-#include "BytesType.h"
+#include "utils/BytesType.h"
 namespace dragonBones
 {
     

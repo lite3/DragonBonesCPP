@@ -6,6 +6,7 @@
 #include "events/Event.h"
 #include "Slot.h"
 #include "Bone.h"
+#include "cocos2d.h"
 
 namespace dragonBones
 {
@@ -147,7 +148,7 @@ namespace dragonBones
          * @return A Slot instance or null if no Slot with that name exist.
          * @see dragonBones.Slot
          */
-        Slot* getSlot(const String &slotName);
+        Slot* getSlot(const std::string &slotName);
         
         /**
          * Gets the Slot associated with this DisplayObject.
@@ -176,7 +177,7 @@ namespace dragonBones
          * @return A Bone instance or null if no Bone with that name exist.
          * @see dragonBones.Bone
          */
-        Bone* getBone(const String &boneName);
+        Bone* getBone(const std::string &boneName);
         /**
          * Gets the Bone associated with this DisplayObject.
          * @param    Instance type of this object varies from flash.display.DisplayObject to startling.display.DisplayObject and subclasses.
@@ -234,6 +235,8 @@ namespace dragonBones
         void arriveAtFrame(Frame * frame, TimelineState *timelineState, AnimationState *animationState, bool isCross);
         
         static bool sortSlot(Slot *slot1, Slot *slot2);
+
+        cocos2d::Rect getBoundingBox() const;
         
     };
 };

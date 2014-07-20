@@ -1,4 +1,4 @@
-#include "BaseFactory.h"
+#include "factories/BaseFactory.h"
 #include "objects/SkeletonData.h"
 #include "textures/ITextureAtlas.h"
 #include "Armature.h"

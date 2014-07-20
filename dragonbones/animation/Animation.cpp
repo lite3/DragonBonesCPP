@@ -1,9 +1,9 @@
 #include "objects/AnimationData.h"
-#include "Animation.h"
-#include "AnimationState.h"
+#include "animation/Animation.h"
+#include "animation/AnimationState.h"
 #include "Slot.h"
 #include "Armature.h"
-#include "TimelineState.h"
+#include "animation/TimelineState.h"
 namespace dragonBones
 {    
         const String Animation::NONE = "none";

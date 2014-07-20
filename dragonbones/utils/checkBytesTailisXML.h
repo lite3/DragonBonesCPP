@@ -1,4 +1,4 @@
-#include "BytesType.h"
+#include "utils/BytesType.h"
 
 namespace dragonBones
 {
