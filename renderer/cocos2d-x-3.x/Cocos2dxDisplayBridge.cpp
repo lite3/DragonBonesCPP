@@ -1,5 +1,5 @@
-#include "Cocos2dxDisplayBridge.h"
-#include "Cocos2dxFactory.h"
+#include "renderer/Cocos2dxDisplayBridge.h"
+#include "renderer/Cocos2dxFactory.h"
 #include "CCNode.h"
 namespace dragonBones
 {

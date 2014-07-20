@@ -5,10 +5,10 @@
 #include "CCNode.h"
 #include "CCProtocols.h"
 #include "ccTypes.h"
-#include "preDB.h"
-#include "BytesType.h"
+#include "utils/preDB.h"
+#include "utils/BytesType.h"
 #include "CCTextureAtlas.h"
-#include "CCQuadCommand.h"
+#include "renderer/CCQuadCommand.h"
 NS_CC_BEGIN
 
 /**

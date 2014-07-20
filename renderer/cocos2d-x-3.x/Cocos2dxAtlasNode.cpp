@@ -1,4 +1,4 @@
-#include "Cocos2dxAtlasNode.h"
+#include "renderer/Cocos2dxAtlasNode.h"
 #include "CCTextureAtlas.h"
 #include "CCTextureCache.h"
 #include "CCDirector.h"
@@ -7,7 +7,7 @@
 #include "ccGLStateCache.h"
 #include "CCDirector.h"
 #include "TransformUtils.h"
-#include "CCRenderer.h"
+#include "renderer/CCRenderer.h"
 
 // external
 #include "kazmath/GL/matrix.h"

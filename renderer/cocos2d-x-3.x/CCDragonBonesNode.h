@@ -11,9 +11,10 @@
 
 #include <iostream>
 #include "cocos2d.h"
-#include "preDB.h"
-#include "Animation.h"
-#include "Event.h"
+#include "utils/preDB.h"
+#include "animation/Animation.h"
+#include "events/Event.h"
+#include "CCLuaValue.h"
 namespace cocos2d 
 {
     class Armature;
@@ -61,9 +62,15 @@ namespace cocos2d
 																Ref*pObj,
 																SEL_CallFuncND callback); 
 		void addEventListener(const std::string &type, dragonBones::EventDispatcher::Function listener , const std::string &key = "");
+        void addEventListener(const std::string &type, LUA_FUNCTION listener, const std::string &key = "");
 		bool								   hasEventListener(const std::string &type);
 		void								   removeEventListener(const std::string &type, const std::string &key);
 		void								   dispatchEvent(dragonBones::Event *event);
+        
+
+        dragonBones::Animation*                getAnimation();
+        
+        Rect                                   getBoundingBox() const override;
 
         
     private:

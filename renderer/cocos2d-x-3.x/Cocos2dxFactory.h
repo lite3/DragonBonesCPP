@@ -1,7 +1,7 @@
 #ifndef __COCOS2DX_FACTORY_H__
 #define __COCOS2DX_FACTORY_H__
-#include "preDB.h"
-#include "BaseFactory.h"
+#include "utils/preDB.h"
+#include "factories/BaseFactory.h"
 #include "Armature.h"
 #include "Slot.h"
 namespace cocos2d

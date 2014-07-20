@@ -1,8 +1,8 @@
 #include "Cocos2dxTextureAtlas.h"
-#include "TextureAtlasData.h"
+#include "objects/TextureAtlasData.h"
 #include "CCTextureAtlas.h"
 #include "CCTexture2D.h"
-#include "Cocos2dxFactory.h"
+#include "renderer/Cocos2dxFactory.h"
 #include "CCGeometry.h"
 namespace dragonBones
 {

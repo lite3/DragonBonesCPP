@@ -1,8 +1,8 @@
 ﻿#ifndef __COCOS2DX_TEXTURE_ATLAS_H__
 #define __COCOS2DX_TEXTURE_ATLAS_H__
-#include "preDB.h"
-#include "ITextureAtlas.h"
-#include "DBTransform.h"
+#include "utils/preDB.h"
+#include "textures/ITextureAtlas.h"
+#include "objects/DBTransform.h"
 #include "CCTextureAtlas.h"
 namespace dragonBones
 {

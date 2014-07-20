@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 . All rights reserved.
 //
 
-#include "CCDragonBonesNode.h"
+#include "renderer/CCDragonBonesNode.h"
 #include "cocos2d.h"
 #include "DragonBonesHeaders.h"
 #include "Armature.h"
@@ -86,7 +86,16 @@ namespace cocos2d {
 	{
 		m_Armature->addEventListener(type, listener, key);
 	}
-
+    void DragonBonesNode::addEventListener(const std::string &type, LUA_FUNCTION listener, const std::string &key)
+    {
+        auto f = [this , listener](dragonBones::Event* event)
+        {
+            CommonScriptData data(listener, event->getType().c_str(), this, "cc.DragonBonesNode");
+            ScriptEvent scriptEvent(ScriptEventType::kCommonEvent, &data);
+            cocos2d::ScriptEngineManager::getInstance()->getScriptEngine()->sendEvent(&scriptEvent);
+        };
+        m_Armature->addEventListener(type, f, key);
+    }
 
 	bool  DragonBonesNode:: hasEventListener(const std::string &type)
 	{
@@ -100,6 +109,16 @@ namespace cocos2d {
 	{
 		m_Armature->dispatchEvent(event);
 	}
+
+     Rect DragonBonesNode::getBoundingBox() const
+     {
+         return m_Armature->getBoundingBox();
+     }
+
+     dragonBones::Animation* DragonBonesNode::getAnimation()
+     {
+         return m_Armature->getAnimation();
+     }
 
 
 	void DragonBonesNode::gotoAndPlay(
