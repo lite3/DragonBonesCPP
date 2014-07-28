@@ -41,7 +41,8 @@ namespace cocos2d
                                                             const char* animationName = "");
 
         Node*                                getDisplayNode();
-        dragonBones::Armature*                              getArmature();
+        dragonBones::Armature*               getArmature();
+        virtual ~DragonBonesNode() override;
         virtual void                           onExit(); 
         void                                   gotoAndPlay(
                                                              const std::string &animationName,
