@@ -1,7 +1,7 @@
 #ifndef __DB_GEOMETRY_H__
 #define __DB_GEOMETRY_H__
 
-#include "utils/BytesType.h"
+#include "BytesType.h"
 
 namespace dragonBones
 {

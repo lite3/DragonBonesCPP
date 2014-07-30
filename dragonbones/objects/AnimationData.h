@@ -1,8 +1,8 @@
 #ifndef __ANIMATION_DATA_H__
 #define __ANIMATION_DATA_H__
 #include "utils/preDB.h"
-#include "objects/Timeline.h"
-#include "objects/TransformTimeline.h"
+#include "Timeline.h"
+#include "TransformTimeline.h"
 namespace dragonBones
 {
     class AnimationData : public Timeline

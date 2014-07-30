@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 . All rights reserved.
 //
 
-#include "renderer/CCDragonBonesNode.h"
+#include "CCDragonBonesNode.h"
 #include "cocos2d.h"
 #include "DragonBonesHeaders.h"
 #include "Armature.h"
@@ -101,6 +101,7 @@ namespace cocos2d {
         m_Armature->addEventListener(type, f, key);
     }
 
+
 	bool  DragonBonesNode:: hasEventListener(const std::string &type)
 	{
 		return m_Armature->hasEventListener(type);
@@ -116,7 +117,13 @@ namespace cocos2d {
 
      Rect DragonBonesNode::getBoundingBox() const
      {
-         return m_Armature->getBoundingBox();
+         Rect rect;
+         auto old = m_Armature->getBoundingBox();
+         rect.origin.x = old.x;
+         rect.origin.y = old.y;
+         rect.size.width  = old.width;
+         rect.size.height = old.height;
+         return rect;
      }
 
      dragonBones::Animation* DragonBonesNode::getAnimation()

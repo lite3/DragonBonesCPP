@@ -21,7 +21,7 @@ must not be misrepresented as being the original software.
 distribution.
 */
 
-#include "objects/dbtinyxml2.h"
+#include "dbtinyxml2.h"
 
 #include <new>        // yes, this one new style header, is in the Android SDK.
 #   if defined(ANDROID_NDK) || (CC_TARGET_PLATFORM == CC_PLATFORM_BLACKBERRY)

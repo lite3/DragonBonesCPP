@@ -110,6 +110,7 @@
     <ClCompile Include="..\renderer\Cocos2dxDisplayBridge.cpp" />
     <ClCompile Include="..\renderer\Cocos2dxFactory.cpp" />
     <ClCompile Include="..\renderer\Cocos2dxTextureAtlas.cpp" />
+    <ClCompile Include="..\renderer\DBUtil.cpp" />
     <ClCompile Include="..\Slot.cpp" />
     <ClCompile Include="..\utils\BytesType.cpp" />
     <ClCompile Include="..\utils\ConstValues.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="..\renderer\Cocos2dxDisplayBridge.h" />
     <ClInclude Include="..\renderer\Cocos2dxFactory.h" />
     <ClInclude Include="..\renderer\Cocos2dxTextureAtlas.h" />
+    <ClInclude Include="..\renderer\DBUtil.h" />
     <ClInclude Include="..\Slot.h" />
     <ClInclude Include="..\textures\ITextureAtlas.h" />
     <ClInclude Include="..\utils\BytesType.h" />

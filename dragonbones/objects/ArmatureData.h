@@ -1,9 +1,9 @@
 #ifndef __ARMATURE_DATA_H__
 #define __ARMATURE_DATA_H__
 #include "utils/preDB.h"
-#include "objects/BoneData.h"
-#include "objects/SkinData.h"
-#include "objects/AnimationData.h"
+#include "BoneData.h"
+#include "SkinData.h"
+#include "AnimationData.h"
 namespace dragonBones
 {
     class ArmatureData

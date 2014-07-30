@@ -1,5 +1,5 @@
-#include "utils/ConstValues.h"
-#include "utils/TransformUtil.h"
+#include "ConstValues.h"
+#include "TransformUtil.h"
 namespace dragonBones
 {
 

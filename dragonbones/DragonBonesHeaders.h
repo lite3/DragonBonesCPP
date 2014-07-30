@@ -15,6 +15,7 @@
 #include "renderer/Cocos2dxDisplayBridge.h"
 #include "renderer/Cocos2dxFactory.h"
 #include "renderer/Cocos2dxTextureAtlas.h"
+#include "renderer/DBUtil.h"
 
 #include "Armature.h"
 #include "Bone.h"
@@ -45,6 +46,7 @@
 #include "utils/BytesType.h"
 #include "utils/preDB.h"
 #include "utils/TransformUtil.h"
+
 
 #include "objects/DBTransform.h"
 #include "objects//dbtinyxml2.h"

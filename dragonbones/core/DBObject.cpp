@@ -1,4 +1,4 @@
-#include "core/DBObject.h"
+#include "DBObject.h"
 #include "Armature.h"
 #include <cmath>
 namespace dragonBones

@@ -1,7 +1,7 @@
 #ifndef __BONE_DATA_H__
 #define __BONE_DATA_H__
 #include "utils/preDB.h"
-#include "objects/DBTransform.h"
+#include "DBTransform.h"
 namespace dragonBones
 {
     class BoneData

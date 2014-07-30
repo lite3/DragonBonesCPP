@@ -1,9 +1,11 @@
+
+#include "math/CCGeometry.h"
+#include "renderer/CCTextureAtlas.h"
+#include "renderer/CCTexture2D.h"
+
 #include "Cocos2dxTextureAtlas.h"
 #include "objects/TextureAtlasData.h"
-#include "CCTextureAtlas.h"
-#include "CCTexture2D.h"
-#include "renderer/Cocos2dxFactory.h"
-#include "CCGeometry.h"
+#include "Cocos2dxFactory.h"
 namespace dragonBones
 {
     Cocos2dxTextureAtlas::Cocos2dxTextureAtlas(TextureAtlasData *data)

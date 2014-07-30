@@ -1,13 +1,15 @@
-#include "renderer/Cocos2dxFactory.h"
-#include "renderer/Cocos2dxDisplayBridge.h"
-#include "CCNode.h"
-#include "CCLayer.h"
-#include "renderer/Cocos2dxTextureAtlas.h"
-#include "renderer/Cocos2dxAtlasNode.h"
-#include "CCGeometry.h"
-#include "objects/XMLDataParser.h"
+#include "2d/CCNode.h"
+#include "2d/CCLayer.h"
+#include "math/CCGeometry.h"
 #include "platform/CCFileUtils.h"
-#include "CCNode.h"
+
+#include "Cocos2dxFactory.h"
+#include "Cocos2dxDisplayBridge.h"
+#include "Cocos2dxTextureAtlas.h"
+#include "Cocos2dxAtlasNode.h"
+#include "objects/XMLDataParser.h"
+
+
 #include "utils/ConstValues.h"
 
 namespace dragonBones
@@ -88,14 +90,12 @@ namespace dragonBones
             rect.origin.x = 0;
             rect.origin.y = 0;
             Rectangle region = ccTextureAtlas->getRegion(fullName);
+            rect.origin.x = region.x;
+            rect.origin.y = region.y;
             rect.size.width = region.width;
             rect.size.height = region.height;
 
             cocos2d::Cocos2dxAtlasNode *atlasNode = cocos2d::Cocos2dxAtlasNode::create(ccTextureAtlas->getTextureAtlas() , ccTextureAtlas->getQuadIndex(fullName) , rect);
-            cocos2d::BlendFunc func;
-            func.src = GL_SRC_ALPHA;
-            func.dst = GL_ONE_MINUS_SRC_ALPHA;
-            atlasNode->setBlendFunc(func);
             atlasNode->setCascadeOpacityEnabled(true);
             atlasNode->setAnchorPoint(cocos2d::Point(pivotX / (Number)region.width , (region.height-pivotY) / (Number)region.height));
             atlasNode->setContentSize(cocos2d::Size(region.width , region.height));

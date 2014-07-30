@@ -1,4 +1,4 @@
-#include "events/ArmatureEvent.h"
+#include "ArmatureEvent.h"
 namespace dragonBones
 {
         /**

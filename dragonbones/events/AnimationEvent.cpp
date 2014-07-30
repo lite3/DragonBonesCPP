@@ -1,4 +1,4 @@
-#include "events/AnimationEvent.h"
+#include "AnimationEvent.h"
 #include "animation/AnimationState.h"
 
 namespace dragonBones

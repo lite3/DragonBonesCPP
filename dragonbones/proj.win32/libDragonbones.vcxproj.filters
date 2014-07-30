@@ -96,6 +96,9 @@
     <ClCompile Include="..\Slot.cpp">
       <Filter>dragonbones</Filter>
     </ClCompile>
+    <ClCompile Include="..\renderer\DBUtil.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\renderer\CCDragonBonesNode.h">
@@ -235,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="..\Slot.h">
       <Filter>dragonbones</Filter>
+    </ClInclude>
+    <ClInclude Include="..\renderer\DBUtil.h">
+      <Filter>renderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,3 +1,7 @@
+#include "2d/CCNode.h"
+#include "math/CCGeometry.h"
+#include "math/CCAffineTransform.h"
+
 #include "Armature.h"
 #include "animation/Animation.h"
 #include "display/IDisplayBridge.h"
@@ -8,7 +12,6 @@
 #include "events/SoundEvent.h"
 #include "events/SoundEventManager.h"
 #include "renderer/Cocos2dxFactory.h"
-#include <string>
 #include <stdexcept>
 namespace dragonBones
 {
@@ -286,7 +289,7 @@ namespace dragonBones
          * @return A Bone instance or null if no Bone with that name exist.
          * @see dragonBones.Bone
          */
-        Bone* Armature::getBone(const std::string &boneName)
+        Bone* Armature::getBone(const String &boneName)
         {
             int i = _boneList.size();
             while(i --)
@@ -543,7 +546,7 @@ namespace dragonBones
             return slot1->getZOrder() < slot2->getZOrder();
         }
 
-        cocos2d::Rect Armature::getBoundingBox() const
+        Rectangle Armature::getBoundingBox() const
         {
             float minx, miny, maxx, maxy = 0;
 
@@ -554,7 +557,7 @@ namespace dragonBones
             for (const auto bone : _boneList)
             {
                 if (! bone->getVisible()){ continue; }
-                auto cocosNode = static_cast<dragonBones::CocosNode*>(bone->getDisplay());
+                auto cocosNode = static_cast<CocosNode*>(bone->getDisplay());
                 auto r = cocosNode->getNode()->getBoundingBox();
                 if(first)
                 {
@@ -575,8 +578,14 @@ namespace dragonBones
                 boundingBox.setRect(minx, miny, maxx - minx, maxy - miny);
             }
 
-            auto cocosNode = static_cast<const dragonBones::CocosNode*>(const_cast<Armature*>(this)->getDisplay());
+            auto cocosNode = static_cast<CocosNode*>(const_cast<Armature*>(this)->getDisplay());
+            boundingBox = cocos2d::RectApplyTransform(boundingBox, cocosNode->node->getNodeToParentTransform());
 
-            return cocos2d::RectApplyTransform(boundingBox, cocosNode->node->getNodeToParentTransform());
+            Rectangle rect;
+            rect.x = boundingBox.origin.x;
+            rect.x = boundingBox.origin.y;
+            rect.width  = boundingBox.size.width;
+            rect.height = boundingBox.size.height;
+            return rect;
         }
 }

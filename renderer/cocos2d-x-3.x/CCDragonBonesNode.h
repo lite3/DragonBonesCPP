@@ -9,12 +9,12 @@
 #ifndef __quickcocos2dx__CCDragonBones__
 #define __quickcocos2dx__CCDragonBones__
 
-#include <iostream>
 #include "cocos2d.h"
-#include "utils/preDB.h"
+#include "CCLuaValue.h"
+
 #include "animation/Animation.h"
 #include "events/Event.h"
-#include "CCLuaValue.h"
+#include "utils/preDB.h"
 namespace cocos2d 
 {
     class Armature;
@@ -67,8 +67,8 @@ namespace cocos2d
 		bool								   hasEventListener(const std::string &type);
 		void								   removeEventListener(const std::string &type, const std::string &key);
 		void								   dispatchEvent(dragonBones::Event *event);
-        
 
+        
         dragonBones::Animation*                getAnimation();
         
         Rect                                   getBoundingBox() const override;

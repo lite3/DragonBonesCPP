@@ -1,7 +1,7 @@
 ﻿#ifndef __COCOS2DX_DISPLAY_BRIDGE_H__
 #define __COCOS2DX_DISPLAY_BRIDGE_H__
-#include "utils/preDB.h"
 #include "display/IDisplayBridge.h"
+#include "utils/preDB.h"
 namespace dragonBones
 {
     class CocosNode;

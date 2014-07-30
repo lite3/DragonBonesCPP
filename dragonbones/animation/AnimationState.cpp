@@ -1,5 +1,5 @@
-#include "animation/AnimationState.h"
-#include "animation/TimelineState.h"
+#include "AnimationState.h"
+#include "TimelineState.h"
 #include "objects/AnimationData.h"
 #include "Armature.h"
 #include "Animation.h"

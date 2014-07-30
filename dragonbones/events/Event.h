@@ -10,12 +10,12 @@ namespace dragonBones
     {
         String _type;
     public:
-        Event(const std::string &type)
+        Event(const String &type)
         : _type(type)
         {};
         virtual ~Event(){};
 
-        const std::string &getType()const
+        const String &getType()const
         {
             return _type;
         }
