@@ -31,8 +31,8 @@ void HelloWorld::updateHandler(float passTime)
 	vec2s[3].x = rect.getMaxX();
 	vec2s[3].y = rect.getMidY();
 
-	log("rect = x=%f, y=%f, w=%f, h=%f", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-	log("rect: left=%f, right=%f, top=%f, bottom=%f", rect.getMinX(), rect.getMaxX(), rect.getMaxY(), rect.getMinY());
+// 	log("rect = x=%f, y=%f, w=%f, h=%f", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+// 	log("rect: left=%f, right=%f, top=%f, bottom=%f", rect.getMinX(), rect.getMaxX(), rect.getMaxY(), rect.getMinY());
 
 	drawnode->clear();
 	drawnode->drawPolygon(vec2s, 4, Color4F::WHITE, 1, Color4F::RED);
@@ -84,6 +84,8 @@ void HelloWorld::demoInit()
 	// factory
 	dragonBones::DBCCFactory::factory.loadDragonBonesData("zhugeliang/zhugeliang_skeleton.xml");
 	dragonBones::DBCCFactory::factory.loadTextureAtlas("zhugeliang/zhugeliang.xml");
+	dragonBones::DBCCFactory::factory.loadDragonBonesData("leiyanfentian/leiyanfentian_skeleton.xml");
+	dragonBones::DBCCFactory::factory.loadTextureAtlas("leiyanfentian/leiyanfentian.xml");
 	// armature
 	auto armature = (dragonBones::DBCCArmature *)(dragonBones::DBCCFactory::factory.buildArmature("main", "zhugeliang"));
 	_armature = dragonBones::DBCCArmatureNode::create(armature);
@@ -96,10 +98,13 @@ void HelloWorld::demoInit()
 	_armature->setPosition(480.f, 200.f);
 	this->addChild(_armature);
 	// armature event
-	_armature->getCCEventDispatcher()->addCustomEventListener(dragonBones::EventData::START, std::bind(&HelloWorld::armAnimationHandler, this, std::placeholders::_1));
-	_armature->getCCEventDispatcher()->addCustomEventListener(dragonBones::EventData::FADE_IN, std::bind(&HelloWorld::armAnimationHandler, this, std::placeholders::_1));
-	_armature->getCCEventDispatcher()->addCustomEventListener(dragonBones::EventData::COMPLETE, std::bind(&HelloWorld::armAnimationHandler, this, std::placeholders::_1));
-	_armature->getCCEventDispatcher()->addCustomEventListener(dragonBones::EventData::ANIMATION_FRAME_EVENT, std::bind(&HelloWorld::armAnimationHandler, this, std::placeholders::_1));
+	auto movementHandler = std::bind(&HelloWorld::armAnimationHandler, this, std::placeholders::_1);
+	auto frameHandler = std::bind(&HelloWorld::armAnimationHandler, this, std::placeholders::_1);
+	_armature->getCCEventDispatcher()->addCustomEventListener(dragonBones::EventData::START, movementHandler);
+	_armature->getCCEventDispatcher()->addCustomEventListener(dragonBones::EventData::FADE_IN, movementHandler);
+	_armature->getCCEventDispatcher()->addCustomEventListener(dragonBones::EventData::COMPLETE, movementHandler);
+	_armature->getCCEventDispatcher()->addCustomEventListener(dragonBones::EventData::LOOP_COMPLETE, movementHandler);
+	_armature->getCCEventDispatcher()->addCustomEventListener(dragonBones::EventData::ANIMATION_FRAME_EVENT, frameHandler);
 	// update
 	dragonBones::WorldClock::clock.add(_armature->getArmature());
 
@@ -110,16 +115,29 @@ void HelloWorld::demoInit()
 		switch (keyCode)
 		{
 		case cocos2d::EventKeyboard::KeyCode::KEY_A:
-			_armature->getAnimation()->gotoAndPlay("wait");
+			//_armature->getAnimation()->gotoAndPlay("wait");
 			_armature->getAnimation()->gotoAndPlay("skill1");
+			
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_S:
 			_armature->getAnimation()->gotoAndPlay("wait");
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_D:
 			_armature->getAnimation()->gotoAndPlay("atk");
+			_curAction = "atk";
+			_jump2Wait = true;
 			break;
-		default:
+		case cocos2d::EventKeyboard::KeyCode::KEY_F:
+			_armature->getAnimation()->gotoAndPlay("beAtk");
+			_curAction = "beAtk";
+			_jump2Wait = true;
+			break;
+		case cocos2d::EventKeyboard::KeyCode::KEY_W:
+			_armature->getAnimation()->gotoAndPlay("skill3");
+			_curAction = "skill3";
+			auto node = createEffect("leiyanfentian", "skill_self_1");
+			_armature->addChild(node);
+			_jump2Wait = true;
 			break;
 		}
 	};
@@ -142,13 +160,44 @@ void HelloWorld::armAnimationHandler(cocos2d::EventCustom *event)
 
 	case dragonBones::EventData::EventType::COMPLETE:
 		cocos2d::log("animation complete: %s  %f", eventData->animationState->name.c_str(), utils::gettime());
-		
+		if(_jump2Wait && eventData->animationState->name == _curAction)
+		{
+			_jump2Wait = false;
+			_armature->getAnimation()->gotoAndPlay("wait");
+		}
+		break;
+	case dragonBones::EventData::EventType::LOOP_COMPLETE:
+		cocos2d::log("animation loop complete: %s  %f", eventData->animationState->name.c_str(), utils::gettime());
+		if(_jump2Wait && eventData->animationState->name == _curAction)
+		{
+			_jump2Wait = false;
+			_armature->getAnimation()->gotoAndPlay("wait");
+		}
 		break;
 
 	case dragonBones::EventData::EventType::ANIMATION_FRAME_EVENT:
 		cocos2d::log("animation frame event: %s %s %f", eventData->animationState->name.c_str(), eventData->frameLabel, utils::gettime());
 		break;
 	}
+}
+
+dragonBones::DBCCArmatureNode* HelloWorld::createEffect(std::string dragonbones, std::string armature)
+{
+	auto effect = (dragonBones::DBCCArmature *)(dragonBones::DBCCFactory::factory.buildArmature(armature, "", "", dragonbones, dragonbones));
+	effect->getAnimation()->gotoAndPlay("mv");
+	auto node = dragonBones::DBCCArmatureNode::create(effect);
+	dragonBones::WorldClock::clock.add(effect);
+	auto handler = [](cocos2d::EventCustom *event){
+		dragonBones::EventData *eventData = (dragonBones::EventData *)(event->getUserData());
+		dragonBones::WorldClock::clock.remove(eventData->armature);
+		auto node1 = static_cast<Node*>(eventData->armature->getDisplay());
+		//node1->getParent()->removeFromParent();
+		node1->setVisible(false);
+		eventData->armature->getAnimation()->stop();
+	};
+	node->getCCEventDispatcher()->addCustomEventListener(dragonBones::EventData::COMPLETE, handler);
+	node->getCCEventDispatcher()->addCustomEventListener(dragonBones::EventData::LOOP_COMPLETE, handler);
+	return node;
 }
 
 

@@ -24,8 +24,12 @@ public:
 
 	void armAnimationHandler(cocos2d::EventCustom *event);
 
+	dragonBones::DBCCArmatureNode* createEffect(std::string dragonbones, std::string armature);
+
 	dragonBones::DBCCArmatureNode *_armature;
 	cocos2d::DrawNode *drawnode;
+	bool _jump2Wait;
+	std::string _curAction;
 
 };
 
