@@ -6,8 +6,8 @@
 #include <vector>
 #include <map>
 #include <cmath>
+#include <cstdlib>
 //#include <cfloat>
-//#include <cstdlib>
 //#include <stdexcept>
 
 // namespace dragonBones {}
@@ -31,13 +31,6 @@ const float RADIAN_TO_ANGLE = 180.f / PI;
 const float AUTO_TWEEN_EASING = 10.f;
 const float NO_TWEEN_EASING = 20.f;
 const float USE_FRAME_TWEEN_EASING = 30.f;
-
-
-template <typename EnumType>
-struct EnumName
-{
-    static const char *list[];
-};
 
 
 inline float round(float value)
@@ -84,24 +77,6 @@ inline float getEaseValue(float value, float easing)
     return (valueEase - value) * easing + value;
 }
 
-template <typename T>
-inline T getEnumByString(const char *string)
-{
-    T enumValue = static_cast<T>(-1);
-    int count = sizeof(EnumName<T>::list) / sizeof(EnumName<T>::list[0]);
-    
-    for (int i = 0; i < count; ++i)
-    {
-        if (strcmp(string, EnumName<T>::list[i]) == 0)
-        {
-            enumValue = static_cast<T>(i);
-            break;
-        }
-    }
-    
-    return enumValue;
-}
-
 template<typename T>
 inline int indexOf(std::vector<T> &vector, const T &value)
 {
@@ -112,18 +87,110 @@ inline int indexOf(std::vector<T> &vector, const T &value)
             return i;
         }
     }
-    
     return -1;
 }
 
-
 enum class DisplayType {DT_IMAGE, DT_ARMATURE, DT_FRAME, DT_1, DT_2, DT_3, DT_4, DT_5};
-template<>
-const char *EnumName<DisplayType>::list[] = {"image", "armature", "frame"};
+inline DisplayType getDisplayTypeByString(String displayType)
+{
+    if (displayType == "image")
+    {
+        return DisplayType::DT_IMAGE;
+    }
+
+    if (displayType == "armature")
+    {
+        return DisplayType::DT_ARMATURE;
+    }
+
+    if (displayType == "frame")
+    {
+        return DisplayType::DT_FRAME;
+    }
+
+    return DisplayType::DT_IMAGE;
+}
 
 enum class BlendMode {BM_ADD, BM_ALPHA, BM_DARKEN, BM_DIFFERENCE, BM_ERASE, BM_HARDLIGHT, BM_INVERT, BM_LAYER, BM_LIGHTEN, BM_MULTIPLY, BM_NORMAL, BM_OVERLAY, BM_SCREEN, BM_SHADER, BM_SUBTRACT};
-template<>
-const char *EnumName<BlendMode>::list[] = {"add", "alpha", "darken", "difference", "erase", "hardlight", "invert", "layer", "lighten", "multiply", "normal", "overlay", "screen", "shader", "subtract"};
+inline BlendMode getBlendModeByString(String blendMode)
+{
+    if (blendMode == "add")
+    {
+        return BlendMode::BM_ADD;
+    }
+
+    if (blendMode == "alpha")
+    {
+        return BlendMode::BM_ALPHA;
+    }
+
+    if (blendMode == "darken")
+    {
+        return BlendMode::BM_DARKEN;
+    }
+
+    if (blendMode == "difference")
+    {
+        return BlendMode::BM_DIFFERENCE;
+    }
+
+    if (blendMode == "erase")
+    {
+        return BlendMode::BM_ERASE;
+    }
+
+    if (blendMode == "hardlight")
+    {
+        return BlendMode::BM_HARDLIGHT;
+    }
+
+    if (blendMode == "invert")
+    {
+        return BlendMode::BM_INVERT;
+    }
+
+    if (blendMode == "layer")
+    {
+        return BlendMode::BM_LAYER;
+    }
+
+    if (blendMode == "lighten")
+    {
+        return BlendMode::BM_LIGHTEN;
+    }
+
+    if (blendMode == "multiply")
+    {
+        return BlendMode::BM_MULTIPLY;
+    }
+
+    if (blendMode == "normal")
+    {
+        return BlendMode::BM_NORMAL;
+    }
+
+    if (blendMode == "overlay")
+    {
+        return BlendMode::BM_OVERLAY;
+    }
+
+    if (blendMode == "screen")
+    {
+        return BlendMode::BM_SCREEN;
+    }
+
+    if (blendMode == "shader")
+    {
+        return BlendMode::BM_SHADER;
+    }
+
+    if (blendMode == "subtract")
+    {
+        return BlendMode::BM_SUBTRACT;
+    }
+
+    return BlendMode::BM_NORMAL;
+}
 
 NAME_SPACE_DRAGON_BONES_END
 

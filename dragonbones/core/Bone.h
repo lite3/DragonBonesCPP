@@ -5,8 +5,8 @@
 #include "Object.h"
 #include "../objects/TransformFrame.h"
 #include "Slot.h"
-#include "animation/AnimationState.h"
-#include "animation/TimelineState.h"
+#include "../animation/AnimationState.h"
+#include "../animation/TimelineState.h"
 #include "Armature.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
@@ -34,14 +34,14 @@ protected:
     
     Point _tweenPivot;
     Transform _tween;
-    std::vector<Bone *> _boneList;
-    std::vector<Slot *> _slotList;
-    std::vector<TimelineState *> _timelineStateList;
+    std::vector<Bone*> _boneList;
+    std::vector<Slot*> _slotList;
+    std::vector<TimelineState*> _timelineStateList;
     
 public:
-    virtual Slot *getSlot() const;
-    virtual const std::vector<Slot *> &getSlots() const;
-    virtual const std::vector<Bone *> &getBones() const;
+    virtual Slot* getSlot() const;
+    virtual const std::vector<Slot*>& getSlots() const;
+    virtual const std::vector<Bone*>& getBones() const;
     
     virtual void setVisible(bool vislble) override;
     

@@ -23,8 +23,8 @@ protected:
     float _offsetZOrder;
     BlendMode _blendMode;
     
-    // <displayOrArmature *, DisplayType>
-    std::vector<std::pair<void *, DisplayType>> _displayList;
+    // <displayOrArmature*, DisplayType>
+    std::vector<std::pair<void*, DisplayType>> _displayList;
     
     SlotData *_slotData;
     void *_display;
@@ -36,14 +36,14 @@ public:
     virtual float getZOrder() const;
     virtual void setZOrder(float zorder);
     
-    virtual void *getDisplay() const;
+    virtual void* getDisplay() const;
     virtual void setDisplay(void *display, const DisplayType displayType = DisplayType::DT_IMAGE, bool disposeExisting = true);
     
-    virtual Armature *getChildArmature() const;
+    virtual Armature* getChildArmature() const;
     virtual void setChildArmature(Armature *childArmature, bool disposeExisting = true);
     
-    virtual const std::vector<std::pair<void *, DisplayType>> &getDisplayList() const;
-    virtual void setDisplayList(const std::vector<std::pair<void *, DisplayType>> &displayList, bool disposeExisting = true);
+    virtual const std::vector<std::pair<void*, DisplayType>>& getDisplayList() const;
+    virtual void setDisplayList(const std::vector<std::pair<void*, DisplayType>> &displayList, bool disposeExisting = true);
     
     virtual void setVisible(bool vislble) override;
     
@@ -60,6 +60,8 @@ protected:
     virtual void changeDisplay(int displayIndex);
     virtual void updateSlotDisplay(bool disposeExisting);
     virtual void updateChildArmatureAnimation();
+    virtual void playChildArmatureAnimation();
+    virtual void stopChildArmatureAnimation();
     
     virtual int getDisplayZIndex() const = 0;
     virtual void addDisplayToContainer(void *container, int zIndex) = 0;
