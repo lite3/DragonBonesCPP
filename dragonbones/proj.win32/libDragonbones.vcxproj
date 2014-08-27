@@ -102,6 +102,7 @@
     <ClCompile Include="..\parsers\dbtinyxml2.cpp" />
     <ClCompile Include="..\parsers\XMLDataParser.cpp" />
     <ClCompile Include="..\renderer\DBCCArmature.cpp" />
+    <ClCompile Include="..\renderer\DBCCArmatureNode.cpp" />
     <ClCompile Include="..\renderer\DBCCFactory.cpp" />
     <ClCompile Include="..\renderer\DBCCSlot.cpp" />
   </ItemGroup>
@@ -144,6 +145,7 @@
     <ClInclude Include="..\parsers\dbtinyxml2.h" />
     <ClInclude Include="..\parsers\XMLDataParser.h" />
     <ClInclude Include="..\renderer\DBCCArmature.h" />
+    <ClInclude Include="..\renderer\DBCCArmatureNode.h" />
     <ClInclude Include="..\renderer\DBCCEventDispatcher.h" />
     <ClInclude Include="..\renderer\DBCCFactory.h" />
     <ClInclude Include="..\renderer\DBCCRenderHeaders.h" />
