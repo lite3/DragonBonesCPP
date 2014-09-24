@@ -63,6 +63,12 @@ Armature::~Armature()
 }
 void Armature::dispose()
 {
+    _delayDispose = true;
+    if(!_animation || _lockDispose)
+    {
+        return;
+    }
+
     if (_animation)
     {
         _animation->dispose();
@@ -97,8 +103,7 @@ void Armature::dispose()
     {
         if (_eventDataList[i])
         {
-            _eventDataList[i]->dispose();
-            delete _eventDataList[i];
+            EventData::returnObject(_eventDataList[i]);
         }
     }
     
@@ -291,8 +296,41 @@ Slot* Armature::removeSlot(const String &slotName)
     return slot;
 }
 
+void Armature::replaceSlot(const String &boneName, const String &oldSlotName, Slot* newSlot)
+{
+    auto bone = getBone(boneName);
+    if (!bone) return;
+
+    auto slots = bone->getSlots();
+    auto it = std::find_if(slots.begin(), slots.end(), 
+        [&oldSlotName](Slot* tmp){return oldSlotName == tmp->name;});
+    if (it != slots.end())
+    {
+        auto oldSlog = *it;
+        newSlot->_tweenZOrder = oldSlog->_tweenZOrder;
+        newSlot->_originZOrder = oldSlog->_originZOrder;
+        newSlot->_offsetZOrder = oldSlog->_offsetZOrder;
+        removeSlot(oldSlog);
+    }
+
+    newSlot->name = oldSlotName;
+    bone->addChild(newSlot);
+}
+
 void Armature::sortSlotsByZOrder()
 {
+    /*
+    for (size_t i = 0, l = _slotList.size(); i < l; ++i)
+    {
+        Slot *slot = _slotList[i];
+
+        if (slot->_isShowDisplay)
+        {
+            slot->addDisplayToContainer(_display, i);
+        }
+    }
+    */
+
     std::sort(_slotList.begin() , _slotList.end() , sortSlot);
     
     for (size_t i = 0, l = _slotList.size(); i < l; ++i)
@@ -368,11 +406,13 @@ void Armature::advanceTime(float passedTime)
     {
         sortSlotsByZOrder();
         
+#ifdef NEED_Z_ORDER_UPDATED_EVENT
         if (_eventDispatcher->hasEvent(EventData::EventType::Z_ORDER_UPDATED))
         {
             EventData *eventData = new EventData(EventData::EventType::Z_ORDER_UPDATED, this);
             _eventDataList.push_back(eventData);
         }
+#endif
     }
     
     if (!_eventDataList.empty())
@@ -380,8 +420,7 @@ void Armature::advanceTime(float passedTime)
         for (size_t i = 0, l = _eventDataList.size(); i < l; ++i)
         {
             _eventDispatcher->dispatchEvent(_eventDataList[i]);
-            _eventDataList[i]->dispose();
-            delete _eventDataList[i];
+            EventData::returnObject(_eventDataList[i]);
         }
         
         _eventDataList.clear();
@@ -480,19 +519,22 @@ void Armature::sortBones()
     }
 }
 
-void Armature::arriveAtFrame(const Frame *frame, AnimationState *animationState, bool isCross)
+void Armature::arriveAtFrame(Frame *frame, AnimationState *animationState, bool isCross)
 {
     if (!frame->event.empty() && _eventDispatcher->hasEvent(EventData::EventType::ANIMATION_FRAME_EVENT))
     {
-        EventData *eventData = new EventData(EventData::EventType::ANIMATION_FRAME_EVENT, this);
+        EventData *eventData = EventData::borrowObject(EventData::EventType::ANIMATION_FRAME_EVENT);
+        eventData->armature = this;
         eventData->animationState = animationState;
         eventData->frameLabel = frame->event;
+        eventData->frame = frame;
         _eventDataList.push_back(eventData);
     }
     
     if (!frame->sound.empty() && soundEventDispatcher && soundEventDispatcher->hasEvent(EventData::EventType::SOUND))
     {
-        EventData *eventData = new EventData(EventData::EventType::SOUND, this);
+        EventData *eventData = EventData::borrowObject(EventData::EventType::SOUND);
+        eventData->armature = this;
         eventData->animationState = animationState;
         eventData->sound = frame->sound;
         soundEventDispatcher->dispatchEvent(eventData);

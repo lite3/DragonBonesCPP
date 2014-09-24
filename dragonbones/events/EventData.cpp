@@ -61,6 +61,44 @@ const String& EventData::typeToString(EventData::EventType eventType)
     return _ERROR;
 }
 
+std::vector<EventData*> EventData::_pool;
+
+EventData* EventData::borrowObject(EventType eventType)
+{
+    if (_pool.empty())
+    {
+        return new EventData(eventType, nullptr);
+    }
+
+    EventData *eventData = _pool.back();
+    eventData->_type = eventType;
+    _pool.pop_back();
+    return eventData;
+}
+
+void EventData::returnObject(EventData *eventData)
+{
+    auto iterator = std::find(_pool.cbegin(), _pool.cend(), eventData);
+
+    if (iterator == _pool.end())
+    {
+        _pool.push_back(eventData);
+    }
+
+    eventData->clear();
+}
+
+void EventData::clearObjects()
+{
+    for (size_t i = 0, l = _pool.size(); i < l; ++i)
+    {
+        _pool[i]->clear();
+        delete _pool[i];
+    }
+
+    _pool.clear();
+}
+
 EventData::EventType EventData::getType() const
 {
     return _type;
@@ -77,6 +115,7 @@ EventData::EventData()
     armature = nullptr;
     bone = nullptr;
     animationState = nullptr;
+    frame = nullptr;
 }
 EventData::EventData(EventType type, Armature *armatureTarget)
 {
@@ -84,16 +123,18 @@ EventData::EventData(EventType type, Armature *armatureTarget)
     armature = armatureTarget;
     bone = nullptr;
     animationState = nullptr;
+    frame = nullptr;
 }
 EventData::~EventData()
 {
-    dispose();
+    clear();
 }
-void EventData::dispose()
+void EventData::clear()
 {
     armature = nullptr;
     bone = nullptr;
     animationState = nullptr;
+    frame = nullptr;
 }
 
 void EventData::copy(const EventData &copyData)
@@ -104,6 +145,7 @@ void EventData::copy(const EventData &copyData)
     armature = copyData.armature;
     bone = copyData.bone;
     animationState = copyData.animationState;
+    frame = copyData.frame;
 }
 
 NAME_SPACE_DRAGON_BONES_END

@@ -1,4 +1,5 @@
-﻿#include "AnimationState.h"
+﻿#include <cstdlib>
+#include "AnimationState.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 std::vector<AnimationState*> AnimationState::_pool;
@@ -19,7 +20,7 @@ void AnimationState::returnObject(AnimationState *animationState)
 {
     auto iterator = std::find(_pool.cbegin(), _pool.cend(), animationState);
     
-    if (iterator != _pool.end())
+    if (iterator == _pool.end())
     {
         _pool.push_back(animationState);
     }
@@ -516,7 +517,8 @@ void AnimationState::advanceFadeTime(float passedTime)
         
         if (_armature->_eventDispatcher->hasEvent(eventDataType))
         {
-            EventData *eventData = new EventData(eventDataType, _armature);
+            EventData *eventData = EventData::borrowObject(eventDataType);
+            eventData->armature = _armature;
             eventData->animationState = this;
             _armature->_eventDataList.push_back(eventData);
         }
@@ -537,7 +539,8 @@ void AnimationState::advanceFadeTime(float passedTime)
         
         if (_armature->_eventDispatcher->hasEvent(eventDataType))
         {
-            EventData *eventData = new EventData(eventDataType, _armature);
+            EventData *eventData = EventData::borrowObject(eventDataType);
+            eventData->armature = _armature;
             eventData->animationState = this;
             _armature->_eventDataList.push_back(eventData);
         }
@@ -648,7 +651,8 @@ void AnimationState::advanceTimelinesTime(float passedTime)
     {
         if (_armature->_eventDispatcher->hasEvent(EventData::EventType::START))
         {
-            EventData *eventData = new EventData(EventData::EventType::START, _armature);
+            EventData *eventData = EventData::borrowObject(EventData::EventType::START);
+            eventData->armature = _armature;
             eventData->animationState = this;
             _armature->_eventDataList.push_back(eventData);
         }
@@ -658,7 +662,8 @@ void AnimationState::advanceTimelinesTime(float passedTime)
     {
         if (_armature->_eventDispatcher->hasEvent(EventData::EventType::COMPLETE))
         {
-            EventData *eventData = new EventData(EventData::EventType::COMPLETE, _armature);
+            EventData *eventData = EventData::borrowObject(EventData::EventType::COMPLETE);
+            eventData->armature = _armature;
             eventData->animationState = this;
             _armature->_eventDataList.push_back(eventData);
         }
@@ -672,7 +677,8 @@ void AnimationState::advanceTimelinesTime(float passedTime)
     {
         if (_armature->_eventDispatcher->hasEvent(EventData::EventType::LOOP_COMPLETE))
         {
-            EventData *eventData = new EventData(EventData::EventType::LOOP_COMPLETE, _armature);
+            EventData *eventData = EventData::borrowObject(EventData::EventType::LOOP_COMPLETE);
+            eventData->armature = _armature;
             eventData->animationState = this;
             _armature->_eventDataList.push_back(eventData);
         }

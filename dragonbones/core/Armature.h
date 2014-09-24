@@ -79,6 +79,7 @@ public:
     virtual void addSlot(Slot *slot, const String &parentBoneName);
     virtual void removeSlot(Slot *slot);
     virtual Slot* removeSlot(const String &slotName);
+    virtual void replaceSlot(const String &boneName, const String &oldSlotName, Slot* newSlot);
     virtual void sortSlotsByZOrder();
     
     virtual void invalidUpdate();
@@ -91,7 +92,7 @@ protected:
     virtual void removeObject(Object *object);
     virtual void sortBones();
     
-    virtual void arriveAtFrame(const Frame *frame, AnimationState *animationState, bool isCross);
+    virtual void arriveAtFrame(Frame *frame, AnimationState *animationState, bool isCross);
     
 private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(Armature);

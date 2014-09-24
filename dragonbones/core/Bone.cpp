@@ -265,7 +265,7 @@ void Bone::hideSlots()
     }
 }
 
-void Bone::arriveAtFrame(const TransformFrame *frame, const TimelineState *timelineState, AnimationState *animationState, bool isCross)
+void Bone::arriveAtFrame(TransformFrame *frame, const TimelineState *timelineState, AnimationState *animationState, bool isCross)
 {
     // TODO:
     bool displayControl =
@@ -295,16 +295,19 @@ void Bone::arriveAtFrame(const TransformFrame *frame, const TimelineState *timel
         
         if (!frame->event.empty() && _armature->_eventDispatcher->hasEvent(EventData::EventType::BONE_FRAME_EVENT))
         {
-            EventData *eventData = new EventData(EventData::EventType::BONE_FRAME_EVENT, _armature);
+            EventData *eventData = EventData::borrowObject(EventData::EventType::BONE_FRAME_EVENT);
+            eventData->armature = _armature;
             eventData->bone = this;
             eventData->animationState = animationState;
             eventData->frameLabel = frame->event;
+            eventData->frame = frame;
             _armature->_eventDataList.push_back(eventData);
         }
         
         if (!frame->sound.empty() && Armature::soundEventDispatcher && Armature::soundEventDispatcher->hasEvent(EventData::EventType::SOUND))
         {
-            EventData *eventData = new EventData(EventData::EventType::SOUND, _armature);
+            EventData *eventData = EventData::borrowObject(EventData::EventType::SOUND);
+            eventData->armature = _armature;
             eventData->bone = this;
             eventData->animationState = animationState;
             eventData->sound = frame->sound;
