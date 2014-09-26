@@ -91,20 +91,31 @@ void BoundingBoxTest::demoInit()
 
 	// factory
     
-	DBCCFactory::getInstance()->loadDragonBonesData("armatures/xiahoudun/skeleton.xml");
-	DBCCFactory::getInstance()->loadTextureAtlas("armatures/xiahoudun/texture.xml");
-// 	DBCCFactory::getInstance()->loadDragonBonesData("leiyanfentian/leiyanfentian_skeleton.xml");
-// 	DBCCFactory::getInstance()->loadTextureAtlas("leiyanfentian/leiyanfentian.xml");
+ 	DBCCFactory::getInstance()->loadDragonBonesData("armatures/xiahoudun/skeleton.xml");
+ 	DBCCFactory::getInstance()->loadTextureAtlas("armatures/xiahoudun/texture.xml");
+ 	DBCCFactory::getInstance()->loadDragonBonesData("armatures/Knight/skeleton.xml");
+ 	DBCCFactory::getInstance()->loadTextureAtlas("armatures/Knight/texture.xml");
 	// armature
-	auto armature = (dragonBones::DBCCArmature *)(DBCCFactory::getInstance()->buildArmature("main", "xiahoudun"));
+	//auto armature = (dragonBones::DBCCArmature *)(DBCCFactory::getInstance()->buildArmature("main", "xiahoudun"));
+    auto armature = (dragonBones::DBCCArmature *)(DBCCFactory::getInstance()->buildArmature("knight", "Knight"));
 	_armature = dragonBones::DBCCArmatureNode::create(armature);
-    _armature->setOpacity(0);
 
 	drawnode = DrawNode::create();
 	//_armature->addChild(drawnode, -1);
 	_armature->addChild(drawnode);
+
+    auto action1 = DelayTime::create(1);
+    auto action2 = CallFunc::create([this]{
+        auto xx = (DBCCArmature *)(DBCCFactory::getInstance()->buildArmature("main", "xiahoudun"));
+        auto arm = DBCCArmatureNode::create(xx);
+        arm->getAnimation()->gotoAndPlay("walk");
+        addChild(arm);
+        arm->setPosition(500, 40);
+    });
+    runAction(Sequence::createWithTwoActions(action1, action2));
 	
-	_armature->getAnimation()->gotoAndPlay("walk");
+ 	_armature->getAnimation()->gotoAndPlay("run");
+    //_armature->update(0);
 	_armature->setPosition(480.f, 200.f);
 	this->addChild(_armature);
 	// armature event
@@ -116,7 +127,6 @@ void BoundingBoxTest::demoInit()
 	_armature->getCCEventDispatcher()->addCustomEventListener(dragonBones::EventData::LOOP_COMPLETE, movementHandler);
 	_armature->getCCEventDispatcher()->addCustomEventListener(dragonBones::EventData::ANIMATION_FRAME_EVENT, frameHandler);
 	// update
-	dragonBones::WorldClock::clock.add(_armature->getArmature());
 
 	// key
 	cocos2d::EventListenerKeyboard *listener = cocos2d::EventListenerKeyboard::create();
