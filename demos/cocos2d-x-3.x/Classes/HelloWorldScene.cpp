@@ -2,6 +2,8 @@
 
 USING_NS_CC;
 
+using namespace dragonBones;
+
 Scene* HelloWorld::createScene()
 {
     // 'scene' is an autorelease object
@@ -45,7 +47,7 @@ void HelloWorld::demoInit()
     //////////////////////////////
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
-    Point origin = Director::getInstance()->getVisibleOrigin();
+    auto origin = Director::getInstance()->getVisibleOrigin();
 
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
@@ -57,12 +59,12 @@ void HelloWorld::demoInit()
                                            "CloseSelected.png",
                                            CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
     
-	closeItem->setPosition(Point(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2));
+	closeItem->setPosition(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
+                                origin.y + closeItem->getContentSize().height/2);
 
     // create menu, it's an autorelease object
     auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Point::ZERO);
+    menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 
     /////////////////////////////
@@ -74,18 +76,19 @@ void HelloWorld::demoInit()
     auto label = LabelTTF::create("Hello World", "Arial", 24);
     
     // position the label on the center of the screen
-    label->setPosition(Point(origin.x + visibleSize.width/2,
-                            origin.y + visibleSize.height - label->getContentSize().height));
+    label->setPosition(origin.x + visibleSize.width/2,
+                            origin.y + visibleSize.height - label->getContentSize().height);
 
     // add the label as a child to this layer
     this->addChild(label, 1);
 
 
 	// factory
-	dragonBones::DBCCFactory::factory.loadDragonBonesData("zhugeliang/zhugeliang_skeleton.xml");
-	dragonBones::DBCCFactory::factory.loadTextureAtlas("zhugeliang/zhugeliang.xml");
-	dragonBones::DBCCFactory::factory.loadDragonBonesData("leiyanfentian/leiyanfentian_skeleton.xml");
-	dragonBones::DBCCFactory::factory.loadTextureAtlas("leiyanfentian/leiyanfentian.xml");
+    
+	DBCCFactory::getInstance()->loadDragonBonesData("armatures/Knight/skeleton.xml");
+	DBCCFactory::getInstance()->loadTextureAtlas("armatures/Knight/texture.xml");
+// 	DBCCFactory::getInstance()->loadDragonBonesData("leiyanfentian/leiyanfentian_skeleton.xml");
+// 	DBCCFactory::getInstance()->loadTextureAtlas("leiyanfentian/leiyanfentian.xml");
 	// armature
 	auto armature = (dragonBones::DBCCArmature *)(dragonBones::DBCCFactory::factory.buildArmature("main", "zhugeliang"));
 	_armature = dragonBones::DBCCArmatureNode::create(armature);
