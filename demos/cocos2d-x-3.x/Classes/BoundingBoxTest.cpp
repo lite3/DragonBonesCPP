@@ -97,7 +97,7 @@ void BoundingBoxTest::demoInit()
  	DBCCFactory::getInstance()->loadTextureAtlas("armatures/Knight/texture.xml");
 	// armature
 	//auto armature = (dragonBones::DBCCArmature *)(DBCCFactory::getInstance()->buildArmature("main", "xiahoudun"));
-    auto armature = (dragonBones::DBCCArmature *)(DBCCFactory::getInstance()->buildArmature("knight", "Knight"));
+    auto armature = DBCCFactory::getInstance()->buildArmature("knight", "Knight");
 	_armature = dragonBones::DBCCArmatureNode::create(armature);
 
 	drawnode = DrawNode::create();
@@ -106,7 +106,7 @@ void BoundingBoxTest::demoInit()
 
     auto action1 = DelayTime::create(1);
     auto action2 = CallFunc::create([this]{
-        auto xx = (DBCCArmature *)(DBCCFactory::getInstance()->buildArmature("main", "xiahoudun"));
+        auto xx = DBCCFactory::getInstance()->buildArmature("main", "xiahoudun");
         auto arm = DBCCArmatureNode::create(xx);
         arm->getAnimation()->gotoAndPlay("walk");
         addChild(arm);
@@ -203,7 +203,7 @@ void BoundingBoxTest::armAnimationHandler(cocos2d::EventCustom *event)
 
 dragonBones::DBCCArmatureNode* BoundingBoxTest::createEffect(std::string dragonbones, std::string armature)
 {
-	auto effect = (dragonBones::DBCCArmature *)(dragonBones::DBCCFactory::factory.buildArmature(armature, "", "", dragonbones, dragonbones));
+	auto effect = DBCCFactory::getInstance()->buildArmature(armature, "", "", dragonbones, dragonbones);
 	effect->getAnimation()->gotoAndPlay("mv");
 	auto node = dragonBones::DBCCArmatureNode::create(effect);
 	dragonBones::WorldClock::clock.add(effect);
