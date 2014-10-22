@@ -3,6 +3,7 @@
 #include "DemoKnight.h"
 #include "HelloWorldScene.h"
 #include "BoundingBoxTest.h"
+#include "NewDisplayTransform.h"
 
 USING_NS_CC;
 
@@ -30,7 +31,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 30);
 
     // create a scene. it's an autorelease object
-    auto scene = BoundingBoxTest::createScene();
+    auto scene = NewDisplayTransform::createScene();
 
     // run
     director->runWithScene(scene);
