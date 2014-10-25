@@ -1,5 +1,5 @@
-﻿#ifndef __ANIMATION_ANIMATION_H__
-#define __ANIMATION_ANIMATION_H__
+﻿#ifndef ANIMATION_ANIMATION_H
+#define ANIMATION_ANIMATION_H
 
 #include "../DragonBones.h"
 #include "../objects/AnimationData.h"
@@ -26,7 +26,7 @@ protected:
     bool _isPlaying;
     float _timeScale;
     
-    std::vector<String> _animationList;
+    std::vector<std::string> _animationList;
     std::vector<AnimationData*> _animationDataList;
     std::vector<AnimationState*> _animationStateList;
     
@@ -36,7 +36,7 @@ protected:
 public:
     virtual bool getIsPlaying() const;
     virtual bool getIsComplete() const;
-    virtual const std::vector<String>& getAnimationList() const;
+    virtual const std::vector<std::string>& getAnimationList() const;
     virtual AnimationState* getLastAnimationState() const;
     virtual float getTimeScale() const;
     virtual void setTimeScale(float timeScale);
@@ -49,27 +49,28 @@ public:
     virtual ~Animation();
     
     virtual void dispose();
+    virtual void clear();
     
     virtual AnimationState* gotoAndPlay(
-        const String &animationName,
+        const std::string &animationName,
         float fadeInTime = -1.f,
         float duration = -1.f,
         int playTimes = -1,
         int layer = 0,
-        const String &group = "",
+        const std::string &group = "",
         AnimationFadeOutMode fadeOutMode = AnimationFadeOutMode::SAME_LAYER_AND_GROUP,
         bool pauseFadeOut = true,
         bool pauseFadeIn = true
     );
     
     virtual AnimationState* gotoAndStop(
-        const String &animationName,
+        const std::string &animationName,
         float time,
         float normalizedTime = -1.f,
         float fadeInTime = 0.f,
         float duration = -1.f,
         int layer = 0,
-        const String &group = "",
+        const std::string &group = "",
         AnimationFadeOutMode fadeOutMode = AnimationFadeOutMode::ALL
     );
     
@@ -77,8 +78,8 @@ public:
     virtual void stop();
     virtual void advanceTime(float passedTime);
     
-    virtual bool hasAnimation(const String &animationName) const;
-    virtual AnimationState* getState(const String &name, int layer = 0) const;
+    virtual bool hasAnimation(const std::string &animationName) const;
+    virtual AnimationState* getState(const std::string &name, int layer = 0) const;
     
 protected:
     virtual void addState(AnimationState *animationState);
@@ -89,4 +90,4 @@ private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(Animation);
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // __ANIMATION_ANIMATION_H__
+#endif  // ANIMATION_ANIMATION_H

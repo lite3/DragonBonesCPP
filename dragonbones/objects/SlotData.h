@@ -1,5 +1,5 @@
-﻿#ifndef __OBJECTS_SLOT_DATA_H__
-#define __OBJECTS_SLOT_DATA_H__
+﻿#ifndef OBJECTS_SLOT_DATA_H
+#define OBJECTS_SLOT_DATA_H
 
 #include "../DragonBones.h"
 #include "DisplayData.h"
@@ -10,8 +10,8 @@ class SlotData
 public:
     float zOrder;
     
-    String name;
-    String parent;
+    std::string name;
+    std::string parent;
     BlendMode blendMode;
     std::vector<DisplayData*> displayDataList;
     
@@ -53,7 +53,7 @@ public:
         displayDataList.clear();
     }
     
-    const DisplayData* getDisplayData(const String &displayName) const
+    const DisplayData* getDisplayData(const std::string &displayName) const
     {
         for (size_t i = 0, l = displayDataList.size(); i < l; ++i)
         {
@@ -67,4 +67,4 @@ public:
     }
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // __OBJECTS_SLOT_DATA_H__
+#endif  // OBJECTS_SLOT_DATA_H

@@ -14,18 +14,18 @@ DBCCFactory* DBCCFactory::getInstance()
 DBCCFactory::DBCCFactory() {}
 DBCCFactory::~DBCCFactory() {}
 
-DBCCArmature* DBCCFactory::buildArmature(const String &armatureName) const
+DBCCArmature* DBCCFactory::buildArmature(const std::string &armatureName) const
 {
     return (DBCCArmature*) BaseFactory::buildArmature(armatureName);
 }
 
-DBCCArmature* DBCCFactory::buildArmature(const String &armatureName, const String &dragonBonesName) const
+DBCCArmature* DBCCFactory::buildArmature(const std::string &armatureName, const std::string &dragonBonesName) const
 {
     return (DBCCArmature*) BaseFactory::buildArmature(armatureName, dragonBonesName);
 }
 
-DBCCArmature* DBCCFactory::buildArmature(const String &armatureName, const String &skinName, const String &animationName,
-                                         const String &dragonBonesName, const String &textureAtlasName) const
+DBCCArmature* DBCCFactory::buildArmature(const std::string &armatureName, const std::string &skinName, const std::string &animationName,
+                                         const std::string &dragonBonesName, const std::string &textureAtlasName) const
 {
     return (DBCCArmature*) BaseFactory::buildArmature(armatureName, skinName, animationName, dragonBonesName, textureAtlasName);
 }
@@ -45,12 +45,15 @@ DragonBonesData* DBCCFactory::loadDragonBonesData(const std::string &dragonBones
         return nullptr;
     }
 
-    // 使用XML解析器载入dragonBones的skeleton.xml
+    // armature scale
+    float scale = cocos2d::Director::getInstance()->getContentScaleFactor();
+
+    // load skeleton.xml using XML parser.
     dragonBones::XMLDocument doc;
     doc.Parse(reinterpret_cast<char*>(data.getBytes()), data.getSize());
-    // 解析骨骼动画数据
+    // paser dragonbones skeleton data.
     dragonBones::XMLDataParser parser;
-    DragonBonesData *dragonBonesData = parser.parseDragonBonesData(doc.RootElement());
+    DragonBonesData *dragonBonesData = parser.parseDragonBonesData(doc.RootElement(), scale);
     addDragonBonesData(dragonBonesData, name);
     return dragonBonesData;
 }
@@ -71,17 +74,20 @@ ITextureAtlas* DBCCFactory::loadTextureAtlas(const std::string &textureAtlasFile
         return nullptr;
     }
 
+    // textureAtlas scale
+    float scale = cocos2d::Director::getInstance()->getContentScaleFactor();
+
     dragonBones::XMLDocument doc;
     doc.Parse(reinterpret_cast<char*>(data.getBytes()), data.getSize());
     dragonBones::XMLDataParser parser;
     DBCCTextureAtlas *textureAtlas = new DBCCTextureAtlas();
-    textureAtlas->textureAtlasData = parser.parseTextureAtlasData(doc.RootElement());
-    //
+    textureAtlas->textureAtlasData = parser.parseTextureAtlasData(doc.RootElement(), scale);
+
     int pos = textureAtlasFile.find_last_of("/");
     
-    if (String::npos != pos)
+    if (std::string::npos != pos)
     {
-        String base_path = textureAtlasFile.substr(0, pos + 1);
+        std::string base_path = textureAtlasFile.substr(0, pos + 1);
         textureAtlas->textureAtlasData->imagePath = base_path + textureAtlas->textureAtlasData->imagePath;
     }
     
@@ -176,6 +182,8 @@ void* DBCCFactory::generateDisplay(const ITextureAtlas *textureAtlas, const Text
         const cocos2d::Rect rect(x, y, width, height);
         // sprite
         cocos2d::Node *display = cocos2d::Sprite::createWithTexture(dbccTextureAtlas->texture, rect, false);
+        display->setCascadeColorEnabled(true);
+        display->setCascadeOpacityEnabled(true);
         display->retain();
         float pivotX = 0;
         float pivotY = 0;

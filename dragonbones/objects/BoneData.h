@@ -1,5 +1,5 @@
-﻿#ifndef __OBJECTS_BONE_DATA_H__
-#define __OBJECTS_BONE_DATA_H__
+﻿#ifndef OBJECTS_BONE_DATA_H
+#define OBJECTS_BONE_DATA_H
 
 #include "../DragonBones.h"
 #include "IAreaData.h"
@@ -15,8 +15,8 @@ public:
     bool inheritRotation;
     float length;
     
-    String name;
-    String parent;
+    std::string name;
+    std::string parent;
     Transform global;
     Transform transform;
     std::vector<IAreaData*> areaDataList;
@@ -81,7 +81,7 @@ public:
         areaDataList.clear();
     }
     
-    IAreaData* getAreaData(const String &areaName) const
+    IAreaData* getAreaData(const std::string &areaName) const
     {
         if (areaDataList.empty())
         {
@@ -105,4 +105,4 @@ public:
     }
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // __OBJECTS_BONE_DATA_H__
+#endif  // OBJECTS_BONE_DATA_H

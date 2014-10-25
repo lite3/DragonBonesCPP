@@ -1,5 +1,5 @@
-﻿#ifndef __OBJECTS_DRADON_BONES_DATA_H__
-#define __OBJECTS_DRADON_BONES_DATA_H__
+﻿#ifndef OBJECTS_DRADON_BONES_DATA_H
+#define OBJECTS_DRADON_BONES_DATA_H
 
 #include "../DragonBones.h"
 #include "ArmatureData.h"
@@ -9,7 +9,7 @@ class DragonBonesData
 {
 public:
     bool autoSearch;
-    String name;
+    std::string name;
     std::vector<ArmatureData*> armatureDataList;
     
 public:
@@ -51,7 +51,7 @@ public:
         armatureDataList.clear();
     }
     
-    ArmatureData* getArmatureData(const String &armatureName) const
+    ArmatureData* getArmatureData(const std::string &armatureName) const
     {
         for (size_t i = 0, l = armatureDataList.size(); i < l; ++i)
         {
@@ -65,4 +65,4 @@ public:
     }
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // __OBJECTS_DRADON_BONES_DATA_H__
+#endif  // OBJECTS_DRADON_BONES_DATA_H

@@ -1,5 +1,5 @@
-﻿#ifndef __TEXTURES_TEXTURE_ATLAS_DATA_H__
-#define __TEXTURES_TEXTURE_ATLAS_DATA_H__
+﻿#ifndef TEXTURES_TEXTURE_ATLAS_DATA_H
+#define TEXTURES_TEXTURE_ATLAS_DATA_H
 
 #include "../DragonBones.h"
 #include "TextureData.h"
@@ -9,8 +9,8 @@ class TextureAtlasData
 {
 public:
     bool autoSearch;
-    String name;
-    String imagePath;
+    std::string name;
+    std::string imagePath;
     
     std::vector<TextureData*> textureDataList;
     
@@ -54,7 +54,7 @@ public:
         textureDataList.clear();
     }
     
-    TextureData* getTextureData(const String &textureName) const
+    TextureData* getTextureData(const std::string &textureName) const
     {
         for (size_t i = 0, l = textureDataList.size(); i < l; ++i)
         {
@@ -68,4 +68,4 @@ public:
     }
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // __TEXTURES_TEXTURE_ATLAS_DATA_H__
+#endif  // TEXTURES_TEXTURE_ATLAS_DATA_H

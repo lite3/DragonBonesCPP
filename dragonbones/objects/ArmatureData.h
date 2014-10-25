@@ -1,5 +1,5 @@
-﻿#ifndef __OBJECTS_ARMATURE_DATA_H__
-#define __OBJECTS_ARMATURE_DATA_H__
+﻿#ifndef OBJECTS_ARMATURE_DATA_H
+#define OBJECTS_ARMATURE_DATA_H
 
 #include "../DragonBones.h"
 #include "IAreaData.h"
@@ -17,7 +17,7 @@ private:
     }
     
 public:
-    String name;
+    std::string name;
     std::vector<IAreaData*> areaDataList;
     std::vector<BoneData*> boneDataList;
     std::vector<SkinData*> skinDataList;
@@ -117,7 +117,7 @@ public:
         animationDataList.clear();
     }
     
-    IAreaData* getAreaData(const String &areaName) const
+    IAreaData* getAreaData(const std::string &areaName) const
     {
         if (areaDataList.empty())
         {
@@ -140,7 +140,7 @@ public:
         return nullptr;
     }
     
-    BoneData* getBoneData(const String &boneName) const
+    BoneData* getBoneData(const std::string &boneName) const
     {
         for (size_t i = 0, l = boneDataList.size(); i < l; ++i)
         {
@@ -153,7 +153,7 @@ public:
         return nullptr;
     }
     
-    SkinData* getSkinData(const String &skinName) const
+    SkinData* getSkinData(const std::string &skinName) const
     {
         if (skinDataList.empty())
         {
@@ -176,7 +176,7 @@ public:
         return nullptr;
     }
     
-    AnimationData* getAnimationData(const String &animationName) const
+    AnimationData* getAnimationData(const std::string &animationName) const
     {
         for (size_t i = 0, l = animationDataList.size(); i < l; ++i)
         {
@@ -222,4 +222,4 @@ public:
     }
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // __OBJECTS_ARMATURE_DATA_H__
+#endif  // OBJECTS_ARMATURE_DATA_H

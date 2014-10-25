@@ -1,5 +1,5 @@
-﻿#ifndef __ANIMATION_TIMELINE_STATE_H__
-#define __ANIMATION_TIMELINE_STATE_H__
+﻿#ifndef ANIMATION_TIMELINE_STATE_H
+#define ANIMATION_TIMELINE_STATE_H
 
 #include "../DragonBones.h"
 #include "../geoms/ColorTransform.h"
@@ -27,7 +27,7 @@ private:
     static void clearObjects();
     
 public:
-    String name;
+    std::string name;
     
 private:
     bool _blendEnabled;
@@ -74,4 +74,4 @@ private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(TimelineState);
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // __ANIMATION_TIMELINE_STATE_H__
+#endif  // ANIMATION_TIMELINE_STATE_H

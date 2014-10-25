@@ -1,5 +1,5 @@
-﻿#ifndef __DBCC_FACTORY_H__
-#define __DBCC_FACTORY_H__
+﻿#ifndef DBCC_FACTORY_H
+#define DBCC_FACTORY_H
 
 #include "DragonBonesHeaders.h"
 #include "DBCCRenderHeaders.h"
@@ -17,9 +17,9 @@ public:
     DBCCFactory();
     virtual ~DBCCFactory();
 
-    virtual DBCCArmature* buildArmature(const String &armatureName) const override;
-    virtual DBCCArmature* buildArmature(const String &armatureName, const String &dragonBonesName) const override;
-    virtual DBCCArmature* buildArmature(const String &armatureName, const String &skinName, const String &animationName, const String &dragonBonesName, const String &textureAtlasName) const override;
+    virtual DBCCArmature* buildArmature(const std::string &armatureName) const override;
+    virtual DBCCArmature* buildArmature(const std::string &armatureName, const std::string &dragonBonesName) const override;
+    virtual DBCCArmature* buildArmature(const std::string &armatureName, const std::string &skinName, const std::string &animationName, const std::string &dragonBonesName, const std::string &textureAtlasName) const override;
     
     virtual DragonBonesData* loadDragonBonesData(const std::string &dragonBonesFile, const std::string &name = "");
     virtual ITextureAtlas* loadTextureAtlas(const std::string &textureAtlasFile, const std::string &name = "");
@@ -37,4 +37,4 @@ private:
 };
 NAME_SPACE_DRAGON_BONES_END
 
-#endif  // __DBCC_FACTORY_H__
+#endif  // DBCC_FACTORY_H

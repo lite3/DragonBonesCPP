@@ -1,5 +1,5 @@
-﻿#ifndef __OBJECTS_SKIN_DATA_H__
-#define __OBJECTS_SKIN_DATA_H__
+﻿#ifndef OBJECTS_SKIN_DATA_H
+#define OBJECTS_SKIN_DATA_H
 
 #include "../DragonBones.h"
 #include "SlotData.h"
@@ -8,7 +8,7 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 class SkinData
 {
 public:
-    String name;
+    std::string name;
     std::vector<SlotData*> slotDataList;
     
 public:
@@ -46,7 +46,7 @@ public:
         slotDataList.clear();
     }
     
-    SlotData* getSlotData(const String &slotName) const
+    SlotData* getSlotData(const std::string &slotName) const
     {
         for (size_t i = 0, l = slotDataList.size(); i < l; ++i)
         {
@@ -60,4 +60,4 @@ public:
     }
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // __OBJECTS_SKIN_DATA_H__
+#endif  // OBJECTS_SKIN_DATA_H
