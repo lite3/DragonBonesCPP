@@ -1,22 +1,18 @@
 #ifndef __NEW_DISPLAY_TRANSFORM_H__
 #define __NEW_DISPLAY_TRANSFORM_H__
 
-#include "DemoBase.h"
-#include "DBCCArmature.h"
-#include "DBCCArmatureNode.h"
 #include "cocos2d.h"
 #include "2d/CCDrawNode.h"
+#include "DBCCRenderHeaders.h"
 
 USING_NS_CC;
 
-class NewDisplayTransform : public DemoBase
+class NewDisplayTransform : public Layer
 {
 public:
-    // there's no 'id' in cpp, so we recommend returning the class instance pointer
-    static cocos2d::Scene* createScene();
 
-	virtual void demoInit() override;
-	virtual void updateHandler(float passTime) override;
+    virtual bool init() override;
+	virtual void update(float dt) override;
 
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);

@@ -4,22 +4,8 @@ USING_NS_CC;
 
 using namespace dragonBones;
 
-Scene* NewDisplayTransform::createScene()
-{
-    // 'scene' is an autorelease object
-    auto scene = Scene::create();
-    
-    // 'layer' is an autorelease object
-    auto layer = NewDisplayTransform::create();
 
-    // add layer as a child to scene
-    scene->addChild(layer);
-
-    // return the scene
-    return scene;
-}
-
-void NewDisplayTransform::updateHandler(float passTime)
+void NewDisplayTransform::update(float passTime)
 {
 	dragonBones::WorldClock::clock.advanceTime(passTime);
 	Rect rect = _armature->getBoundingBox();
@@ -42,7 +28,7 @@ void NewDisplayTransform::updateHandler(float passTime)
 }
 
 // on "init" you need to initialize your instance
-void NewDisplayTransform::demoInit()
+bool NewDisplayTransform::init()
 {
     //////////////////////////////
     
@@ -162,6 +148,8 @@ void NewDisplayTransform::demoInit()
 	};
 	//listener->onKeyReleased = std::bind(&DemoKnight::keyReleaseHandler, this, std::placeholders::_1, std::placeholders::_2);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+
+    return Layer::init();
 }
 
 void NewDisplayTransform::armAnimationHandler(cocos2d::EventCustom *event)
@@ -171,14 +159,14 @@ void NewDisplayTransform::armAnimationHandler(cocos2d::EventCustom *event)
 	switch (eventData->getType())
 	{
 	case dragonBones::EventData::EventType::START:
-		cocos2d::log("animation start: %s %f", eventData->animationState->name.c_str(), utils::gettime());
+		cocos2d::log("animation start: %s %f", eventData->animationState->name.c_str());
 		break;
 	case dragonBones::EventData::EventType::FADE_IN:
-		cocos2d::log("animation fade in: %s %f", eventData->animationState->name.c_str(), utils::gettime());
+		cocos2d::log("animation fade in: %s %f", eventData->animationState->name.c_str());
 		break;
 
 	case dragonBones::EventData::EventType::COMPLETE:
-		cocos2d::log("animation complete: %s  %f", eventData->animationState->name.c_str(), utils::gettime());
+		cocos2d::log("animation complete: %s  %f", eventData->animationState->name.c_str());
 		if(_jump2Wait && eventData->animationState->name == _curAction)
 		{
 			_jump2Wait = false;
@@ -186,7 +174,7 @@ void NewDisplayTransform::armAnimationHandler(cocos2d::EventCustom *event)
 		}
 		break;
 	case dragonBones::EventData::EventType::LOOP_COMPLETE:
-		cocos2d::log("animation loop complete: %s  %f", eventData->animationState->name.c_str(), utils::gettime());
+		cocos2d::log("animation loop complete: %s  %f", eventData->animationState->name.c_str());
 		if(_jump2Wait && eventData->animationState->name == _curAction)
 		{
 			_jump2Wait = false;
@@ -195,7 +183,7 @@ void NewDisplayTransform::armAnimationHandler(cocos2d::EventCustom *event)
 		break;
 
 	case dragonBones::EventData::EventType::ANIMATION_FRAME_EVENT:
-		cocos2d::log("animation frame event: %s %s %f", eventData->animationState->name.c_str(), eventData->frameLabel, utils::gettime());
+		cocos2d::log("animation frame event: %s %s %f", eventData->animationState->name.c_str(), eventData->frameLabel);
 		break;
 	}
 }

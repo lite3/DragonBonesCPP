@@ -1,19 +1,18 @@
 #ifndef __BOUNDING_BOX_SCENE_H__
 #define __BOUNDING_BOX_SCENE_H__
 
-#include "DBCCArmature.h"
-#include "DBCCArmatureNode.h"
 #include "cocos2d.h"
 #include "2d/CCDrawNode.h"
+#include "DBCCRenderHeaders.h"
+
+USING_NS_CC;
 
 class BoundingBoxTest : public Layer
 {
 public:
-    // there's no 'id' in cpp, so we recommend returning the class instance pointer
-    static cocos2d::Scene* createScene();
 
-	virtual void demoInit() override;
-	virtual void updateHandler(float passTime) override;
+    virtual bool init() override;
+    virtual void update(float dt) override;
 
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
