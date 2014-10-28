@@ -36,6 +36,15 @@
     <ClCompile Include="..\Classes\examples\DemoChaseStarling.cpp">
       <Filter>Classes\examples</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\BoundingBoxTest.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NewDisplayTransform.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -58,6 +67,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\examples\DemoChaseStarling.h">
       <Filter>Classes\examples</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BoundingBoxTest.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NewDisplayTransform.h">
+      <Filter>Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

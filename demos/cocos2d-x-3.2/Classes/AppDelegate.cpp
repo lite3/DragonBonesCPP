@@ -1,10 +1,7 @@
 #include "AppDelegate.h"
-#include "DemoDragonBoy.h"
-#include "DemoKnight.h"
 #include "HelloWorldScene.h"
 #include "BoundingBoxTest.h"
 #include "NewDisplayTransform.h"
-#include "Demo.h"
 
 USING_NS_CC;
 

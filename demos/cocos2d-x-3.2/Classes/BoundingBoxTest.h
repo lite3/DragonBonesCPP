@@ -1,13 +1,12 @@
 #ifndef __BOUNDING_BOX_SCENE_H__
 #define __BOUNDING_BOX_SCENE_H__
 
-#include "DemoBase.h"
 #include "DBCCArmature.h"
 #include "DBCCArmatureNode.h"
 #include "cocos2d.h"
 #include "2d/CCDrawNode.h"
 
-class BoundingBoxTest : public DemoBase
+class BoundingBoxTest : public Layer
 {
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
