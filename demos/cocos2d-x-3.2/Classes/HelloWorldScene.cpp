@@ -6,6 +6,7 @@ using namespace dragonBones;
 
 void HelloWorld::update(float dt)
 {
+    return;
 	dragonBones::WorldClock::clock.advanceTime(dt);
 	Rect rect = _armature->getBoundingBox();
 	Vec2 vec2s[4];
@@ -66,16 +67,28 @@ bool HelloWorld::init()
 
     // add the label as a child to this layer
     this->addChild(label, 1);
+//x=411.35    y=187.9    px=0.02    py=0.89    skewX=110.43    skewY=46.99    scaleX=1    scaleY=2.23  
+
+
+//     auto sp = Sprite::create("rect.png");
+//     sp->setPosition(411.35, 640-187.9);
+//     sp->setAnchorPoint(Vec2(0.026615969581749048,0.8909482758620689));
+//     sp->setRotationSkewX(110.43);
+//     sp->setRotationSkewY(46.99);
+//     sp->setScaleX(1);
+//     sp->setScaleY(2.236053466796875);
+//     addChild(sp);
+//     return true;
 
 
 	// factory
     
 	DBCCFactory::getInstance()->loadDragonBonesData("armatures/Knight/skeleton.xml");
 	DBCCFactory::getInstance()->loadTextureAtlas("armatures/Knight/texture.xml");
-// 	DBCCFactory::getInstance()->loadDragonBonesData("leiyanfentian/leiyanfentian_skeleton.xml");
-// 	DBCCFactory::getInstance()->loadTextureAtlas("leiyanfentian/leiyanfentian.xml");
+ 	DBCCFactory::getInstance()->loadDragonBonesData("armatures/jiguanren/skeleton.xml");
+ 	DBCCFactory::getInstance()->loadTextureAtlas("armatures/jiguanren/texture.xml");
 	// armature
-	auto armature = (dragonBones::DBCCArmature *)(dragonBones::DBCCFactory::factory.buildArmature("main", "zhugeliang"));
+	auto armature = (dragonBones::DBCCArmature *)(dragonBones::DBCCFactory::factory.buildArmature("main", "jiguanren"));
 	_armature = dragonBones::DBCCArmatureNode::create(armature);
 
 	drawnode = DrawNode::create();
@@ -123,10 +136,13 @@ bool HelloWorld::init()
 		case cocos2d::EventKeyboard::KeyCode::KEY_W:
 			_armature->getAnimation()->gotoAndPlay("skill3");
 			_curAction = "skill3";
-			auto node = createEffect("leiyanfentian", "skill_self_1");
-			_armature->addChild(node);
 			_jump2Wait = true;
 			break;
+        case EventKeyboard::KeyCode::KEY_0:
+            _armature->getAnimation()->gotoAndPlay("skill");
+            _curAction = "skill";
+            _jump2Wait = true;
+            break;
 		}
 	};
 	//listener->onKeyReleased = std::bind(&DemoKnight::keyReleaseHandler, this, std::placeholders::_1, std::placeholders::_2);
