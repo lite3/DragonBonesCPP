@@ -66,7 +66,7 @@ bool NewDisplayTransform::init()
  	DBCCFactory::getInstance()->loadDragonBonesData("armatures/gongjianshou/skeleton.xml");
  	DBCCFactory::getInstance()->loadTextureAtlas("armatures/gongjianshou/texture.xml");
 	// armature
-	auto armature = (dragonBones::DBCCArmature *)(dragonBones::DBCCFactory::factory.buildArmature("mucheng", "mucheng"));
+	auto armature = DBCCFactory::getInstance()->buildArmature("mucheng", "mucheng");
 	_armature = dragonBones::DBCCArmatureNode::create(armature);
 
 
@@ -190,7 +190,7 @@ void NewDisplayTransform::armAnimationHandler(cocos2d::EventCustom *event)
 
 dragonBones::DBCCArmatureNode* NewDisplayTransform::createEffect(std::string dragonbones, std::string armature)
 {
-	auto effect = (dragonBones::DBCCArmature *)(dragonBones::DBCCFactory::factory.buildArmature(armature, "", "", dragonbones, dragonbones));
+	auto effect = DBCCFactory::getInstance()->buildArmature(armature, "", "", dragonbones, dragonbones);
 	effect->getAnimation()->gotoAndPlay("mv");
 	auto node = dragonBones::DBCCArmatureNode::create(effect);
 	dragonBones::WorldClock::clock.add(effect);

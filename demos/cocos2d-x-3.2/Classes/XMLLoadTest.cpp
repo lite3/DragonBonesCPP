@@ -76,17 +76,17 @@ bool XMLLoadTest::init()
 
 	// factory
     clock_t t = clock();
- 	DBCCFactory::getInstance()->loadDragonBonesData("armatures/diaochan-yinlian/skeleton.xml");
+ 	DBCCFactory::getInstance()->loadDragonBonesData("armatures/TEST/skeleton.xml");
     
- 	DBCCFactory::getInstance()->loadTextureAtlas("armatures/diaochan-yinlian/texture.xml");
+ 	DBCCFactory::getInstance()->loadTextureAtlas("armatures/TEST/texture.xml");
     
 	// armature
 	//auto armature = (dragonBones::DBCCArmature *)(DBCCFactory::getInstance()->buildArmature("main", "xiahoudun"));
-    auto armature = DBCCFactory::getInstance()->buildArmature("skill_self_1", "diaochan-yinlian");
+    auto armature = DBCCFactory::getInstance()->buildArmature("TEST", "TEST");
 	_armature = dragonBones::DBCCArmatureNode::create(armature);
     
 
- 	_armature->getAnimation()->gotoAndPlay("mv");
+ 	_armature->getAnimation()->gotoAndPlay("alphaTest2");
     //_armature->update(0);
 	_armature->setPosition(480.f, 200.f);
 	this->addChild(_armature);

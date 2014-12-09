@@ -88,7 +88,7 @@ bool HelloWorld::init()
  	DBCCFactory::getInstance()->loadDragonBonesData("armatures/jiguanren/skeleton.xml");
  	DBCCFactory::getInstance()->loadTextureAtlas("armatures/jiguanren/texture.xml");
 	// armature
-	auto armature = (dragonBones::DBCCArmature *)(dragonBones::DBCCFactory::factory.buildArmature("main", "jiguanren"));
+	auto armature = DBCCFactory::getInstance()->buildArmature("main", "jiguanren");
 	_armature = dragonBones::DBCCArmatureNode::create(armature);
 
 	drawnode = DrawNode::create();
@@ -189,7 +189,7 @@ void HelloWorld::armAnimationHandler(cocos2d::EventCustom *event)
 
 dragonBones::DBCCArmatureNode* HelloWorld::createEffect(std::string dragonbones, std::string armature)
 {
-	auto effect = (dragonBones::DBCCArmature *)(dragonBones::DBCCFactory::factory.buildArmature(armature, "", "", dragonbones, dragonbones));
+    auto effect = DBCCFactory::getInstance()->buildArmature(armature, "", "", dragonbones, dragonbones);
 	effect->getAnimation()->gotoAndPlay("mv");
 	auto node = dragonBones::DBCCArmatureNode::create(effect);
 	dragonBones::WorldClock::clock.add(effect);
