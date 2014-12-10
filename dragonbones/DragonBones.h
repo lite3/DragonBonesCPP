@@ -90,7 +90,7 @@ inline int indexOf(std::vector<T> &vector, const T &value)
     return -1;
 }
 
-enum class DisplayType {DT_IMAGE, DT_ARMATURE, DT_FRAME, DT_1, DT_2, DT_3, DT_4, DT_5};
+enum class DisplayType {DT_IMAGE, DT_ARMATURE, DT_FRAME, DT_TEXT, DT_1, DT_2, DT_3, DT_4, DT_5};
 inline DisplayType getDisplayTypeByString(std::string displayType)
 {
     if (displayType == "image")
@@ -104,6 +104,10 @@ inline DisplayType getDisplayTypeByString(std::string displayType)
     else if (displayType == "frame")
     {
         return DisplayType::DT_FRAME;
+    }
+    else if (displayType == "text")
+    {
+        return DisplayType::DT_TEXT;
     }
 
     return DisplayType::DT_IMAGE;
@@ -136,7 +140,7 @@ inline BlendMode getBlendModeByString(std::string blendMode)
     {
         return BlendMode::BM_ERASE;
     }
-    else if (blendMode == "hardlight")
+    else if (blendMode == "hardLight")
     {
         return BlendMode::BM_HARDLIGHT;
     }

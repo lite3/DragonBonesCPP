@@ -6,6 +6,11 @@ int Slot::getDisplayIndex() const
     return _displayIndex;
 }
 
+SlotData* Slot::getSlotData() const
+{
+    return _slotData;
+}
+
 float Slot::getZOrder() const
 {
     return _originZOrder + _tweenZOrder + _offsetZOrder;
@@ -117,6 +122,7 @@ Slot::Slot(SlotData *slotData)
     _tweenZOrder = 0.f;
     _offsetZOrder = 0.f;
     _blendMode = BlendMode::BM_NORMAL;
+    //_colorTransform
     _slotData = slotData;
     _childArmature = nullptr;
     _display = nullptr;
@@ -147,10 +153,10 @@ void Slot::update()
     const float x = origin.x + offset.x + _parent->_tweenPivot.x;
     const float y = origin.y + offset.y + _parent->_tweenPivot.y;
     const Matrix &parentMatrix = _parent->globalTransformMatrix;
-    //globalTransformMatrix.tx = global.x = parentMatrix.a * x + parentMatrix.c * y + parentMatrix.tx;
-    //globalTransformMatrix.ty = global.y = parentMatrix.d * y + parentMatrix.b * x + parentMatrix.ty;
-    globalTransformMatrix.tx = global.x = parentMatrix.a * x * _parent->global.scaleX + parentMatrix.c * y * _parent->global.scaleY + parentMatrix.tx;
-    globalTransformMatrix.ty = global.y = parentMatrix.d * y * _parent->global.scaleY + parentMatrix.b * x * _parent->global.scaleX + parentMatrix.ty;
+    globalTransformMatrix.tx = global.x = parentMatrix.a * x + parentMatrix.c * y + parentMatrix.tx;
+    globalTransformMatrix.ty = global.y = parentMatrix.d * y + parentMatrix.b * x + parentMatrix.ty;
+    //globalTransformMatrix.tx = global.x = parentMatrix.a * x * _parent->global.scaleX + parentMatrix.c * y * _parent->global.scaleY + parentMatrix.tx;
+    //globalTransformMatrix.ty = global.y = parentMatrix.d * y * _parent->global.scaleY + parentMatrix.b * x * _parent->global.scaleX + parentMatrix.ty;
     
     if (inheritRotation)
     {
@@ -346,9 +352,24 @@ void Slot::updateSlotDisplay(bool disposeExisting)
             updateDisplayBlendMode(_slotData->blendMode);
         }
         
-        //updateDisplayColor();
+        updateDisplayColor(
+            _colorTransform.alphaOffset, _colorTransform.redOffset, _colorTransform.greenOffset, _colorTransform.blueOffset,
+            _colorTransform.alphaMultiplier, _colorTransform.redMultiplier, _colorTransform.greenMultiplier, _colorTransform.blueMultiplier
+            );
         updateDisplayVisible(_visible);
         updateDisplayTransform();
     }
+}
+
+void Slot::updateDisplayColor(int aOffset, int rOffset, int gOffset, int bOffset, float aMultiplier, float rMultiplier, float gMultiplier, float bMultiplier)
+{
+    _colorTransform.alphaOffset = aOffset;
+    _colorTransform.redOffset = rOffset;
+    _colorTransform.greenOffset = gOffset;
+    _colorTransform.blueOffset = bOffset;
+    _colorTransform.alphaMultiplier = aMultiplier;
+    _colorTransform.redMultiplier = rMultiplier;
+    _colorTransform.greenMultiplier = gMultiplier;
+    _colorTransform.blueMultiplier = bMultiplier;
 }
 NAME_SPACE_DRAGON_BONES_END
