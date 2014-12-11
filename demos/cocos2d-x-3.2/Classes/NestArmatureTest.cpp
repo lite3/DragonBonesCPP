@@ -39,24 +39,8 @@ bool NestArmatureTest::init()
     //    you may modify it.
 
     // add a "close" icon to exit the progress. it's an autorelease object
-    auto closeItem = MenuItemImage::create(
-                                           "CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(XMLLoadTest::menuCloseCallback, this));
     
-	closeItem->setPosition(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2);
 
-    // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
-
-    auto node = Node::create();
-    node->setContentSize(Size(100,200));
-    node->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-    node->setPosition(50, 40);
-    auto rect = node->getBoundingBox();
 
     /////////////////////////////
     // 3. add your codes below...
