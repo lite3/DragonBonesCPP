@@ -20,9 +20,8 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(NestArmatureTest);
 
-	void armAnimationHandler(cocos2d::EventCustom *event);
+	void evtHandler(cocos2d::EventCustom *event);
 
-	dragonBones::DBCCArmatureNode* createEffect(std::string dragonbones, std::string armature);
 
 	dragonBones::DBCCArmatureNode *_armature;
 	cocos2d::DrawNode *drawnode;

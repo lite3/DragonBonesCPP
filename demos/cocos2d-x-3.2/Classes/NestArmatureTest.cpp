@@ -60,10 +60,13 @@ bool NestArmatureTest::init()
 	_armature = dragonBones::DBCCArmatureNode::create(armature);
     
 
- 	_armature->getAnimation()->gotoAndPlay("cdKeep");
+ 	_armature->getAnimation()->gotoAndPlay("cdChange");
     //_armature->update(0);
 	_armature->setPosition(480.f, 200.f);
 	this->addChild(_armature);
+
+    _armature->getCCEventDispatcher()->addCustomEventListener(EventData::COMPLETE, CC_CALLBACK_1(NestArmatureTest::evtHandler, this));
+    _armature->getCCEventDispatcher()->addCustomEventListener(EventData::LOOP_COMPLETE, CC_CALLBACK_1(NestArmatureTest::evtHandler, this));
 
     t = clock() - t;
     float seconds = ((float)t)/CLOCKS_PER_SEC;
@@ -71,61 +74,22 @@ bool NestArmatureTest::init()
     return Layer::init();
 }
 
-void NestArmatureTest::armAnimationHandler(cocos2d::EventCustom *event)
+void NestArmatureTest::evtHandler(cocos2d::EventCustom *event)
 {
 	dragonBones::EventData *eventData = (dragonBones::EventData *)(event->getUserData());
 
 	switch (eventData->getType())
 	{
-	case dragonBones::EventData::EventType::START:
-		cocos2d::log("animation start: %s %f", eventData->animationState->name.c_str());
-		break;
-	case dragonBones::EventData::EventType::FADE_IN:
-		cocos2d::log("animation fade in: %s %f", eventData->animationState->name.c_str());
-		break;
-
 	case dragonBones::EventData::EventType::COMPLETE:
-		cocos2d::log("animation complete: %s  %f", eventData->animationState->name.c_str());
-		if(_jump2Wait && eventData->animationState->name == _curAction)
-		{
-			_jump2Wait = false;
-			_armature->getAnimation()->gotoAndPlay("wait");
-		}
+        if (eventData->animationState->name == "cdChange")
+        {
+            eventData->armature->getAnimation()->gotoAndPlay("cdKeep", -1, -1, 0);
+        }
 		break;
 	case dragonBones::EventData::EventType::LOOP_COMPLETE:
-		cocos2d::log("animation loop complete: %s  %f", eventData->animationState->name.c_str());
-		if(_jump2Wait && eventData->animationState->name == _curAction)
-		{
-			_jump2Wait = false;
-			_armature->getAnimation()->gotoAndPlay("wait");
-		}
-		break;
-
-	case dragonBones::EventData::EventType::ANIMATION_FRAME_EVENT:
-		cocos2d::log("animation frame event: %s %s %f", eventData->animationState->name.c_str(), eventData->frameLabel);
 		break;
 	}
 }
-
-dragonBones::DBCCArmatureNode* NestArmatureTest::createEffect(std::string dragonbones, std::string armature)
-{
-	auto effect = DBCCFactory::getInstance()->buildArmature(armature, "", "", dragonbones, dragonbones);
-	effect->getAnimation()->gotoAndPlay("mv");
-	auto node = dragonBones::DBCCArmatureNode::create(effect);
-	dragonBones::WorldClock::clock.add(effect);
-	auto handler = [](cocos2d::EventCustom *event){
-		dragonBones::EventData *eventData = (dragonBones::EventData *)(event->getUserData());
-		dragonBones::WorldClock::clock.remove(eventData->armature);
-		auto node1 = static_cast<Node*>(eventData->armature->getDisplay());
-		//node1->getParent()->removeFromParent();
-		node1->setVisible(false);
-		eventData->armature->getAnimation()->stop();
-	};
-	node->getCCEventDispatcher()->addCustomEventListener(dragonBones::EventData::COMPLETE, handler);
-	node->getCCEventDispatcher()->addCustomEventListener(dragonBones::EventData::LOOP_COMPLETE, handler);
-	return node;
-}
-
 
 void NestArmatureTest::menuCloseCallback(Ref* pSender)
 {
