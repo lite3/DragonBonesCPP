@@ -3,6 +3,7 @@
 #include "BoundingBoxTest.h"
 #include "NewDisplayTransform.h"
 #include "XMLLoadTest.h"
+#include "NestArmatureTest.h"
 
 USING_NS_CC;
 
@@ -29,7 +30,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 30);
 
-    auto layer = XMLLoadTest::create();
+    auto layer = NestArmatureTest::create();
     // create a scene. it's an autorelease object
     Scene* scene = Scene::create();
     scene->addChild(layer);
