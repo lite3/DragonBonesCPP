@@ -15,7 +15,7 @@ LOCAL_SRC_FILES := ../../../animation/Animation.cpp \
                    ../../../core/Slot.cpp \
                    ../../../events/EventData.cpp \
                    ../../../factories/BaseFactory.cpp \
-                   ../../../parsers/BaseDataparser.cpp \
+                   ../../../parsers/BaseDataParser.cpp \
                    ../../../parsers/ConstValues.cpp \
                    ../../../parsers/XMLDataParser.cpp \
                    ../../../parsers/dbtinyxml2.cpp \
@@ -27,8 +27,7 @@ LOCAL_SRC_FILES := ../../../animation/Animation.cpp \
 
 LOCAL_C_INCLUDES := \
 $(LOCAL_PATH)/.. \
-$(LOCAL_PATH)/../../.. \
-$(LOCAL_PATH)/../../../../engines/cocos2d-x-3.2/cocos/2d 
+$(LOCAL_PATH)/../../.. 
 
 LOCAL_EXPORT_C_INCLUDES := \
 $(LOCAL_PATH)/.. \
