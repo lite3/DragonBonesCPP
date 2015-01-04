@@ -53,17 +53,29 @@ bool NestArmatureTest::init()
  	DBCCFactory::getInstance()->loadDragonBonesData("armatures/battleCDEffect/skeleton.xml");
  	DBCCFactory::getInstance()->loadTextureAtlas("armatures/battleCDEffect/texture.xml");
 
+    auto testNode = DBCCFactory::getInstance()->buildArmature("cdEffect", "", "cdEffect", "battleCDEffect", "battleCDEffect");
+    auto testNode1 = DBCCArmatureNode::create(testNode);
+    testNode->getAnimation()->gotoAndPlay("cdKeep");
+    addChild(testNode1);
+
     
 	// armature
 	//auto armature = (dragonBones::DBCCArmature *)(DBCCFactory::getInstance()->buildArmature("main", "xiahoudun"));
-    auto armature = DBCCFactory::getInstance()->buildArmature("cdEffect", "battleCDEffect");
+    auto node = Node::create();
+    //node->setScale(0.7f);
+    node->setPosition(100, 20);
+    
+    addChild(node);
+    //armatureName, "", animationName, dragonBonesName, dragonBonesName
+    auto armature = DBCCFactory::getInstance()->buildArmature("epEffect", "", "epEffect", "battleCDEffect", "battleCDEffect");
 	_armature = dragonBones::DBCCArmatureNode::create(armature);
+    //_armature->setScale(1.2f);
     
 
- 	_armature->getAnimation()->gotoAndPlay("cdChange");
+ 	_armature->getAnimation()->gotoAndPlay("epChange");
     //_armature->update(0);
 	_armature->setPosition(480.f, 200.f);
-	this->addChild(_armature);
+	node->addChild(_armature);
 
     _armature->getCCEventDispatcher()->addCustomEventListener(EventData::COMPLETE, CC_CALLBACK_1(NestArmatureTest::evtHandler, this));
     _armature->getCCEventDispatcher()->addCustomEventListener(EventData::LOOP_COMPLETE, CC_CALLBACK_1(NestArmatureTest::evtHandler, this));
@@ -81,9 +93,9 @@ void NestArmatureTest::evtHandler(cocos2d::EventCustom *event)
 	switch (eventData->getType())
 	{
 	case dragonBones::EventData::EventType::COMPLETE:
-        if (eventData->animationState->name == "cdChange")
+        if (eventData->animationState->name == "epChange")
         {
-            eventData->armature->getAnimation()->gotoAndPlay("cdKeep", -1, -1, 0);
+            eventData->armature->getAnimation()->gotoAndPlay("epKeep", -1, -1, 0);
         }
 		break;
 	case dragonBones::EventData::EventType::LOOP_COMPLETE:

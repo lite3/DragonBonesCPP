@@ -403,14 +403,14 @@
     </display>
    </slot>
   </skin>
-  <animation name="cdChange" fadeInTime="0" duration="12" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+  <animation name="cdChange" fadeInTime="0.3" duration="12" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
    <timeline name="cdChange" scale="1" offset="0">
     <frame z="0" duration="12">
      <transform x="0.05" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
   </animation>
-  <animation name="cdKeep" fadeInTime="0" duration="30" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+  <animation name="cdKeep" fadeInTime="0.3" duration="30" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
    <timeline name="cdChange" scale="1" offset="0">
     <frame z="0" displayIndex="1" duration="30">
      <transform x="0" y="-1.7" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
@@ -427,7 +427,7 @@
     </frame>
    </timeline>
   </animation>
-  <animation name="empty" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+  <animation name="empty" fadeInTime="0.3" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
    <timeline name="cdChange_0" scale="1" offset="0">
     <frame z="2" duration="1">
      <transform x="0" y="-1.7" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
@@ -524,7 +524,7 @@
     </display>
    </slot>
   </skin>
-  <animation name="mv" fadeInTime="0" duration="12" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+  <animation name="mv" fadeInTime="0.3" duration="12" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
    <timeline name="图层 10" scale="1" offset="0">
     <frame z="0" duration="5">
      <transform x="0" y="0" skX="0" skY="0" scX="1.28" scY="1.28" pX="0" pY="0"/>
@@ -640,21 +640,21 @@
     </display>
    </slot>
   </skin>
-  <animation name="epChange" fadeInTime="0" duration="12" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+  <animation name="epChange" fadeInTime="0.3" duration="12" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
    <timeline name="epChange" scale="1" offset="0">
     <frame z="0" duration="12">
      <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
   </animation>
-  <animation name="epKeep" fadeInTime="0" duration="32" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+  <animation name="epKeep" fadeInTime="0.3" duration="32" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
    <timeline name="epChange" scale="1" offset="0">
     <frame z="0" displayIndex="1" duration="32">
      <transform x="-2.75" y="0.4" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
     </frame>
    </timeline>
   </animation>
-  <animation name="empty" fadeInTime="0" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN"/>
+  <animation name="empty" fadeInTime="0.3" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN"/>
  </armature>
  <armature name="epKeep">
   <bone name="图层 15">
@@ -699,7 +699,7 @@
     </display>
    </slot>
   </skin>
-  <animation name="mv" fadeInTime="0" duration="31" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+  <animation name="mv" fadeInTime="0.3" duration="31" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
    <timeline name="图层 15" scale="1" offset="0">
     <frame z="0" duration="31">
      <transform x="64.4" y="63.9" skX="0" skY="0" scX="1.06" scY="1.06" pX="0" pY="0"/>
@@ -759,7 +759,7 @@
    <transform x="17.35" y="3.85" skX="0" skY="0" scX="0.07" scY="0.07"/>
   </bone>
   <bone name="图层 11">
-   <transform x="24.1" y="-12.85" skX="-16.45" skY="-16.45" scX="0.06" scY="0.06"/>
+   <transform x="24.1" y="-12.85" skX="-16.46" skY="-16.46" scX="0.06" scY="0.06"/>
   </bone>
   <skin name="default">
    <slot name="图层 1" parent="图层 1" z="0" blendMode="add">
@@ -965,14 +965,14 @@
    </timeline>
    <timeline name="图层 11" scale="1" offset="0">
     <frame z="10" tweenEasing="0" duration="5">
-     <transform x="24.1" y="-12.85" skX="-16.45" skY="-16.45" scX="0.06" scY="0.06" pX="0" pY="0"/>
+     <transform x="24.1" y="-12.85" skX="-16.46" skY="-16.46" scX="0.06" scY="0.06" pX="0" pY="0"/>
     </frame>
     <frame z="10" tweenEasing="0" duration="4">
-     <transform x="44.85" y="-19" skX="-16.45" skY="-16.45" scX="0.06" scY="0.06" pX="0" pY="0"/>
+     <transform x="44.85" y="-19" skX="-16.46" skY="-16.46" scX="0.06" scY="0.06" pX="0" pY="0"/>
      <colorTransform aO="0" rO="0" gO="0" bO="0" aM="40" rM="100" gM="100" bM="100"/>
     </frame>
     <frame z="10" duration="1">
-     <transform x="61.45" y="-23.9" skX="-16.45" skY="-16.45" scX="0.06" scY="0.06" pX="0" pY="0"/>
+     <transform x="61.45" y="-23.9" skX="-16.46" skY="-16.46" scX="0.06" scY="0.06" pX="0" pY="0"/>
      <colorTransform aO="0" rO="0" gO="0" bO="0" aM="0" rM="100" gM="100" bM="100"/>
     </frame>
     <frame duration="4" displayIndex="-1"/>
@@ -1557,7 +1557,7 @@
    <transform x="-34.75" y="5.75" skX="-100.75" skY="-100.75" scX="0.07" scY="0.07"/>
   </bone>
   <bone name="图层 20">
-   <transform x="13.55" y="-36.25" skX="19.49" skY="19.49" scX="0.06" scY="0.06"/>
+   <transform x="13.55" y="-36.25" skX="19.5" skY="19.5" scX="0.06" scY="0.06"/>
   </bone>
   <bone name="图层 22">
    <transform x="12.95" y="48.3" skX="172.16" skY="172.16" scX="-0.1" scY="0.1"/>
@@ -1863,20 +1863,20 @@
    </timeline>
    <timeline name="图层 20" scale="1" offset="0">
     <frame z="9" tweenEasing="0" duration="4">
-     <transform x="13.55" y="-36.25" skX="19.49" skY="19.49" scX="0.06" scY="0.06" pX="0" pY="0"/>
+     <transform x="13.55" y="-36.25" skX="19.5" skY="19.5" scX="0.06" scY="0.06" pX="0" pY="0"/>
      <colorTransform aO="0" rO="0" gO="0" bO="0" aM="20" rM="100" gM="100" bM="100"/>
     </frame>
     <frame z="9" duration="1">
-     <transform x="12.4" y="-33.05" skX="19.49" skY="19.49" scX="0.06" scY="0.06" pX="0" pY="0"/>
+     <transform x="12.4" y="-33.05" skX="19.5" skY="19.5" scX="0.06" scY="0.06" pX="0" pY="0"/>
      <colorTransform aO="0" rO="0" gO="0" bO="0" aM="0" rM="100" gM="100" bM="100"/>
     </frame>
     <frame duration="3" displayIndex="-1"/>
     <frame z="9" tweenEasing="0" duration="4">
-     <transform x="15.7" y="-42.2" skX="19.49" skY="19.49" scX="0.06" scY="0.06" pX="0" pY="0"/>
+     <transform x="15.7" y="-42.2" skX="19.5" skY="19.5" scX="0.06" scY="0.06" pX="0" pY="0"/>
      <colorTransform aO="0" rO="0" gO="0" bO="0" aM="20" rM="100" gM="100" bM="100"/>
     </frame>
     <frame z="9" tweenEasing="0" duration="1">
-     <transform x="14.25" y="-38.3" skX="19.49" skY="19.49" scX="0.06" scY="0.06" pX="0" pY="0"/>
+     <transform x="14.25" y="-38.3" skX="19.5" skY="19.5" scX="0.06" scY="0.06" pX="0" pY="0"/>
      <colorTransform aO="0" rO="0" gO="0" bO="0" aM="20" rM="100" gM="100" bM="100"/>
     </frame>
    </timeline>

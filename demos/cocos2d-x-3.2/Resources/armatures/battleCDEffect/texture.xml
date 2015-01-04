@@ -1,27 +1,27 @@
 <TextureAtlas name="battleCDEffect" imagePath="texture.png">
- <SubTexture name="元件 1" x="864" y="125" width="127" height="125"/>
- <SubTexture name="元件 2" x="737" y="0" width="127" height="125"/>
- <SubTexture name="元件 3" x="346" y="137" width="127" height="125"/>
- <SubTexture name="元件 4" x="737" y="125" width="127" height="125"/>
- <SubTexture name="元件 6" x="483" y="125" width="127" height="125"/>
- <SubTexture name="元件 8" x="610" y="0" width="127" height="125"/>
- <SubTexture name="元件 9" x="864" y="0" width="127" height="125"/>
- <SubTexture name="元件 10" x="854" y="250" width="127" height="125"/>
- <SubTexture name="元件 27" x="610" y="125" width="127" height="125"/>
- <SubTexture name="元件 28" x="0" y="211" width="127" height="125"/>
- <SubTexture name="元件 29" x="305" y="262" width="127" height="125"/>
- <SubTexture name="元件 30" x="483" y="0" width="127" height="125"/>
- <SubTexture name="元件 31" x="600" y="250" width="127" height="125"/>
- <SubTexture name="元件 32" x="178" y="168" width="127" height="125"/>
- <SubTexture name="元件 33" x="473" y="250" width="127" height="125"/>
- <SubTexture name="元件 34" x="727" y="250" width="127" height="125"/>
- <SubTexture name="battleCDEffect_32342" x="346" y="0" width="138" height="138"/>
- <SubTexture name="battleCDEffect_55881" x="759" y="375" width="107" height="107"/>
- <SubTexture name="battleCDEffect_28348" x="178" y="0" width="169" height="169"/>
+ <SubTexture name="元件 1" x="489" y="0" width="127" height="125"/>
+ <SubTexture name="元件 2" x="479" y="254" width="127" height="125"/>
+ <SubTexture name="元件 3" x="350" y="139" width="127" height="125"/>
+ <SubTexture name="元件 4" x="866" y="254" width="127" height="125"/>
+ <SubTexture name="元件 6" x="489" y="127" width="127" height="125"/>
+ <SubTexture name="元件 8" x="876" y="127" width="127" height="125"/>
+ <SubTexture name="元件 9" x="747" y="0" width="127" height="125"/>
+ <SubTexture name="元件 10" x="309" y="266" width="127" height="125"/>
+ <SubTexture name="元件 27" x="618" y="127" width="127" height="125"/>
+ <SubTexture name="元件 28" x="618" y="0" width="127" height="125"/>
+ <SubTexture name="元件 29" x="180" y="170" width="127" height="125"/>
+ <SubTexture name="元件 30" x="876" y="0" width="127" height="125"/>
+ <SubTexture name="元件 31" x="608" y="254" width="127" height="125"/>
+ <SubTexture name="元件 32" x="737" y="254" width="127" height="125"/>
+ <SubTexture name="元件 33" x="0" y="213" width="127" height="125"/>
+ <SubTexture name="元件 34" x="747" y="127" width="127" height="125"/>
+ <SubTexture name="battleCDEffect_32342" x="350" y="0" width="138" height="138"/>
+ <SubTexture name="battleCDEffect_55881" x="771" y="381" width="107" height="107"/>
+ <SubTexture name="battleCDEffect_28348" x="180" y="0" width="169" height="169"/>
  <SubTexture name="fsztbh" x="0" y="0" width="179" height="212"/>
- <SubTexture name="gdntd" x="545" y="375" width="108" height="108"/>
- <SubTexture name="gbdynr" x="653" y="375" width="107" height="107"/>
- <SubTexture name="元件 3 副本" x="127" y="293" width="126" height="126"/>
- <SubTexture name="元件 4 副本" x="0" y="336" width="114" height="114"/>
- <SubTexture name="yrdmydrm" x="432" y="375" width="114" height="114"/>
+ <SubTexture name="gdntd" x="553" y="381" width="108" height="108"/>
+ <SubTexture name="gbdynr" x="663" y="381" width="107" height="107"/>
+ <SubTexture name="元件 3 副本" x="129" y="297" width="126" height="126"/>
+ <SubTexture name="元件 4 副本" x="0" y="340" width="114" height="114"/>
+ <SubTexture name="yrdmydrm" x="438" y="381" width="114" height="114"/>
 </TextureAtlas>
