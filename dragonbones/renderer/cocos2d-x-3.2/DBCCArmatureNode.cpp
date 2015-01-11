@@ -85,6 +85,9 @@ DBCCArmatureNode::~DBCCArmatureNode()
     {
         _clock->remove(this);
         _clock = nullptr;
+    } else
+    {
+        unscheduleUpdate();
     }
 
     if (_armature)
@@ -101,6 +104,7 @@ cocos2d::Rect DBCCArmatureNode::getBoundingBox() const
 
 void DBCCArmatureNode::update(float dt)
 {
+    DBASSERT(!_clock, "can not has clock when update!");
     advanceTime(dt);
 }
 
@@ -126,7 +130,7 @@ void DBCCArmatureNode::registerFrameEventHandler(cocos2d::LUA_FUNCTION func)
 
 	auto f = [this](cocos2d::EventCustom *event)
 	{
-		auto eventData = (dragonBones::EventData*)(event->getUserData());
+		auto eventData = (EventData*)(event->getUserData());
 		auto type = (int) eventData->getType();
 		auto movementId = eventData->animationState->name;
 		auto frameLabel = eventData->frameLabel;
@@ -139,7 +143,7 @@ void DBCCArmatureNode::registerFrameEventHandler(cocos2d::LUA_FUNCTION func)
 		stack->executeFunctionByHandler(_frameEventHandler, 4);
 	};
 
-	dispatcher->addCustomEventListener(dragonBones::EventData::ANIMATION_FRAME_EVENT, f);
+	dispatcher->addCustomEventListener(EventData::ANIMATION_FRAME_EVENT, f);
 }
 
 void DBCCArmatureNode::registerMovementEventHandler(cocos2d::LUA_FUNCTION func)
@@ -151,7 +155,7 @@ void DBCCArmatureNode::registerMovementEventHandler(cocos2d::LUA_FUNCTION func)
 
 	auto f = [this](cocos2d::EventCustom *event)
 	{
-		auto eventData = (dragonBones::EventData*)(event->getUserData());
+		auto eventData = (EventData*)(event->getUserData());
 		auto type = (int) eventData->getType();
 		auto movementId = eventData->animationState->name;
         auto lastState = eventData->armature->getAnimation()->getLastAnimationState();
@@ -165,8 +169,8 @@ void DBCCArmatureNode::registerMovementEventHandler(cocos2d::LUA_FUNCTION func)
 		stack->executeFunctionByHandler(_movementEventHandler, 4);
 	};
 
-	dispatcher->addCustomEventListener(dragonBones::EventData::COMPLETE, f);
-	dispatcher->addCustomEventListener(dragonBones::EventData::LOOP_COMPLETE, f);
+	dispatcher->addCustomEventListener(EventData::COMPLETE, f);
+	dispatcher->addCustomEventListener(EventData::LOOP_COMPLETE, f);
 }
 
 void DBCCArmatureNode::unregisterFrameEventHandler()
