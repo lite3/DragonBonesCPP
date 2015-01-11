@@ -1,0 +1,4 @@
+<TextureAtlas name="A" imagePath="texture.png">
+ <SubTexture name="元件 2" x="0" y="0" width="600" height="320"/>
+ <SubTexture name="元件 1" x="601" y="0" width="248" height="158"/>
+</TextureAtlas>

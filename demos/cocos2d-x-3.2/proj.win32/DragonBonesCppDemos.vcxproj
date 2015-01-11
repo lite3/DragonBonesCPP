@@ -138,6 +138,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\BlendAddTest.cpp" />
     <ClCompile Include="..\Classes\BoundingBoxTest.cpp" />
     <ClCompile Include="..\Classes\Demo.cpp" />
     <ClCompile Include="..\Classes\examples\DemoChaseStarling.cpp" />
@@ -152,6 +153,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\BlendAddTest.h" />
     <ClInclude Include="..\Classes\BoundingBoxTest.h" />
     <ClInclude Include="..\Classes\Demo.h" />
     <ClInclude Include="..\Classes\examples\DemoChaseStarling.h" />

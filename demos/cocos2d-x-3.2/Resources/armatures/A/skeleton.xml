@@ -1,0 +1,91 @@
+<dragonBones name="A" frameRate="24" version="2.3">
+ <armature name="abc">
+  <bone name="图层 3">
+   <transform x="2.5" y="-50.5" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="图层 4">
+   <transform x="-65.05" y="-55.55" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <bone name="A">
+   <transform x="202" y="-47" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="图层 3" parent="图层 3" z="0">
+    <display name="元件 2" type="image">
+     <transform x="0" y="0.05" skX="0" skY="0" scX="1" scY="1" pX="299.95" pY="160"/>
+    </display>
+   </slot>
+   <slot name="图层 4" parent="图层 4" z="1">
+    <display name="A 复制" type="armature">
+     <transform x="0" y="0.05" skX="0" skY="0" scX="1" scY="1"/>
+    </display>
+   </slot>
+   <slot name="A" parent="A" z="2">
+    <display name="A" type="armature">
+     <transform x="0" y="0.05" skX="0" skY="0" scX="1" scY="1"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="Atk" fadeInTime="0.3" duration="1" scale="1" loop="1" autoTween="1" tweenEasing="NaN">
+   <timeline name="图层 3" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="2.5" y="-50.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="图层 4" scale="1" offset="0">
+    <frame z="1" duration="1">
+     <transform x="-65.05" y="-55.55" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+   <timeline name="A" scale="1" offset="0">
+    <frame z="2" duration="1">
+     <transform x="202" y="-47" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+ <armature name="A 复制">
+  <bone name="图层 1">
+   <transform x="-54.95" y="-28.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="图层 1" parent="图层 1" z="0" blendMode="alpha">
+    <display name="元件 1" type="image">
+     <transform x="0" y="0.05" skX="0" skY="0" scX="1" scY="1" pX="124" pY="79"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="unnamed" fadeInTime="0" duration="2" scale="5" loop="0" autoTween="1" tweenEasing="2">
+   <timeline name="图层 1" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="-54.95" y="-28.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="0" duration="1">
+     <transform x="-54.95" y="-28.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+ <armature name="A">
+  <bone name="图层 1">
+   <transform x="-54.95" y="-28.05" skX="0" skY="0" scX="1" scY="1"/>
+  </bone>
+  <skin name="default">
+   <slot name="图层 1" parent="图层 1" z="0" blendMode="add">
+    <display name="元件 1" type="image">
+     <transform x="0" y="0.05" skX="0" skY="0" scX="1" scY="1" pX="124" pY="79"/>
+    </display>
+   </slot>
+  </skin>
+  <animation name="unnamed" fadeInTime="0" duration="2" scale="5" loop="0" autoTween="1" tweenEasing="2">
+   <timeline name="图层 1" scale="1" offset="0">
+    <frame z="0" duration="1">
+     <transform x="-54.95" y="-28.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+    <frame z="0" duration="1">
+     <transform x="-54.95" y="-28.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+    </frame>
+   </timeline>
+  </animation>
+ </armature>
+</dragonBones>
