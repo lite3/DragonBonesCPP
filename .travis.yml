@@ -24,7 +24,9 @@ before_install:
 - chmod -R +x travis-scripts
 - travis-scripts/before-install.sh
 
+sudo: false
+
 # whitelist
 branches:
   only:
-    - refactoring
+    - sudofalse
