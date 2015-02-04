@@ -9,6 +9,9 @@
 #include "DBCCArmature.h"
 #include "DBCCArmatureNode.h"
 #include "DBCCFactory.h"
+#include "DBCCNode.h"
+#include "DBCCSprite.h"
+#include "DBCCUtils.h"
 #include "DBCCLuaUtils.h"
 
 

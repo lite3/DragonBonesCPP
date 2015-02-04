@@ -6,6 +6,7 @@
 #include "cocos2d.h"
 #include "DBCCSlot.h"
 #include "DBCCArmature.h"
+#include "DBCCNode.h"
 
 #if (DRAGON_BONES_ENABLE_LUA == 1)
 #include "CCLuaValue.h"
@@ -18,7 +19,7 @@ class DBCCArmatureNode : public cocos2d::Node, public IAnimatable
 {
 public:
     virtual DBCCSlot* getCCSlot(const std::string &slotName) const { return _armature->getCCSlot(slotName); };
-	virtual cocos2d::Node* getCCDisplay() const { return _armature->getCCDisplay(); };
+	virtual DBCCNode* getCCDisplay() const { return (DBCCNode*)_armature->getCCDisplay(); };
 	virtual cocos2d::EventDispatcher* getCCEventDispatcher() const { return _armature->getCCEventDispatcher(); };
 	virtual cocos2d::Rect getBoundingBox() const override;
 

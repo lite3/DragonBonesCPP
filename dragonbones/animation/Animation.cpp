@@ -141,7 +141,7 @@ AnimationState* Animation::gotoAndPlay(
     
     if (!animationData)
     {
-        assert (0);
+        //assert (0);
         //throw std::runtime_error("No animation data.");
         return nullptr;
     }
@@ -237,7 +237,8 @@ AnimationState* Animation::gotoAndPlay(
     {
         Slot *slot = _armature->getSlots()[i];
         
-        if (slot->_childArmature && slot->_childArmature->_animation->hasAnimation(animationName))
+        if (slot->_childArmature && slot->_childArmature->_isInheritAnimation &&
+            slot->_childArmature->_animation->hasAnimation(animationName))
         {
             slot->_childArmature->_animation->gotoAndPlay(animationName, fadeInTime);
         }

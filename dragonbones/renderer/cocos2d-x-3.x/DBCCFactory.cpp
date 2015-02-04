@@ -178,9 +178,10 @@ DBCCArmature* DBCCFactory::generateArmature(const ArmatureData *armatureData) co
 {
     Animation *animation = new Animation();
     // sprite
-    cocos2d::Node *display = cocos2d::Node::create();
+    auto display = DBCCNode::create();
     display->setCascadeColorEnabled(true);
     display->setCascadeOpacityEnabled(true);
+    display->setCascadeShaderEnabled(true);
     display->retain();
     // eventDispatcher
     DBCCEventDispatcher *eventDispatcher = new DBCCEventDispatcher();
