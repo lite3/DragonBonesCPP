@@ -27,4 +27,4 @@ before_install:
 # whitelist
 branches:
   only:
-    - refactoring
+    - ci
