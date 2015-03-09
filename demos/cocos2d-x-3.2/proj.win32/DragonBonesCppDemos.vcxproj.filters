@@ -42,22 +42,22 @@
     <ClCompile Include="..\..\Classes\performance\PerformanceTest.cpp">
       <Filter>Classes\performance</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BoundingBoxTest.cpp">
+    <ClCompile Include="..\..\Classes\BlendAddTest.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
+    <ClCompile Include="..\..\Classes\BoundingBoxTest.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\NewDisplayTransform.cpp">
+    <ClCompile Include="..\..\Classes\HelloWorldScene.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\XMLLoadTest.cpp">
+    <ClCompile Include="..\..\Classes\NestArmatureTest.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\NestArmatureTest.cpp">
+    <ClCompile Include="..\..\Classes\NewDisplayTransform.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BlendAddTest.cpp">
+    <ClCompile Include="..\..\Classes\XMLLoadTest.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,22 +86,22 @@
     <ClInclude Include="..\..\Classes\performance\PerformanceTest.h">
       <Filter>Classes\performance</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BoundingBoxTest.h">
+    <ClInclude Include="..\..\Classes\BlendAddTest.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorldScene.h">
+    <ClInclude Include="..\..\Classes\BoundingBoxTest.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\NewDisplayTransform.h">
+    <ClInclude Include="..\..\Classes\HelloWorldScene.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\XMLLoadTest.h">
+    <ClInclude Include="..\..\Classes\NestArmatureTest.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\NestArmatureTest.h">
+    <ClInclude Include="..\..\Classes\NewDisplayTransform.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BlendAddTest.h">
+    <ClInclude Include="..\..\Classes\XMLLoadTest.h">
       <Filter>Classes</Filter>
     </ClInclude>
   </ItemGroup>
