@@ -1,0 +1,36 @@
+<TextureAtlas name="huangyueyin" imagePath="texture.png">
+ <SubTexture name="shadow" x="0" y="0" width="206" height="88"/>
+ <SubTexture name="hair_back" x="303" y="123" width="49" height="85"/>
+ <SubTexture name="weapon_1" x="481" y="105" width="20" height="104"/>
+ <SubTexture name="thigh_right" x="289" y="208" width="9" height="19"/>
+ <SubTexture name="calf_right" x="455" y="215" width="10" height="14"/>
+ <SubTexture name="calf_left" x="191" y="198" width="11" height="17"/>
+ <SubTexture name="skirt" x="122" y="211" width="24" height="26"/>
+ <SubTexture name="arm_right" x="431" y="215" width="10" height="16"/>
+ <SubTexture name="hand_right" x="490" y="211" width="14" height="16"/>
+ <SubTexture name="body" x="168" y="198" width="21" height="32"/>
+ <SubTexture name="weapon_02 副本" x="300" y="223" width="47" height="11"/>
+ <SubTexture name="bullet" x="300" y="210" width="47" height="11"/>
+ <SubTexture name="head" x="205" y="146" width="82" height="87"/>
+ <SubTexture name="arm_left" x="443" y="215" width="10" height="15"/>
+ <SubTexture name="shoulder" x="473" y="211" width="15" height="15"/>
+ <SubTexture name="hand_left" x="289" y="187" width="12" height="19"/>
+ <SubTexture name="hair_right 副本" x="156" y="179" width="10" height="36"/>
+ <SubTexture name="hair_left 副本" x="289" y="146" width="12" height="39"/>
+ <SubTexture name="hair_left" x="122" y="179" width="32" height="30"/>
+ <SubTexture name="元件 3" x="0" y="90" width="82" height="87"/>
+ <SubTexture name="head 复制" x="84" y="90" width="82" height="87"/>
+ <SubTexture name="元件 4" x="355" y="87" width="82" height="87"/>
+ <SubTexture name="weapon_03" x="443" y="232" width="63" height="25"/>
+ <SubTexture name="flag" x="75" y="179" width="45" height="55"/>
+ <SubTexture name="dfjngyc j" x="208" y="0" width="93" height="144"/>
+ <SubTexture name="shape 5" x="0" y="179" width="73" height="64"/>
+ <SubTexture name="元件 1" x="355" y="0" width="85" height="85"/>
+ <SubTexture name="传送1" x="354" y="176" width="75" height="75"/>
+ <SubTexture name="元件 7" x="439" y="106" width="32" height="107"/>
+ <SubTexture name="元件 5" x="303" y="0" width="50" height="121"/>
+ <SubTexture name="weapon_2" x="481" y="0" width="23" height="103"/>
+ <SubTexture name="weapon_3" x="168" y="90" width="35" height="106"/>
+ <SubTexture name="weapon_4" x="442" y="0" width="37" height="104"/>
+ <SubTexture name="元件 20 副本 2" x="148" y="217" width="8" height="8"/>
+</TextureAtlas>
