@@ -10,7 +10,9 @@ HOST_NAME=""
 
 # download cocos2d-x
 wget -O cocos2d-x.zip http://www.cocos2d-x.org/filedown/cocos2d-x-3.2.zip
+ls -lh |grep cocos2d
 unzip cocos2d-x.zip
+ls -lh |grep cocos2d
 echo 'ls cocos2d-x'
 ls cocos2d-x 
 exit(1)
