@@ -9,9 +9,8 @@ COCOS2DX_ROOT="$DRAGONBONES_ROOT"/engines/cocos2d-x-3.x
 HOST_NAME=""
 
 # download cocos2d-x
-wget http://www.cocos2d-x.org/filedown/cocos2d-x-3.2.zip
+wget -O cocos2d-x.zip http://cdn.cocos2d-x.org/cocos2d-x-3.2.zip
 ls -lh |grep cocos2d
-cat cocos2d-x-3.2.zip
 unzip cocos2d-x.zip
 ls -lh |grep cocos2d
 echo 'ls cocos2d-x'
