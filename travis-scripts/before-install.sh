@@ -14,7 +14,7 @@ ls -lh |grep cocos2d
 unzip cocos2d-x.zip
 ls -lh |grep cocos2d
 echo 'ls cocos2d-x'
-ls cocos2d-x 
+ls -lh |grep cocos2d 
 exit(1)
 
 git clone --branch cocos2d-x-$C2DX_VER https://github.com/cocos2d/cocos2d-x.git $COCOS2DX_ROOT
