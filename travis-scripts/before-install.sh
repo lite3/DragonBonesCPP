@@ -9,6 +9,12 @@ COCOS2DX_ROOT="$DRAGONBONES_ROOT"/engines/cocos2d-x-3.x
 HOST_NAME=""
 
 # download cocos2d-x
+wget -O cocos2d-x.zip http://www.cocos2d-x.org/filedown/cocos2d-x-3.2.zip
+unzip cocos2d-x.zip
+echo 'ls cocos2d-x'
+ls cocos2d-x 
+exit(1)
+
 git clone --branch cocos2d-x-$C2DX_VER https://github.com/cocos2d/cocos2d-x.git $COCOS2DX_ROOT
 pushd $COCOS2DX_ROOT
 git submodule init
