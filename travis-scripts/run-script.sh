@@ -62,7 +62,7 @@ elif [ "$PLATFORM"x = "android"x ]; then
 
     cd $DRAGONBONES_ROOT/demos/cocos2d-x-$C2DX_VER/proj.android
     chmod +x build_native.py
-    ./build_native.py -p 21 -n "NDK_DEBUG=0 -j2"
+    ./build_native.py -n "NDK_DEBUG=0 -j2"
 
     # Generate binding glue codes
     # echo "Generating bindings glue codes ..."
