@@ -1,4 +1,8 @@
 ﻿#include "Animation.h"
+#include "../core/Slot.h"
+#include "../core/Armature.h"
+#include "../animation/AnimationState.h"
+#include "../objects/AnimationData.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 
@@ -68,14 +72,14 @@ void Animation::setAnimationDataList(const std::vector<AnimationData*> &animatio
     }
 }
 
-Animation::Animation()
-{
-    _isPlaying = false;
-    autoTween = true;
-    _timeScale = 1.f;
-    _armature = nullptr;
-    _lastAnimationState = nullptr;
-}
+Animation::Animation() :
+	_isFading(false)
+	,_isPlaying(false)
+	,_timeScale(1.f)
+	,autoTween(true)
+	,_armature(nullptr)
+	,_lastAnimationState(nullptr)
+{}
 Animation::~Animation()
 {
     dispose();
@@ -235,8 +239,7 @@ AnimationState* Animation::gotoAndPlay(
     
     for (size_t i = 0, l = _armature->getSlots().size(); i < l; ++i)
     {
-        Slot *slot = _armature->getSlots()[i];
-        
+        Slot *slot = _armature->getSlots()[i];        
         if (slot->_childArmature && slot->_childArmature->_isInheritAnimation &&
             slot->_childArmature->_animation->hasAnimation(animationName))
         {
@@ -341,7 +344,6 @@ void Animation::advanceTime(float passedTime)
     for (size_t i = 0, l = _animationStateList.size(); i < l; ++i)
     {
         AnimationState *animationState = _animationStateList[i];
-        
         if (animationState->advanceTime(passedTime))
         {
             removeState(animationState);
@@ -397,4 +399,16 @@ void Animation::removeState(AnimationState *animationState)
         }
     }
 }
+
+void Animation::resetAnimationStateList()
+{
+	for (size_t i = 0, l = _animationStateList.size(); i < l; ++i)
+	{
+		auto animationState = _animationStateList[i];
+		animationState->resetTimelineStateList();
+		AnimationState::returnObject(animationState);
+	}
+	_animationStateList.clear();
+}
+
 NAME_SPACE_DRAGON_BONES_END

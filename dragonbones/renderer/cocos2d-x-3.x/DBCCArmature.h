@@ -1,10 +1,8 @@
 ﻿#ifndef DBCC_ARMATURE_H
 #define DBCC_ARMATURE_H
 
-
 #include "dbccMacro.h"
 #include "DragonBonesHeaders.h"
-#include "DBCCSlot.h"
 #include "cocos2d.h"
 
 #if (DRAGON_BONES_ENABLE_LUA == 1)
@@ -13,6 +11,7 @@
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 
+class DBCCSlot;
 class DBCCArmatureNode;
 
 class DBCCArmature : public Armature

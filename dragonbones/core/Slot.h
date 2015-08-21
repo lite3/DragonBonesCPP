@@ -1,25 +1,29 @@
 ﻿#ifndef CORE_SLOT_H
 #define CORE_SLOT_H
 
+#include "DBObject.h"
 #include "../DragonBones.h"
-#include "Object.h"
-#include "../objects/SlotData.h"
 #include "../geoms/Rectangle.h"
 #include "../geoms/ColorTransform.h"
-#include "Armature.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
-class Slot : public Object
-{
-    friend class Armature;
-    friend class Bone;
-    friend class Animation;
-    
-    friend class BaseFactory;
-    
+
+class Frame;
+class SlotData;
+class AnimationState;
+
+class Slot : public DBObject
+{    
+	friend class Armature;
+	friend class Bone;
+	friend class Animation;
+	friend class BaseFactory;
+	friend class SlotTimelineState;
+
 protected:
     bool _isShowDisplay;
-    int _displayIndex;
+    bool _isColorChanged;
+	int _displayIndex;
     float _originZOrder;
     float _tweenZOrder;
     float _offsetZOrder;
@@ -35,11 +39,11 @@ protected:
     Armature *_childArmature;
     
 public:
-
     virtual Rectangle getBoundingBox() = 0;
 
     virtual int getDisplayIndex() const;
     bool isShowDisplay() const { return _isShowDisplay; }
+	bool isColorChanged() const { return _isColorChanged; }
 
     virtual SlotData* getSlotData() const;
     
@@ -56,7 +60,8 @@ public:
     virtual void setDisplayList(const std::vector<std::pair<void*, DisplayType>> &displayList, bool disposeExisting = true);
     
     virtual void setVisible(bool vislble) override;
-    
+	virtual void updateDisplayColor(int aOffset, int rOffset, int gOffset, int bOffset, float aMultiplier, float rMultiplier, float gMultiplier, float bMultiplier, bool colorChanged = false);
+
 protected:
     virtual void setArmature(Armature *armature) override;
     
@@ -69,9 +74,6 @@ protected:
     virtual void update();
     virtual void changeDisplay(int displayIndex);
     virtual void updateSlotDisplay(bool disposeExisting);
-
-    virtual void updateDisplayColor(int aOffset, int rOffset, int gOffset, int bOffset, float aMultiplier, float rMultiplier, float gMultiplier, float bMultiplier);
-
     virtual void updateChildArmatureAnimation();
     virtual void playChildArmatureAnimation();
     virtual void stopChildArmatureAnimation();
@@ -85,7 +87,9 @@ protected:
     virtual void updateDisplayBlendMode(BlendMode blendMode) = 0;
     virtual void updateDisplayVisible(bool visible) = 0;
     virtual void updateDisplayTransform() = 0;
-    
+	virtual void arriveAtFrame(Frame *frame, const SlotTimelineState *timelineState, AnimationState *animationState, bool isCross);
+ //   virtual void calculateRelativeParentTransform() override;
+	//virtual void updateGlobal(Transform &transform, Matrix &matrix) override;
 private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(Slot);
 };

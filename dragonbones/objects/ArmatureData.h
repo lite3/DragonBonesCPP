@@ -18,9 +18,10 @@ private:
     
 public:
     std::string name;
-    std::vector<IAreaData*> areaDataList;
+    //std::vector<IAreaData*> areaDataList;
     std::vector<BoneData*> boneDataList;
     std::vector<SkinData*> skinDataList;
+	std::vector<SlotData*> slotDataList;
     std::vector<AnimationData*> animationDataList;
     
 public:
@@ -33,30 +34,30 @@ public:
     {
         dispose();
         name = copyData.name;
-        areaDataList.reserve(copyData.areaDataList.size());
-        
-        for (size_t i = 0, l = areaDataList.size(); i < l; ++i)
-        {
-            switch (copyData.areaDataList[i]->areaType)
-            {
-                case IAreaData::AreaType::AT_ELLIPSE:
-                    areaDataList.push_back(new EllipseData());
-                    *(areaDataList[i]) = *(static_cast<EllipseData*>(copyData.areaDataList[i]));
-                    break;
-                    
-                case IAreaData::AreaType::AT_RECTANGLE:
-                    areaDataList.push_back(new RectangleData());
-                    *(areaDataList[i]) = *(static_cast<RectangleData*>(copyData.areaDataList[i]));
-                    break;
-                    
-                default:
-                    // throw
-                    break;
-            }
-        }
+
+        //areaDataList.reserve(copyData.areaDataList.size());
+        //
+        //for (size_t i = 0, l = areaDataList.size(); i < l; ++i)
+        //{
+        //    switch (copyData.areaDataList[i]->areaType)
+        //    {
+        //        case IAreaData::AreaType::AT_ELLIPSE:
+        //            areaDataList.push_back(new EllipseData());
+        //            *(areaDataList[i]) = *(static_cast<EllipseData*>(copyData.areaDataList[i]));
+        //            break;
+        //            
+        //        case IAreaData::AreaType::AT_RECTANGLE:
+        //            areaDataList.push_back(new RectangleData());
+        //            *(areaDataList[i]) = *(static_cast<RectangleData*>(copyData.areaDataList[i]));
+        //            break;
+        //            
+        //        default:
+        //            // throw
+        //            break;
+        //    }
+        //}
         
         boneDataList.reserve(copyData.boneDataList.size());
-        
         for (size_t i = 0, l = boneDataList.size(); i < l; ++i)
         {
             boneDataList.push_back(new BoneData());
@@ -64,7 +65,6 @@ public:
         }
         
         skinDataList.reserve(copyData.skinDataList.size());
-        
         for (size_t i = 0, l = skinDataList.size(); i < l; ++i)
         {
             skinDataList.push_back(new SkinData());
@@ -72,7 +72,6 @@ public:
         }
         
         animationDataList.reserve(copyData.animationDataList.size());
-        
         for (size_t i = 0, l = animationDataList.size(); i < l; ++i)
         {
             animationDataList.push_back(new AnimationData());
@@ -81,64 +80,69 @@ public:
         
         return *this;
     }
+
     virtual ~ArmatureData()
     {
         dispose();
     }
     void dispose()
     {
-        for (size_t i = 0, l = areaDataList.size(); i < l; ++i)
-        {
-            areaDataList[i]->dispose();
-            delete areaDataList[i];
-        }
+        //for (size_t i = 0, l = areaDataList.size(); i < l; ++i)
+        //{
+        //    areaDataList[i]->dispose();
+        //    delete areaDataList[i];
+        //}
         
         for (size_t i = 0, l = boneDataList.size(); i < l; ++i)
         {
             boneDataList[i]->dispose();
             delete boneDataList[i];
         }
-        
         for (size_t i = 0, l = skinDataList.size(); i < l; ++i)
         {
             skinDataList[i]->dispose();
             delete skinDataList[i];
         }
-        
+		for (size_t i = 0, l = slotDataList.size(); i < l; ++i)
+		{
+			slotDataList[i]->dispose();
+			delete slotDataList[i];
+		}
         for (size_t i = 0, l = animationDataList.size(); i < l; ++i)
         {
             animationDataList[i]->dispose();
             delete animationDataList[i];
         }
         
-        areaDataList.clear();
+        //areaDataList.clear();
         boneDataList.clear();
         skinDataList.clear();
+		slotDataList.clear();
         animationDataList.clear();
     }
     
-    IAreaData* getAreaData(const std::string &areaName) const
-    {
-        if (areaDataList.empty())
-        {
-            return nullptr;
-        }
-        
-        if (areaName.empty())
-        {
-            return areaDataList.front();
-        }
-        
-        for (size_t i = 0, l = areaDataList.size(); i < l; ++i)
-        {
-            if (areaDataList[i]->name == areaName)
-            {
-                return areaDataList[i];
-            }
-        }
-        
-        return nullptr;
-    }
+	//IAreaData* getAreaData(const std::string &areaName) const
+	//{
+	//	if (areaDataList.empty())
+	//	{
+	//		return nullptr;
+	//	}
+
+	//	if (areaName.empty())
+	//	{
+	//		return areaDataList.front();
+	//	}
+
+	//	for (size_t i = 0, l = areaDataList.size(); i < l; ++i)
+	//	{
+	//		if (areaDataList[i]->name == areaName)
+	//		{
+	//			return areaDataList[i];
+	//		}
+	//	}
+
+	//	return nullptr;
+	//}
     
     BoneData* getBoneData(const std::string &boneName) const
     {
@@ -149,7 +153,6 @@ public:
                 return boneDataList[i];
             }
         }
-        
         return nullptr;
     }
 
@@ -171,7 +174,6 @@ public:
                 return skinDataList[i];
             }
         }
-
         return skinDataList.front();
     }
     
@@ -197,6 +199,63 @@ public:
         
         return nullptr;
     }
+
+	void setSkinData(const std::string& skinName)
+	{
+		for (int i = 0, len = slotDataList.size(); i < len; i++)
+		{
+			slotDataList[i]->dispose();
+		}
+		SkinData *skinData;
+		if (skinName.empty() && skinDataList.size() > 0)
+		{
+			skinData = skinDataList[0];
+		}
+		else
+		{
+			for (int i = 0, len = skinDataList.size(); i < len; i++)
+			{
+				if (skinDataList[i]->name == skinName)
+				{
+					skinData = skinDataList[i];
+					break;
+				}
+			}
+		}
+
+		if (skinData)
+		{
+			SlotData *slotData;
+			for (int i = 0, len = skinData->slotDataList.size(); i < len; i++)
+			{
+				slotData = getSlotData(skinData->slotDataList[i]->name);
+				if (slotData)
+				{
+					for (int j = 0, jLen = skinData->slotDataList[i]->displayDataList.size(); j < jLen; j++)
+					{
+						slotData->displayDataList.push_back(skinData->slotDataList[i]->displayDataList[j]);
+					}
+				}
+			}
+		}
+	}
+
+	SlotData* getSlotData(const std::string& slotName)
+	{
+		if (slotName.empty() && slotDataList.size() > 0)
+		{
+			return slotDataList[0];
+		}
+		int i = slotDataList.size();
+		while (i --)
+		{
+			if (slotDataList[i]->name == slotName)
+			{
+				return slotDataList[i];
+			}
+		}
+		return nullptr;
+	}
     
     AnimationData* getAnimationData(const std::string &animationName) const
     {
@@ -219,7 +278,6 @@ public:
         }
         
         std::vector<std::pair<int , BoneData*>> sortedList;
-        
         for (size_t i = 0, l = boneDataList.size(); i < l; ++i)
         {
             BoneData *boneData = boneDataList[i];
@@ -231,12 +289,10 @@ public:
                 parentData = getBoneData(parentData->parent);
                 level ++;
             }
-            
             sortedList.push_back(std::make_pair(level , boneData));
         }
         
-        std::sort(sortedList.begin() , sortedList.end() , sortBone);
-        
+        std::sort(sortedList.begin() , sortedList.end() , sortBone);        
         for (size_t i = 0, l = sortedList.size(); i < l; ++i)
         {
             boneDataList[i] = sortedList[i].second;

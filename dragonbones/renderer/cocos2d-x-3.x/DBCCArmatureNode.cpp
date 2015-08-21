@@ -44,6 +44,7 @@ bool DBCCArmatureNode::initWithDBCCArmature(DBCCArmature *armature, WorldClock *
     {
         _armature = armature;
         _armature->setArmatureNode(this);
+
         _clock = clock;
         if (clock)
         {

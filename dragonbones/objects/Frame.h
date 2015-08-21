@@ -2,6 +2,7 @@
 #define OBJECTS_FRAME_H
 
 #include "../DragonBones.h"
+#include "../objects/CurveData.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 class Frame
@@ -20,16 +21,15 @@ public:
     std::string eventParameters;
 
     void* eventParametersParsed;
+	CurveData *curve;
     
 public:
-    Frame()
-    {
-        position = 0;
-        duration = 0;
-        frameType = FrameType::FT_FRAME;
-
-        eventParametersParsed = nullptr;
-    }
+    Frame() :
+		position(0)
+		,duration(0)
+		,frameType(FrameType::FT_FRAME)
+		,eventParametersParsed(nullptr)
+    {}
     Frame(const Frame &copyData)
     {
         operator=(copyData);

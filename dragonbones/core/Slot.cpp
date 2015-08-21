@@ -1,4 +1,12 @@
 ﻿#include "Slot.h"
+#include "Armature.h"
+#include "../core/Bone.h"
+#include "../objects/SlotData.h"
+#include "../objects/SlotFrame.h"
+#include "../geoms/ColorTransform.h"
+#include "../animation/SlotTimelineState.h"
+#include "../animation/AnimationState.h"
+#include "../animation/Animation.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 int Slot::getDisplayIndex() const
@@ -101,10 +109,19 @@ void Slot::setVisible(bool visible)
 
 void Slot::setArmature(Armature *armature)
 {
-    Object::setArmature(armature);
+	if (_armature == armature)
+	{
+		return;
+	}
+	if (_armature)
+	{
+		_armature->removeSlotFromSlotList(this);
+	}
+    _armature = armature;
     
     if (_armature)
     {
+		_armature->addSlotToSlotList(this);
         _armature->_slotsZOrderChanged = true;
         addDisplayToContainer(_armature->_display, -1);
     }
@@ -114,28 +131,27 @@ void Slot::setArmature(Armature *armature)
     }
 }
 
-Slot::Slot(SlotData *slotData)
-{
-    _isShowDisplay = false;
-    _displayIndex = -1;
-    _originZOrder = 0.f;
-    _tweenZOrder = 0.f;
-    _offsetZOrder = 0.f;
-    _blendMode = BlendMode::BM_NORMAL;
-    //_colorTransform
-    _slotData = slotData;
-    _childArmature = nullptr;
-    _display = nullptr;
-    inheritRotation = true;
-    inheritScale = true;
-}
+Slot::Slot(SlotData *slotData) :
+	_isShowDisplay(false)
+	,_displayIndex(-1)
+	,_originZOrder(0.f)
+	,_tweenZOrder(0.f)
+	,_offsetZOrder(0.f)
+	,_blendMode(BlendMode::BM_NORMAL)
+	,_slotData(slotData)
+	,_childArmature(nullptr)
+	,_display(nullptr)
+	,_isColorChanged(false)
+{}
+
 Slot::~Slot()
 {
     dispose();
 }
+
 void Slot::dispose()
 {
-    Object::dispose();
+    DBObject::dispose();
     //
     _displayList.clear();
     _slotData = nullptr;
@@ -149,42 +165,45 @@ void Slot::update()
     {
         return;
     }
-    
-    const float x = origin.x + offset.x + _parent->_tweenPivot.x;
-    const float y = origin.y + offset.y + _parent->_tweenPivot.y;
-    const Matrix &parentMatrix = _parent->globalTransformMatrix;
-    globalTransformMatrix.tx = global.x = parentMatrix.a * x + parentMatrix.c * y + parentMatrix.tx;
-    globalTransformMatrix.ty = global.y = parentMatrix.d * y + parentMatrix.b * x + parentMatrix.ty;
-    //globalTransformMatrix.tx = global.x = parentMatrix.a * x * _parent->global.scaleX + parentMatrix.c * y * _parent->global.scaleY + parentMatrix.tx;
-    //globalTransformMatrix.ty = global.y = parentMatrix.d * y * _parent->global.scaleY + parentMatrix.b * x * _parent->global.scaleX + parentMatrix.ty;
-    
-    if (inheritRotation)
-    {
-        global.skewX = origin.skewX + offset.skewX + _parent->global.skewX;
-        global.skewY = origin.skewY + offset.skewY + _parent->global.skewY;
-    }
-    else
-    {
-        global.skewX = origin.skewX + offset.skewX;
-        global.skewY = origin.skewY + offset.skewY;
-    }
-    
-    if (inheritScale)
-    {
-        global.scaleX = origin.scaleX * offset.scaleX * _parent->global.scaleX;
-        global.scaleY = origin.scaleY * offset.scaleY * _parent->global.scaleY;
-    }
-    else
-    {
-        global.scaleX = origin.scaleX * offset.scaleX;
-        global.scaleY = origin.scaleY * offset.scaleY;
-    }
-    
-    globalTransformMatrix.a = global.scaleX * cos(global.skewY);
-    globalTransformMatrix.b = global.scaleX * sin(global.skewY);
-    globalTransformMatrix.c = -global.scaleY * sin(global.skewX);
-    globalTransformMatrix.d = global.scaleY * cos(global.skewX);
-    updateDisplayTransform();
+
+	//Transform transform;
+	//Matrix matrix;
+	//updateGlobal(transform, matrix);
+	//updateDisplayTransform();	
+
+	const float x = origin.x + offset.x + _parent->_tweenPivot.x;
+	const float y = origin.y + offset.y + _parent->_tweenPivot.y;
+	const Matrix &parentMatrix = _parent->globalTransformMatrix;
+	globalTransformMatrix.tx = global.x = parentMatrix.a * x + parentMatrix.c * y + parentMatrix.tx;
+	globalTransformMatrix.ty = global.y = parentMatrix.d * y + parentMatrix.b * x + parentMatrix.ty;
+
+	if (inheritRotation)
+	{
+		global.skewX = origin.skewX + offset.skewX + _parent->global.skewX;
+		global.skewY = origin.skewY + offset.skewY + _parent->global.skewY;
+	}
+	else
+	{
+		global.skewX = origin.skewX + offset.skewX;
+		global.skewY = origin.skewY + offset.skewY;
+	}
+
+	if (inheritScale)
+	{
+		global.scaleX = origin.scaleX * offset.scaleX * _parent->global.scaleX;
+		global.scaleY = origin.scaleY * offset.scaleY * _parent->global.scaleY;
+	}
+	else
+	{
+		global.scaleX = origin.scaleX * offset.scaleX;
+		global.scaleY = origin.scaleY * offset.scaleY;
+	}
+
+	globalTransformMatrix.a = global.scaleX * cos(global.skewY);
+	globalTransformMatrix.b = global.scaleX * sin(global.skewY);
+	globalTransformMatrix.c = -global.scaleY * sin(global.skewX);
+	globalTransformMatrix.d = global.scaleY * cos(global.skewX);
+	updateDisplayTransform();
 }
 
 void Slot::changeDisplay(int displayIndex)
@@ -361,7 +380,7 @@ void Slot::updateSlotDisplay(bool disposeExisting)
     }
 }
 
-void Slot::updateDisplayColor(int aOffset, int rOffset, int gOffset, int bOffset, float aMultiplier, float rMultiplier, float gMultiplier, float bMultiplier)
+void Slot::updateDisplayColor(int aOffset, int rOffset, int gOffset, int bOffset, float aMultiplier, float rMultiplier, float gMultiplier, float bMultiplier, bool colorChanged)
 {
     _colorTransform.alphaOffset = aOffset;
     _colorTransform.redOffset = rOffset;
@@ -371,5 +390,60 @@ void Slot::updateDisplayColor(int aOffset, int rOffset, int gOffset, int bOffset
     _colorTransform.redMultiplier = rMultiplier;
     _colorTransform.greenMultiplier = gMultiplier;
     _colorTransform.blueMultiplier = bMultiplier;
+
+	_isColorChanged = colorChanged;
 }
+
+void Slot::arriveAtFrame( Frame *frame, const SlotTimelineState *timelineState, AnimationState *animationState, bool isCross )
+{
+	// TODO:
+	bool displayControl = animationState->displayControl && animationState->containsBoneMask(name);
+	if (displayControl)
+	{
+		SlotFrame *slotFrame = dynamic_cast<SlotFrame*>(frame);
+		const int displayIndex = slotFrame->displayIndex;
+		Slot *childSlot = nullptr;
+
+		changeDisplay(displayIndex);
+		updateDisplayVisible(slotFrame->visible);
+		if (displayIndex >= 0)
+		{
+			if (slotFrame->zOrder != _tweenZOrder)
+			{
+				_tweenZOrder = slotFrame->zOrder;
+				_armature->_slotsZOrderChanged = true;
+			}
+		}
+
+		if (!frame->action.empty())
+		{
+			if (_childArmature)
+			{
+				_childArmature->_animation->gotoAndPlay(frame->action);
+			}
+		}
+	}
+}
+
+//void Slot::calculateRelativeParentTransform()
+//{
+//	global.scaleX = origin.scaleX * offset.scaleX;
+//	global.scaleY = origin.scaleY * offset.scaleY;
+//	global.skewX = origin.skewX + offset.skewX;
+//	global.skewY = origin.skewY + offset.skewY;
+//	global.x = origin.x + offset.x + _parent->_tweenPivot.x;
+//	global.y = origin.y + offset.y + _parent->_tweenPivot.y;
+//}
+//
+//void Slot::updateGlobal( Transform &transform, Matrix &matrix )
+//{
+//	calculateRelativeParentTransform();
+//	global.toMatrix(globalTransformMatrix);
+//
+//	calculateParentTransform(transform, matrix);
+//	globalTransformMatrix = matrix;
+//
+//	Transform::matrixToTransform(globalTransformMatrix, global, true,true);
+//}
+
 NAME_SPACE_DRAGON_BONES_END

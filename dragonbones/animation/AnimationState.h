@@ -2,27 +2,20 @@
 #define ANIMATION_ANIMATION_STATE_H
 
 #include "../DragonBones.h"
-#include "../objects/AnimationData.h"
-#include "../core/Armature.h"
-#include "TimelineState.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 
-class TimelineState;
+class AnimationData;
 
 class AnimationState
 {
+	friend class Armature;
     friend class Animation;
     friend class TimelineState;
-    
-private:
-    enum class FadeState {FADE_BEFORE, FADING, FADE_COMPLETE};
+    friend class SlotTimelineState;
 
-    static std::vector<AnimationState*> _pool;
-    static AnimationState* borrowObject();
-    static void returnObject(AnimationState *animationState);
-    static void clearObjects();
-    
+	enum class FadeState {FADE_BEFORE, FADING, FADE_COMPLETE};
+
 public:
     bool additiveBlending;
     bool autoTween;
@@ -46,6 +39,7 @@ private:
     int _currentFramePosition;
     int _currentFrameDuration;
     int _totalTime;
+	int _lastTime;
     float _time;
     float _timeScale;
     float _fadeWeight;
@@ -58,11 +52,24 @@ private:
     
     std::vector<TimelineState*> _timelineStateList;
     std::vector<std::string> _mixingTransforms;
+	std::vector<SlotTimelineState*> _slotTimelineStateList;
+	std::vector<std::string> _boneMasks;
     
     AnimationData *_clip;
     Armature *_armature;
     
 public:
+	AnimationState();
+	virtual ~AnimationState();
+
+	AnimationState* fadeOut(float fadeTotalTime, bool pausePlayhead);
+	AnimationState* play();
+	AnimationState* stop();
+	bool getMixingTransform(const std::string &timelineName) const;
+	AnimationState* addMixingTransform(const std::string &timelineName, bool recursive = true);
+	AnimationState* removeMixingTransform(const std::string &timelineName, bool recursive = true);
+	AnimationState* removeAllMixingTransform();
+
     bool getIsComplete() const;
     bool getIsPlaying() const;
     int getCurrentPlayTimes() const;
@@ -83,26 +90,30 @@ public:
     AnimationState* setCurrentTime(float currentTime);
     float getTimeScale() const;
     AnimationState* setTimeScale(float timeScale);
-    
-public:
-    AnimationState();
-    virtual ~AnimationState();
-    
-    AnimationState* fadeOut(float fadeTotalTime, bool pausePlayhead);
-    AnimationState* play();
-    AnimationState* stop();
-    bool getMixingTransform(const std::string &timelineName) const;
-    AnimationState* addMixingTransform(const std::string &timelineName, bool recursive = true);
-    AnimationState* removeMixingTransform(const std::string &timelineName, bool recursive = true);
-    AnimationState* removeAllMixingTransform();
-    
+
+	bool containsBoneMask(const std::string &boneName);
+	AnimationState* addBoneMask(const std::string &boneName, bool ifInvolveChildBones = true);
+	void addBoneToBoneMask(const std::string &boneName);
+	AnimationState* removeBoneMask(const std::string &boneName, bool ifInvolveChildBones = true);
+	void removeBoneFromBoneMask(const std::string &boneName);
+
+	void resetTimelineStateList();
+
 private:
+	static std::vector<AnimationState*> _pool;
+	static AnimationState* borrowObject();
+	static void returnObject(AnimationState *animationState);
+	static void clearObjects();
+
     void fadeIn(Armature *armature, AnimationData *clip, float fadeTotalTime, float timeScale, int playTimes, bool pausePlayhead);
     
     bool advanceTime(float passedTime);
     void updateTimelineStates();
     void addTimelineState(const std::string &timelineName);
+	void addSlotTimelineState(const std::string &timelineName);
+
     void removeTimelineState(TimelineState *timelineState);
+	void removeSlotTimelineState(SlotTimelineState *timelineState);
     void advanceFadeTime(float passedTime);
     void advanceTimelinesTime(float passedTime);
     void updateMainTimeline(bool isThisComplete);

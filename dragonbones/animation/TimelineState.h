@@ -5,13 +5,12 @@
 #include "../geoms/ColorTransform.h"
 #include "../geoms/Point.h"
 #include "../geoms/Transform.h"
-#include "../objects/TransformTimeline.h"
-#include "../core/Bone.h"
-#include "../animation/AnimationState.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 
-class AnimationState;
+class AnimationData;
+class CurveData;
+class TransformTimeline;
 
 class TimelineState
 {
@@ -34,11 +33,12 @@ private:
     bool _isComplete;
     bool _tweenTransform;
     bool _tweenScale;
-    bool _tweenColor;
+    //bool _tweenColor;
     int _currentTime;
     int _currentFrameIndex;
     int _currentFramePosition;
     int _currentFrameDuration;
+	int _lastTime;
     int _totalTime;
     float _weight;
     float _tweenEasing;
@@ -50,11 +50,12 @@ private:
     Point _pivot;
     Point _durationPivot;
     Point _originPivot;
-    ColorTransform _durationColor;
+    //ColorTransform _durationColor;
     
     Bone *_bone;
     AnimationState *_animationState;
-    TransformTimeline *_timeline;
+    TransformTimeline *_timelineData;
+	CurveData *_tweenCurve;
     
 public:
     TimelineState();

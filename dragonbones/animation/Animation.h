@@ -2,13 +2,11 @@
 #define ANIMATION_ANIMATION_H
 
 #include "../DragonBones.h"
-#include "../objects/AnimationData.h"
-#include "../animation/AnimationState.h"
-#include "../core/Armature.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
+
 class AnimationState;
-class Armature;
+class AnimationData;
 
 class Animation
 {
@@ -17,8 +15,6 @@ class Animation
     
 public:
     enum class AnimationFadeOutMode {NONE, SAME_LAYER, SAME_GROUP, SAME_LAYER_AND_GROUP, ALL};
-    
-public:
     bool autoTween;
     
 protected:
@@ -32,18 +28,7 @@ protected:
     
     Armature *_armature;
     AnimationState *_lastAnimationState;
-    
-public:
-    virtual bool getIsPlaying() const;
-    virtual bool getIsComplete() const;
-    virtual const std::vector<std::string>& getAnimationList() const;
-    virtual AnimationState* getLastAnimationState() const;
-    virtual float getTimeScale() const;
-    virtual void setTimeScale(float timeScale);
-    
-    virtual const std::vector<AnimationData*>& getAnimationDataList() const;
-    virtual void setAnimationDataList(const std::vector<AnimationData*> &animationDataList);
-    
+      
 public:
     explicit Animation();
     virtual ~Animation();
@@ -80,11 +65,22 @@ public:
     
     virtual bool hasAnimation(const std::string &animationName) const;
     virtual AnimationState* getState(const std::string &name, int layer = 0) const;
+
+	virtual bool getIsPlaying() const;
+	virtual bool getIsComplete() const;
+	virtual const std::vector<std::string>& getAnimationList() const;
+	virtual AnimationState* getLastAnimationState() const;
+	virtual float getTimeScale() const;
+	virtual void setTimeScale(float timeScale);
+
+	virtual const std::vector<AnimationData*>& getAnimationDataList() const;
+	virtual void setAnimationDataList(const std::vector<AnimationData*> &animationDataList);
     
 protected:
     virtual void addState(AnimationState *animationState);
     virtual void removeState(AnimationState *animationState);
     virtual void updateAnimationStates();
+	void resetAnimationStateList();
     
 private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(Animation);

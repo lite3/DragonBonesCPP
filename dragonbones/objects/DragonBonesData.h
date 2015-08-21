@@ -9,14 +9,16 @@ class DragonBonesData
 {
 public:
     bool autoSearch;
-    std::string name;
+    bool isGlobalData;
+	std::string name;
     std::vector<ArmatureData*> armatureDataList;
     
 public:
-    DragonBonesData()
-    {
-        autoSearch = false;
-    }
+    DragonBonesData() : 
+		autoSearch(false)
+		,isGlobalData(false)
+    {}
+
     DragonBonesData(const DragonBonesData &copyData)
     {
         operator=(copyData);

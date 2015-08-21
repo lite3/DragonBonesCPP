@@ -15,16 +15,14 @@ private:
     
 private:
     mutable float _textureScale;
-    mutable float _armatureScale;
     mutable int _frameRate;
+	mutable bool _isGlobalData;
     
 public:
     XMLDataParser();
     virtual ~XMLDataParser();
-    
     virtual TextureAtlasData* parseTextureAtlasData(const void *rawTextureAtlasData, float scale = 1.f) const;
-    
-    virtual DragonBonesData* parseDragonBonesData(const void *rawDragonBonesData, float scale = 1.f) const;
+    virtual DragonBonesData* parseDragonBonesData(const void *rawDragonBonesData) const;
     
 private:
     TextureData* parseTextureData(const XMLElement *textureXML) const;
@@ -32,10 +30,13 @@ private:
     ArmatureData* parseArmatureData(const XMLElement *armatureXML) const;
     BoneData* parseBoneData(const XMLElement *boneXML) const;
     SkinData* parseSkinData(const XMLElement *skinXML) const;
+	SlotData* parseSlotDisplayData(const XMLElement *slotXML) const;
     SlotData* parseSlotData(const XMLElement *slotXML) const;
     DisplayData* parseDisplayData(const XMLElement *displayXML) const;
     AnimationData* parseAnimationData(const XMLElement *animationXML, const ArmatureData *armatureData) const;
     TransformTimeline* parseTransformTimeline(const XMLElement *timelineXML, int duration) const;
+	SlotTimeline* parseSlotTimeline(const XMLElement *frameXML, int duration) const;
+	SlotFrame* parseSlotFrame(const XMLElement *timelineXML) const;
     Frame* parseMainFrame(const XMLElement *frameXML) const;
     TransformFrame* parseTransformFrame(const XMLElement *frameXML) const;
     RectangleData* parseRectangleData(const XMLElement *rectangleXML) const;
@@ -46,7 +47,7 @@ private:
     void parseTransform(const XMLElement &transformXML, Transform &transform) const;
     void parsePivot(const XMLElement &transformXML, Point &pivot) const;
     void parseColorTransform(const XMLElement &colorTransformXML, ColorTransform &colorTransform) const;
-    void parseTextData(const XMLElement &textXML, TextData &textData) const;
+    //void parseTextData(const XMLElement &textXML, TextData &textData) const;
     
 private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(XMLDataParser);

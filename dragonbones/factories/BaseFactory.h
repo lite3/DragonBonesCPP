@@ -2,14 +2,20 @@
 #define FACTORIES_BASE_FACTORY_H
 
 #include "../DragonBones.h"
-#include "../objects/ArmatureData.h"
-#include "../objects/DragonBonesData.h"
-#include "../textures/ITextureAtlas.h"
-#include "../core/Slot.h"
-#include "../core/Bone.h"
-#include "../core/Armature.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
+
+class Slot;
+class Bone;
+class Armature;
+class ArmatureData;
+class ITextureAtlas;
+class DragonBonesData;
+class DisplayData;
+class SkinData;
+class SlotData;
+class TextureData;
+
 class BaseFactory
 {
 protected:

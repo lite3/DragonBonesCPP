@@ -14,11 +14,10 @@ public:
     std::vector<Frame*> frameList;
     
 public:
-    Timeline()
-    {
-        duration = 0;
-        scale = 1.f;
-    }
+    Timeline() :
+		duration(0)
+		,scale(1.f)
+    {}
     Timeline(const Timeline &copyData)
     {
         operator=(copyData);

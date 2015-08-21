@@ -222,7 +222,7 @@ void DBCCSlot::updateDisplayBlendMode(BlendMode blendMode)
     }
 }
 
-void DBCCSlot::updateDisplayColor(int aOffset, int rOffset, int gOffset, int bOffset, float aMultiplier, float rMultiplier, float gMultiplier, float bMultiplier)
+void DBCCSlot::updateDisplayColor(int aOffset, int rOffset, int gOffset, int bOffset, float aMultiplier, float rMultiplier, float gMultiplier, float bMultiplier, bool colorChanged)
 {
     if (_nodeDisplay)
     {

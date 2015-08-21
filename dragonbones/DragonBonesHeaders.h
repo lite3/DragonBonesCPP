@@ -43,7 +43,7 @@
 #include "animation/WorldClock.h"
 
 // core
-#include "core/Object.h"
+#include "core/DBObject.h"
 #include "core/Armature.h"
 #include "core/Bone.h"
 #include "core/Slot.h"

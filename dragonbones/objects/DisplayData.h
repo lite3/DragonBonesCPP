@@ -11,37 +11,32 @@ class DisplayData
 {
 public:
     //
-    bool scalingGrid;
-    int scalingGridLeft;
-    int scalingGridRight;
-    int scalingGridTop;
-    int scalingGridBottom;
+    //bool scalingGrid;
+    //int scalingGridLeft;
+    //int scalingGridRight;
+    //int scalingGridTop;
+    //int scalingGridBottom;
+	//TextData *textData;
 
     std::string name;
-
+	std::string slotName;
     DisplayType type;
     Transform transform;
-    Point pivot;
+	Point pivot;
 
-    TextData *textData;
-    
 public:
     DisplayData():
-        scalingGrid(false),
-        scalingGridLeft(0),
-        scalingGridRight(0),
-        scalingGridTop(0),
-        scalingGridBottom(0),
+        //scalingGrid(false),
+        //scalingGridLeft(0),
+        //scalingGridRight(0),
+        //scalingGridTop(0),
+        //scalingGridBottom(0),
+		//,textData(nullptr)
 
-        name(),
-
-        type(DisplayType::DT_IMAGE),
-        transform(),
-        pivot(),
-
-        textData(nullptr)
-    {
-    }
+        name("")
+		,slotName("")
+        ,type(DisplayType::DT_IMAGE)
+    {}
     DisplayData(const DisplayData &copyData)
     {
         operator=(copyData);
@@ -50,23 +45,22 @@ public:
     {
         dispose();
 
-        scalingGrid = copyData.scalingGrid;
-        scalingGridLeft = copyData.scalingGridLeft;
-        scalingGridRight = copyData.scalingGridRight;
-        scalingGridTop = copyData.scalingGridTop;
-        scalingGridBottom = copyData.scalingGridBottom;
+        //scalingGrid = copyData.scalingGrid;
+        //scalingGridLeft = copyData.scalingGridLeft;
+        //scalingGridRight = copyData.scalingGridRight;
+        //scalingGridTop = copyData.scalingGridTop;
+        //scalingGridBottom = copyData.scalingGridBottom;
 
         name = copyData.name;
-
         type = copyData.type;
         transform = copyData.transform;
-        pivot = copyData.pivot;
-
-        if (copyData.textData)
-        {
-            textData = new TextData(); 
-            *textData = *(copyData.textData);
-        }
+        
+		pivot = copyData.pivot;
+		//if (copyData.textData)
+		//{
+		//	textData = new TextData(); 
+		//	*textData = *(copyData.textData);
+		//}
 
         return *this;
     }
@@ -77,23 +71,22 @@ public:
 
     void dispose()
     {
-        scalingGrid = false;
-        scalingGridLeft = 0;
-        scalingGridRight = 0;
-        scalingGridTop = 0;
-        scalingGridBottom = 0;
+        //scalingGrid = false;
+        //scalingGridLeft = 0;
+        //scalingGridRight = 0;
+        //scalingGridTop = 0;
+        //scalingGridBottom = 0;
 
         name.clear();
-
         type = DisplayType::DT_IMAGE;
-        //transform.clear();
-        //pivot.clear();
+  //      pivot.clear();
+		//transform.clear();
 
-        if (textData)
-        {
-            delete textData;
-            textData = nullptr;
-        }
+        //if (textData)
+        //{
+        //    delete textData;
+        //    textData = nullptr;
+        //}
     }
 };
 NAME_SPACE_DRAGON_BONES_END

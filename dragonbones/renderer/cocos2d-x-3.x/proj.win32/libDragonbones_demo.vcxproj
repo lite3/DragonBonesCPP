@@ -93,11 +93,12 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\animation\Animation.cpp" />
     <ClCompile Include="..\..\..\animation\AnimationState.cpp" />
+    <ClCompile Include="..\..\..\animation\SlotTimelineState.cpp" />
     <ClCompile Include="..\..\..\animation\TimelineState.cpp" />
     <ClCompile Include="..\..\..\animation\WorldClock.cpp" />
     <ClCompile Include="..\..\..\core\Armature.cpp" />
     <ClCompile Include="..\..\..\core\Bone.cpp" />
-    <ClCompile Include="..\..\..\core\Object.cpp" />
+    <ClCompile Include="..\..\..\core\DBObject.cpp" />
     <ClCompile Include="..\..\..\core\Slot.cpp" />
     <ClCompile Include="..\..\..\events\EventData.cpp" />
     <ClCompile Include="..\..\..\factories\BaseFactory.cpp" />
@@ -116,11 +117,14 @@
     <ClInclude Include="..\..\..\animation\Animation.h" />
     <ClInclude Include="..\..\..\animation\AnimationState.h" />
     <ClInclude Include="..\..\..\animation\IAnimatable.h" />
+    <ClInclude Include="..\..\..\animation\SlotTimelineState.h" />
     <ClInclude Include="..\..\..\animation\TimelineState.h" />
     <ClInclude Include="..\..\..\animation\WorldClock.h" />
     <ClInclude Include="..\..\..\core\Armature.h" />
     <ClInclude Include="..\..\..\core\Bone.h" />
-    <ClInclude Include="..\..\..\core\Object.h" />
+    <ClInclude Include="..\..\..\core\DBObject.h" />
+    <ClInclude Include="..\..\..\core\IAnimationState.h" />
+    <ClInclude Include="..\..\..\core\IArmature.h" />
     <ClInclude Include="..\..\..\core\Slot.h" />
     <ClInclude Include="..\..\..\DragonBones.h" />
     <ClInclude Include="..\..\..\DragonBonesHeaders.h" />
@@ -132,9 +136,11 @@
     <ClInclude Include="..\..\..\geoms\Point.h" />
     <ClInclude Include="..\..\..\geoms\Rectangle.h" />
     <ClInclude Include="..\..\..\geoms\Transform.h" />
+    <ClInclude Include="..\..\..\geoms\TransformUtils.h" />
     <ClInclude Include="..\..\..\objects\AnimationData.h" />
     <ClInclude Include="..\..\..\objects\ArmatureData.h" />
     <ClInclude Include="..\..\..\objects\BoneData.h" />
+    <ClInclude Include="..\..\..\objects\CurveData.h" />
     <ClInclude Include="..\..\..\objects\DisplayData.h" />
     <ClInclude Include="..\..\..\objects\DragonBonesData.h" />
     <ClInclude Include="..\..\..\objects\EllipseData.h" />
@@ -143,6 +149,9 @@
     <ClInclude Include="..\..\..\objects\RectangleData.h" />
     <ClInclude Include="..\..\..\objects\SkinData.h" />
     <ClInclude Include="..\..\..\objects\SlotData.h" />
+    <ClInclude Include="..\..\..\objects\SlotFrame.h" />
+    <ClInclude Include="..\..\..\objects\SlotTimeline.h" />
+    <ClInclude Include="..\..\..\objects\TextData.h" />
     <ClInclude Include="..\..\..\objects\Timeline.h" />
     <ClInclude Include="..\..\..\objects\TransformFrame.h" />
     <ClInclude Include="..\..\..\objects\TransformTimeline.h" />

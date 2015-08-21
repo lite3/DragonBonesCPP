@@ -5,6 +5,35 @@
 #include "Point.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
+
+// 平移、缩放、旋转和倾斜
+
+/*
+	a  b  tx
+	c  d  ty
+	0  0  1
+
+	translate(tx, ty)
+	1 0 tx
+	0 1 ty
+	0 0 1
+
+	scale(a, d):
+	sx 0  0
+	0  sy 0
+	0  0  1
+	
+	rotate(q):
+	cos(q)  sin(q) 0
+	-sin(q) cos(q) 0
+	0		0	   1
+
+	skew(skewx, skewy)
+	0			tan(skewy)  0
+	tan(skewx)  0		    0
+	0			0			1
+
+*/
 class Matrix
 {
 public:

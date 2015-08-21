@@ -22,12 +22,13 @@ public:
     std::vector<IAreaData*> areaDataList;
     
 public:
-    BoneData()
-    {
-        inheritScale = false;
-        inheritRotation = false;
-        length = 0.f;
-    }
+    BoneData() :
+		inheritScale(false)
+		,inheritRotation(false)
+		,length(0.f)
+		,name("")
+		,parent("")
+    {}
     BoneData(const BoneData &copyData)
     {
         operator=(copyData);

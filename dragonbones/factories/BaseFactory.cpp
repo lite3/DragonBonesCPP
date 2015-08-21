@@ -1,4 +1,11 @@
 ﻿#include "BaseFactory.h"
+#include "../objects/ArmatureData.h"
+#include "../objects/DragonBonesData.h"
+#include "../textures/ITextureAtlas.h"
+#include "../core/Slot.h"
+#include "../core/Bone.h"
+#include "../core/Armature.h"
+#include "../animation/Animation.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 
@@ -349,25 +356,33 @@ void BaseFactory::buildBones(Armature *armature, const ArmatureData *armatureDat
         bone->inheritScale = boneData->inheritScale;
         // copy
         bone->origin = boneData->transform;
-        
         if (armatureData->getBoneData(boneData->parent))
         {
-            armature->addBone(bone, boneData->parent);
+            armature->addBone(bone, boneData->parent, true);
         }
         else
         {
             armature->addBone(bone);
         }
+		armature->updateAnimationAfterBoneListChanged();
     }
 }
 
 void BaseFactory::buildSlots(Armature *armature, const ArmatureData *armatureData, const SkinData *skinData, const SkinData *skinDataCopy) const
 {
-    for (size_t i = 0, l = skinData->slotDataList.size(); i < l; ++i)
+    //for (size_t i = 0, l = skinData->slotDataList.size(); i < l; ++i)
+
+	if (!skinData)
+	{
+		return;
+	}
+	armature->getArmatureData()->setSkinData(skinData->name);
+	//auto slotDataList = skinData->slotDataList;
+	auto slotDataList = armature->getArmatureData()->slotDataList;
+	for (size_t i = 0, l = slotDataList.size(); i < l; ++i)
     {
-        SlotData *slotData = skinData->slotDataList[i];
+        SlotData *slotData = slotDataList[i];
         Bone *bone = armature->getBone(slotData->parent);
-        
         if (!bone)
         {
             continue;
@@ -377,6 +392,8 @@ void BaseFactory::buildSlots(Armature *armature, const ArmatureData *armatureDat
         slot->name = slotData->name;
         slot->_originZOrder = slotData->zOrder;
         slot->_slotData = slotData;
+		bone->addSlot(slot);
+
         std::vector<std::pair<void*, DisplayType>> displayList;
         void *frameDisplay = nullptr;
         
@@ -407,7 +424,6 @@ void BaseFactory::buildSlots(Armature *armature, const ArmatureData *armatureDat
                     _currentTextureAtlasName = currentTextureAtlasName;
                     break;
                 }
-                
                 case DisplayType::DT_IMAGE:
                 {
                     void *display = getTextureDisplay(displayData->name, _currentTextureAtlasName, displayData);
@@ -432,13 +448,15 @@ void BaseFactory::buildSlots(Armature *armature, const ArmatureData *armatureDat
                     break;
             }
         }
-        
-        bone->addChild(slot);
-        
+                
         if (!displayList.empty())
         {
             slot->setDisplayList(displayList, false);
+
+			// change
+			slot->changeDisplay(slotData->displayIndex);
         }
     }
+	
 }
 NAME_SPACE_DRAGON_BONES_END

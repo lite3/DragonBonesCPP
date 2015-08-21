@@ -8,26 +8,23 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 class SlotData
 {
 public:
+	int displayIndex;
     float zOrder;
     std::string name;
     std::string parent;
-
     BlendMode blendMode;
 
     std::vector<DisplayData*> displayDataList;
     
 public:
     SlotData():
-        zOrder(0.f),
-        name(),
-        parent(),
-
-        blendMode(BlendMode::BM_NORMAL),
-
-        displayDataList()
-    {
-
-    }
+		displayIndex(0)
+        ,zOrder(0.f)
+        ,name()
+        ,parent()
+        ,blendMode(BlendMode::BM_NORMAL)
+        ,displayDataList()
+    {}
     SlotData(const SlotData &copyData)
     {
         operator=(copyData);
@@ -58,16 +55,15 @@ public:
 
     void dispose()
     {
-        zOrder = 0.f;
-        name.clear();
-        parent.clear();
+        //zOrder = 0.f;
+        //name.clear();
+        //parent.clear();
+        //blendMode = BlendMode::BM_NORMAL;
 
-        blendMode = BlendMode::BM_NORMAL;
-
-        for (size_t i = 0, l = displayDataList.size(); i < l; ++i)
-        {
-            delete displayDataList[i];
-        }
+        //for (size_t i = 0, l = displayDataList.size(); i < l; ++i)
+        //{
+        //    delete displayDataList[i];
+        //}
         displayDataList.clear();
     }
     

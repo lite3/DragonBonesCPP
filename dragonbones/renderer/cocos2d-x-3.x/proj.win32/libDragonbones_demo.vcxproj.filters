@@ -63,9 +63,6 @@
     <ClCompile Include="..\..\..\core\Bone.cpp">
       <Filter>dragonbones\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\core\Object.cpp">
-      <Filter>dragonbones\core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\core\Slot.cpp">
       <Filter>dragonbones\core</Filter>
     </ClCompile>
@@ -92,6 +89,12 @@
     </ClCompile>
     <ClCompile Include="..\DBCCUtils.cpp">
       <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\animation\SlotTimelineState.cpp">
+      <Filter>dragonbones\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\core\DBObject.cpp">
+      <Filter>dragonbones\core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -135,9 +138,6 @@
       <Filter>dragonbones\core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\core\Bone.h">
-      <Filter>dragonbones\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\core\Object.h">
       <Filter>dragonbones\core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\core\Slot.h">
@@ -244,6 +244,33 @@
     </ClInclude>
     <ClInclude Include="..\DBCCUtils.h">
       <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\objects\CurveData.h">
+      <Filter>dragonbones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\objects\SlotFrame.h">
+      <Filter>dragonbones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\objects\SlotTimeline.h">
+      <Filter>dragonbones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\objects\TextData.h">
+      <Filter>dragonbones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\animation\SlotTimelineState.h">
+      <Filter>dragonbones\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\core\DBObject.h">
+      <Filter>dragonbones\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\core\IAnimationState.h">
+      <Filter>dragonbones\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\core\IArmature.h">
+      <Filter>dragonbones\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\geoms\TransformUtils.h">
+      <Filter>dragonbones\geoms</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

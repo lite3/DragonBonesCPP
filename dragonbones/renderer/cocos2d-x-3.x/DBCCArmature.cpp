@@ -1,6 +1,7 @@
 #include "DBCCArmature.h"
 #include "DBCCEventDispatcher.h"
 #include "DBCCArmatureNode.h"
+#include "DBCCSlot.h"
 
 #if (DRAGON_BONES_ENABLE_LUA == 1)
 #include "DBCCLuaUtils.h"

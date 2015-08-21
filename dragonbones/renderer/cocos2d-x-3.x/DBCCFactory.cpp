@@ -78,14 +78,14 @@ DragonBonesData* DBCCFactory::loadDragonBonesData(const std::string &dragonBones
     }
 
     // armature scale
-    float scale = cocos2d::Director::getInstance()->getContentScaleFactor();
+    //float scale = cocos2d::Director::getInstance()->getContentScaleFactor();
 
     // load skeleton.xml using XML parser.
     dragonBones::XMLDocument doc;
     doc.Parse(reinterpret_cast<char*>(data.getBytes()), data.getSize());
     // paser dragonbones skeleton data.
     dragonBones::XMLDataParser parser;
-    DragonBonesData *dragonBonesData = parser.parseDragonBonesData(doc.RootElement(), scale);
+    DragonBonesData *dragonBonesData = parser.parseDragonBonesData(doc.RootElement());
     addDragonBonesData(dragonBonesData, name);
     return dragonBonesData;
 }
@@ -248,7 +248,15 @@ void* DBCCFactory::generateDisplay(const ITextureAtlas *textureAtlas, const Text
         pivotX = displayData->pivot.x;
         pivotY = displayData->pivot.y;
     }
-    display->setAnchorPoint(cocos2d::Vec2(pivotX / originSize.width, 1.f - pivotY / originSize.height));
+
+	if (pivotX != 0.f || pivotY != 0.f)
+	{
+		display->setAnchorPoint(cocos2d::Vec2(pivotX / originSize.width, 1.f - pivotY / originSize.height));
+	}
+	else
+	{
+		display->setAnchorPoint(cocos2d::Vec2(0.5f, 0.5f));
+	}
     display->setContentSize(originSize);
     return display;
 }

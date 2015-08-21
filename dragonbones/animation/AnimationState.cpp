@@ -1,5 +1,16 @@
-﻿#include <cstdlib>
-#include "AnimationState.h"
+﻿#include "AnimationState.h"
+
+#include <cstdlib>
+
+#include "TimelineState.h"
+#include "SlotTimelineState.h"
+#include "../objects/AnimationData.h"
+#include "../core/Slot.h"
+#include "../core/Bone.h"
+#include "../core/Armature.h"
+#include "../events/EventData.h"
+#include "../events/IEventDispatcher.h"
+#include "../animation/Animation.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 std::vector<AnimationState*> AnimationState::_pool;
@@ -162,11 +173,78 @@ AnimationState* AnimationState::setTimeScale(float timeScale)
     return this;
 }
 
-AnimationState::AnimationState()
+bool AnimationState::containsBoneMask(const std::string &boneName)
 {
-    _clip = nullptr;
-    _armature = nullptr;
+	return std::find(_boneMasks.cbegin(), _boneMasks.cend(), boneName) != _boneMasks.cend();
 }
+
+AnimationState* AnimationState::addBoneMask(const std::string &boneName, bool ifInvolveChildBones)
+{
+	addBoneToBoneMask(boneName);
+	if (ifInvolveChildBones)
+	{
+		auto currentBone = _armature->getBone(boneName);
+		if (currentBone)
+		{
+			auto boneList = _armature->getBones();
+			for (size_t i = 0, l = boneList.size(); i < l; ++i)
+			{
+				auto tempBone = boneList[i];
+				if (currentBone->contains(tempBone))
+				{
+					addBoneToBoneMask(tempBone->name);
+				}
+			}
+		}
+	}
+	updateTimelineStates();
+	return this;
+}
+
+void AnimationState::addBoneToBoneMask( const std::string &boneName )
+{
+	if (_clip->getTimeline(boneName) && !containsBoneMask(boneName))
+	{
+		_boneMasks.push_back(boneName);
+	}
+}
+
+void AnimationState::removeBoneFromBoneMask(const std::string &boneName)
+{
+	auto iterator = std::find(_boneMasks.cbegin(), _boneMasks.cend(), boneName);
+	if (iterator != _boneMasks.cend())
+	{
+		_boneMasks.erase(iterator);
+	}
+}
+
+AnimationState* AnimationState::removeBoneMask(const std::string &boneName, bool ifInvolveChildBones)
+{
+	removeBoneFromBoneMask(boneName);
+	if (ifInvolveChildBones)
+	{
+		auto currentBone = _armature->getBone(boneName);
+		if (currentBone)
+		{
+			auto boneList = _armature->getBones();
+			for (size_t i = 0, l = boneList.size(); i < l; ++i)
+			{
+				auto tempBone = boneList[i];
+				if (currentBone->contains(tempBone))
+				{
+					removeBoneFromBoneMask(tempBone->name);
+				}
+			}			
+		}
+	}
+	updateTimelineStates();
+	return this;
+}
+
+AnimationState::AnimationState() :
+	_clip(nullptr)
+	,_armature(nullptr)
+{}
 AnimationState::~AnimationState()
 {
     clear();
@@ -373,45 +451,58 @@ void AnimationState::updateTimelineStates()
 {
     for (size_t i = _timelineStateList.size(); i--;)
     {
-        TimelineState *timelineState = _timelineStateList[i];
-        
+        TimelineState *timelineState = _timelineStateList[i];    
         if (!_armature->getBone(timelineState->name))
         {
             removeTimelineState(timelineState);
         }
     }
-    
-    if (_mixingTransforms.empty())
-    {
-        for (size_t i = 0, l = _clip->timelineList.size(); i < l; ++i)
-        {
-            addTimelineState(_clip->timelineList[i]->name);
-        }
-    }
-    else
-    {
-        for (size_t i = _timelineStateList.size(); i--;)
-        {
-            TimelineState *timelineState = _timelineStateList[i];
-            auto iterator = std::find(_mixingTransforms.cbegin(), _mixingTransforms.cend(), timelineState->name);
-            
-            if (iterator == _mixingTransforms.cend())
-            {
-                removeTimelineState(timelineState);
-            }
-        }
-        
-        for (size_t i = 0, l = _mixingTransforms.size(); i < l; ++i)
-        {
-            addTimelineState(_mixingTransforms[i]);
-        }
-    }
+
+	for (size_t i = _slotTimelineStateList.size(); i--;)
+	{
+		SlotTimelineState *timelineState = _slotTimelineStateList[i];    
+		if (!_armature->getSlot(timelineState->name))
+		{
+			removeSlotTimelineState(timelineState);
+		}
+	}
+
+	if (_boneMasks.size() > 0)
+	{
+		for (size_t i = _timelineStateList.size(); i--;)
+		{
+			TimelineState *timelineState = _timelineStateList[i];
+			auto iterator = std::find(_mixingTransforms.cbegin(), _mixingTransforms.cend(), timelineState->name);
+
+			if (iterator == _mixingTransforms.cend())
+			{
+				removeTimelineState(timelineState);
+			}
+		}
+
+		for (size_t i = 0, l = _mixingTransforms.size(); i < l; ++i)
+		{
+			addTimelineState(_mixingTransforms[i]);
+		}
+	}
+	else
+	{
+		for (size_t i = 0, l = _clip->timelineList.size(); i < l; ++i)
+		{
+			addTimelineState(_clip->timelineList[i]->name);
+		}
+	}
+
+	// add slot timeline
+	for (size_t i = 0, l = _clip->slotTimelineList.size(); i < l; ++i)
+	{
+		addSlotTimelineState(_clip->slotTimelineList[i]->name);
+	}
 }
 
 void AnimationState::addTimelineState(const std::string &timelineName)
 {
     Bone *bone = _armature->getBone(timelineName);
-    
     if (bone)
     {
         for (size_t i = 0, l = _timelineStateList.size(); i < l; ++i)
@@ -430,13 +521,40 @@ void AnimationState::addTimelineState(const std::string &timelineName)
 
 void AnimationState::removeTimelineState(TimelineState *timelineState)
 {
-    auto iterator = std::find(_timelineStateList.begin(), _timelineStateList.end(), timelineState);
-    
+    auto iterator = std::find(_timelineStateList.begin(), _timelineStateList.end(), timelineState);    
     if (iterator != _timelineStateList.end())
     {
         TimelineState::returnObject(timelineState);
         _timelineStateList.erase(iterator);
     }
+}
+
+void AnimationState::addSlotTimelineState(const std::string &timelineName)
+{
+	Slot *slot = _armature->getSlot(timelineName);
+	if (slot && slot->getDisplayList().size() > 0)
+	{
+		for (size_t i = 0, l = _slotTimelineStateList.size(); i < l; ++i)
+		{
+			if (_slotTimelineStateList[i]->name == timelineName)
+			{
+				return;
+			}
+		}
+		SlotTimelineState *timelineState = SlotTimelineState::borrowObject();
+		timelineState->fadeIn(slot, this, _clip->getSlotTimeline(timelineName));
+		_slotTimelineStateList.push_back(timelineState);
+	}
+}
+
+void AnimationState::removeSlotTimelineState(SlotTimelineState *timelineState)
+{
+	auto iterator = std::find(_slotTimelineStateList.begin(), _slotTimelineStateList.end(), timelineState);
+	if (iterator != _slotTimelineStateList.end())
+	{
+		SlotTimelineState::returnObject(timelineState);
+		_slotTimelineStateList.erase(iterator);
+	}
 }
 
 void AnimationState::advanceFadeTime(float passedTime)
@@ -527,7 +645,6 @@ void AnimationState::advanceFadeTime(float passedTime)
     if (fadeCompleteFlg)
     {
         EventData::EventType eventDataType;
-        
         if (_isFadeOut)
         {
             eventDataType = EventData::EventType::FADE_OUT_COMPLETE;
@@ -643,6 +760,7 @@ void AnimationState::advanceTimelinesTime(float passedTime)
             completeFlg = true;
         }
         
+		_lastTime = _currentTime;
         _currentTime = currentTime;
         updateMainTimeline(isThisComplete);
     }
@@ -698,10 +816,10 @@ void AnimationState::updateMainTimeline(bool isThisComplete)
             {
                 _currentFrameIndex = 0;
             }
-            else if (_currentTime < _currentFramePosition || _currentTime >= _currentFramePosition + _currentFrameDuration)
+            else if (_currentTime < _currentFramePosition || _currentTime >= _currentFramePosition + _currentFrameDuration || _currentTime < _lastTime)
             {
+				_lastTime = _currentTime;
                 ++_currentFrameIndex;
-                
                 if (_currentFrameIndex >= (int)(l))
                 {
                     if (isThisComplete)
@@ -719,7 +837,6 @@ void AnimationState::updateMainTimeline(bool isThisComplete)
             {
                 break;
             }
-            
             currentFrame = _clip->frameList[_currentFrameIndex];
             
             if (prevFrame)
@@ -765,4 +882,20 @@ void AnimationState::clear()
     _armature = nullptr;
     _clip = nullptr;
 }
+
+void AnimationState::resetTimelineStateList()
+{
+	for (size_t i = _timelineStateList.size(); i--;)
+	{
+		TimelineState::returnObject(_timelineStateList[i]);
+	}
+	_timelineStateList.clear();
+
+	for (size_t i = _slotTimelineStateList.size(); i--;)
+	{
+		SlotTimelineState::returnObject(_slotTimelineStateList[i]);
+	}
+	_slotTimelineStateList.clear();
+}
+
 NAME_SPACE_DRAGON_BONES_END

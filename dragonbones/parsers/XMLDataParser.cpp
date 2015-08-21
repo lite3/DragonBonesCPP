@@ -53,12 +53,11 @@ float XMLDataParser::getNumber(const XMLElement &data, const char *key, float de
     return defaultValue;
 }
 
-XMLDataParser::XMLDataParser()
-{
-    _textureScale = 1.f;
-    _armatureScale = 1.f;
-    _frameRate = 30;
-}
+XMLDataParser::XMLDataParser() :
+	_textureScale(1.f)
+	,_frameRate(30)
+	,_isGlobalData(false)
+{}
 XMLDataParser::~XMLDataParser() {}
 
 TextureAtlasData* XMLDataParser::parseTextureAtlasData(const void *rawTextureAtlasData, float scale) const
@@ -72,7 +71,8 @@ TextureAtlasData* XMLDataParser::parseTextureAtlasData(const void *rawTextureAtl
     const char *format = textureAtlasXML->Attribute(ConstValues::A_IMAGE_FORMAT.c_str());
     textureAtlasData->format = getPixelFormatByString(format ? format : "");
     
-    for (const XMLElement *textureXML = textureAtlasXML->FirstChildElement(ConstValues::SUB_TEXTURE.c_str()); textureXML; textureXML = textureXML->NextSiblingElement(ConstValues::SUB_TEXTURE.c_str()))
+    for (const XMLElement *textureXML = textureAtlasXML->FirstChildElement(ConstValues::SUB_TEXTURE.c_str()); 
+		textureXML; textureXML = textureXML->NextSiblingElement(ConstValues::SUB_TEXTURE.c_str()))
     {
         TextureData *textureData = parseTextureData(textureXML);
         textureAtlasData->textureDataList.push_back(textureData);
@@ -105,9 +105,8 @@ TextureData* XMLDataParser::parseTextureData(const XMLElement *textureXML) const
     return textureData;
 }
 
-DragonBonesData* XMLDataParser::parseDragonBonesData(const void *rawDragonBonesData, float scale) const
+DragonBonesData* XMLDataParser::parseDragonBonesData(const void *rawDragonBonesData) const
 {
-    _armatureScale = scale;
     const XMLElement *dragonBonesXML = static_cast<const XMLElement*>(rawDragonBonesData);
     std::string version = dragonBonesXML->Attribute(ConstValues::A_VERSION.c_str());
     // TODO
@@ -118,10 +117,14 @@ DragonBonesData* XMLDataParser::parseDragonBonesData(const void *rawDragonBonesD
     }
     */
     _frameRate = dragonBonesXML->IntAttribute(ConstValues::A_FRAME_RATE.c_str());
-    DragonBonesData *dragonBonesData = new DragonBonesData();
+
+	DragonBonesData *dragonBonesData = new DragonBonesData();
     dragonBonesData->name = dragonBonesXML->Attribute(ConstValues::A_NAME.c_str());
+	dragonBonesData->isGlobalData = _isGlobalData = 
+		(strcmp(dragonBonesXML->Attribute(ConstValues::A_IS_GLOBAL.c_str()), "0") == 0) ? false : true;
     
-    for (const XMLElement *armatureXML = dragonBonesXML->FirstChildElement(ConstValues::ARMATURE.c_str()); armatureXML; armatureXML = armatureXML->NextSiblingElement(ConstValues::ARMATURE.c_str()))
+    for (const XMLElement *armatureXML = dragonBonesXML->FirstChildElement(ConstValues::ARMATURE.c_str()); 
+			armatureXML; armatureXML = armatureXML->NextSiblingElement(ConstValues::ARMATURE.c_str()))
     {
         ArmatureData *armatureData = parseArmatureData(armatureXML);
         dragonBonesData->armatureDataList.push_back(armatureData);
@@ -135,38 +138,56 @@ ArmatureData* XMLDataParser::parseArmatureData(const XMLElement *armatureXML) co
     ArmatureData *armatureData = new ArmatureData();
     armatureData->name = armatureXML->Attribute(ConstValues::A_NAME.c_str());
     
-    for (const XMLElement *boneXML = armatureXML->FirstChildElement(ConstValues::BONE.c_str()); boneXML; boneXML = boneXML->NextSiblingElement(ConstValues::BONE.c_str()))
+    for (const XMLElement *boneXML = armatureXML->FirstChildElement(ConstValues::BONE.c_str()); 
+		boneXML; boneXML = boneXML->NextSiblingElement(ConstValues::BONE.c_str()))
     {
         BoneData *boneData = parseBoneData(boneXML);
         armatureData->boneDataList.push_back(boneData);
     }
-    
-    for (const XMLElement *skinXML = armatureXML->FirstChildElement(ConstValues::SKIN.c_str()); skinXML; skinXML = skinXML->NextSiblingElement(ConstValues::SKIN.c_str()))
+	
+	for (const XMLElement *slotXML = armatureXML->FirstChildElement(ConstValues::SLOT.c_str()); 
+		slotXML; slotXML = slotXML->NextSiblingElement(ConstValues::SLOT.c_str()))
+	{
+		SlotData *slotData = parseSlotData(slotXML);
+		armatureData->slotDataList.push_back(slotData);
+	}
+   
+    for (const XMLElement *skinXML = armatureXML->FirstChildElement(ConstValues::SKIN.c_str()); 
+		skinXML; skinXML = skinXML->NextSiblingElement(ConstValues::SKIN.c_str()))
     {
         SkinData *skinData = parseSkinData(skinXML);
         armatureData->skinDataList.push_back(skinData);
     }
-    
-    transformArmatureData(armatureData);
+		
+	// 4.0开始不再支持绝对值，这里的isGlobal只是为了匹配格式说明
+	if (_isGlobalData)
+	{
+		transformArmatureData(armatureData);
+	}
     armatureData->sortBoneDataList();
     
-    for (const XMLElement *animationXML = armatureXML->FirstChildElement(ConstValues::ANIMATION.c_str()); animationXML; animationXML = animationXML->NextSiblingElement(ConstValues::ANIMATION.c_str()))
+    for (const XMLElement *animationXML = armatureXML->FirstChildElement(ConstValues::ANIMATION.c_str()); 
+		animationXML; animationXML = animationXML->NextSiblingElement(ConstValues::ANIMATION.c_str()))
     {
         AnimationData *animationData = parseAnimationData(animationXML, armatureData);
         armatureData->animationDataList.push_back(animationData);
     }
     
-    for (const XMLElement *rectangleXML = armatureXML->FirstChildElement(ConstValues::RECTANGLE.c_str()); rectangleXML; rectangleXML = rectangleXML->NextSiblingElement(ConstValues::RECTANGLE.c_str()))
-    {
-        RectangleData *rectangleData = parseRectangleData(rectangleXML);
-        armatureData->areaDataList.push_back(rectangleData);
-    }
-    
-    for (const XMLElement *ellipseXML = armatureXML->FirstChildElement(ConstValues::ELLIPSE.c_str()); ellipseXML; ellipseXML = ellipseXML->NextSiblingElement(ConstValues::ELLIPSE.c_str()))
-    {
-        EllipseData *ellipseData = parseEllipseData(ellipseXML);
-        armatureData->areaDataList.push_back(ellipseData);
-    }
+	//// 以后支持
+ //   for (const XMLElement *rectangleXML = armatureXML->FirstChildElement(ConstValues::RECTANGLE.c_str()); 
+	//	rectangleXML; rectangleXML = rectangleXML->NextSiblingElement(ConstValues::RECTANGLE.c_str()))
+ //   {
+ //       RectangleData *rectangleData = parseRectangleData(rectangleXML);
+ //       armatureData->areaDataList.push_back(rectangleData);
+ //   }
+ //   
+	//// 以后支持
+ //   for (const XMLElement *ellipseXML = armatureXML->FirstChildElement(ConstValues::ELLIPSE.c_str()); 
+	//	ellipseXML; ellipseXML = ellipseXML->NextSiblingElement(ConstValues::ELLIPSE.c_str()))
+ //   {
+ //       EllipseData *ellipseData = parseEllipseData(ellipseXML);
+ //       armatureData->areaDataList.push_back(ellipseData);
+ //   }
     
     return armatureData;
 }
@@ -175,32 +196,42 @@ BoneData* XMLDataParser::parseBoneData(const XMLElement *boneXML) const
 {
     BoneData *boneData = new BoneData();
     boneData->name = boneXML->Attribute(ConstValues::A_NAME.c_str());
-    const char *parent = boneXML->Attribute(ConstValues::A_PARENT.c_str());
-    
-    if (parent)
-    {
-        boneData->parent = parent;
-    }
-    
-    boneData->length = boneXML->FloatAttribute(ConstValues::A_LENGTH.c_str());
+	if (boneData->name == "root")
+	{
+		return boneData;
+	}
+
+    boneData->parent = boneXML->Attribute(ConstValues::A_PARENT.c_str());    
+    // length目前没什么用，为以后做运行时反向动力学预留
+	boneData->length = boneXML->FloatAttribute(ConstValues::A_LENGTH.c_str());
+	// 补充文档说明：骨骼是否受到父骨骼的缩放和旋转的影响
     boneData->inheritRotation = getBoolean(*boneXML, ConstValues::A_INHERIT_ROTATION.c_str(), true);
-    boneData->inheritScale = getBoolean(*boneXML, ConstValues::A_INHERIT_SCALE.c_str(), false);
+    boneData->inheritScale = getBoolean(*boneXML, ConstValues::A_INHERIT_SCALE.c_str(), true);
 
     const XMLElement *transformXML = boneXML->FirstChildElement(ConstValues::TRANSFORM.c_str());
     if (transformXML)
     {
-        parseTransform(*transformXML, boneData->global);
+        //parseTransform(*transformXML, boneData->global);
+		parseTransform(*transformXML, boneData->transform);
     }
 
-    boneData->transform = boneData->global;
-    
-    for (const XMLElement *rectangleXML = boneXML->FirstChildElement(ConstValues::RECTANGLE.c_str()); rectangleXML; rectangleXML = rectangleXML->NextSiblingElement(ConstValues::RECTANGLE.c_str()))
+	// 4.0开始不再支持绝对值，这里的isGlobal只是为了匹配格式说明
+	if (_isGlobalData)
+	{
+		boneData->transform = boneData->global;
+	}
+
+	// 以后支持
+    for (const XMLElement *rectangleXML = boneXML->FirstChildElement(ConstValues::RECTANGLE.c_str()); 
+		rectangleXML; rectangleXML = rectangleXML->NextSiblingElement(ConstValues::RECTANGLE.c_str()))
     {
         RectangleData *rectangleData = parseRectangleData(rectangleXML);
         boneData->areaDataList.push_back(rectangleData);
     }
     
-    for (const XMLElement *ellipseXML = boneXML->FirstChildElement(ConstValues::ELLIPSE.c_str()); ellipseXML; ellipseXML = ellipseXML->NextSiblingElement(ConstValues::ELLIPSE.c_str()))
+	// 以后支持
+    for (const XMLElement *ellipseXML = boneXML->FirstChildElement(ConstValues::ELLIPSE.c_str()); 
+		ellipseXML; ellipseXML = ellipseXML->NextSiblingElement(ConstValues::ELLIPSE.c_str()))
     {
         EllipseData *ellipseData = parseEllipseData(ellipseXML);
         boneData->areaDataList.push_back(ellipseData);
@@ -214,13 +245,27 @@ SkinData* XMLDataParser::parseSkinData(const XMLElement *skinXML) const
     SkinData *skinData = new SkinData();
     skinData->name = skinXML->Attribute(ConstValues::A_NAME.c_str());
     
-    for (const XMLElement *slotXML = skinXML->FirstChildElement(ConstValues::SLOT.c_str()); slotXML; slotXML = slotXML->NextSiblingElement(ConstValues::SLOT.c_str()))
+    for (const XMLElement *slotXML = skinXML->FirstChildElement(ConstValues::SLOT.c_str()); 
+		slotXML; slotXML = slotXML->NextSiblingElement(ConstValues::SLOT.c_str()))
     {
-        SlotData *slotData = parseSlotData(slotXML);
+        SlotData *slotData = parseSlotDisplayData(slotXML);
         skinData->slotDataList.push_back(slotData);
     }
     
     return skinData;
+}
+
+SlotData* XMLDataParser::parseSlotDisplayData(const XMLElement *slotXML) const
+{
+	SlotData *slotData = new SlotData();
+	slotData->name = slotXML->Attribute(ConstValues::A_NAME.c_str());
+	for (const XMLElement *displayXML = slotXML->FirstChildElement(ConstValues::DISPLAY.c_str()); 
+		displayXML; displayXML = displayXML->NextSiblingElement(ConstValues::DISPLAY.c_str()))
+	{
+	    DisplayData *displayData = parseDisplayData(displayXML);
+	    slotData->displayDataList.push_back(displayData);
+	}
+	return slotData;
 }
 
 SlotData* XMLDataParser::parseSlotData(const XMLElement *slotXML) const
@@ -229,18 +274,12 @@ SlotData* XMLDataParser::parseSlotData(const XMLElement *slotXML) const
     slotData->name = slotXML->Attribute(ConstValues::A_NAME.c_str());
     slotData->parent = slotXML->Attribute(ConstValues::A_PARENT.c_str());
     slotData->zOrder = slotXML->FloatAttribute(ConstValues::A_Z_ORDER.c_str());
-    
-    if (slotXML->FindAttribute(ConstValues::A_BLENDMODE.c_str()))
+	slotData->displayIndex = slotXML->FloatAttribute(ConstValues::A_DISPLAY_INDEX.c_str());
+
+	if (slotXML->FindAttribute(ConstValues::A_BLENDMODE.c_str()))
     {
         slotData->blendMode = getBlendModeByString(slotXML->Attribute(ConstValues::A_BLENDMODE.c_str()));
-    }
-    
-    for (const XMLElement *displayXML = slotXML->FirstChildElement(ConstValues::DISPLAY.c_str()); displayXML; displayXML = displayXML->NextSiblingElement(ConstValues::DISPLAY.c_str()))
-    {
-        DisplayData *displayData = parseDisplayData(displayXML);
-        slotData->displayDataList.push_back(displayData);
-    }
-    
+    }    
     return slotData;
 }
 
@@ -250,33 +289,34 @@ DisplayData* XMLDataParser::parseDisplayData(const XMLElement *displayXML) const
     displayData->name = displayXML->Attribute(ConstValues::A_NAME.c_str());
     displayData->type = getDisplayTypeByString(displayXML->Attribute(ConstValues::A_TYPE.c_str()));
 
-    const XMLElement *scalingGridXML = displayXML->FirstChildElement(ConstValues::SCALING_GRID.c_str());
-    if (scalingGridXML)
-    {
-        displayData->scalingGrid = true;
-        displayData->scalingGridLeft = scalingGridXML->IntAttribute(ConstValues::A_LEFT.c_str());
-        displayData->scalingGridRight = scalingGridXML->IntAttribute(ConstValues::A_RIGHT.c_str());
-        displayData->scalingGridTop = scalingGridXML->IntAttribute(ConstValues::A_TOP.c_str());
-        displayData->scalingGridBottom = scalingGridXML->IntAttribute(ConstValues::A_BOTTOM.c_str());
-    }
-    else
-    {
-        displayData->scalingGrid = false;
-    }
+    //const XMLElement *scalingGridXML = displayXML->FirstChildElement(ConstValues::SCALING_GRID.c_str());
+    //if (scalingGridXML)
+    //{
+    //    displayData->scalingGrid = true;
+    //    displayData->scalingGridLeft = scalingGridXML->IntAttribute(ConstValues::A_LEFT.c_str());
+    //    displayData->scalingGridRight = scalingGridXML->IntAttribute(ConstValues::A_RIGHT.c_str());
+    //    displayData->scalingGridTop = scalingGridXML->IntAttribute(ConstValues::A_TOP.c_str());
+    //    displayData->scalingGridBottom = scalingGridXML->IntAttribute(ConstValues::A_BOTTOM.c_str());
+    //}
+    //else
+    //{
+    //    displayData->scalingGrid = false;
+    //}
 
     const XMLElement *transformXML = displayXML->FirstChildElement(ConstValues::TRANSFORM.c_str());
     if (transformXML)
     {
+		// 4.x取消pivot轴动画的支持
         parseTransform(*transformXML, displayData->transform);
-        parsePivot(*transformXML, displayData->pivot);
+        //parsePivot(*transformXML, displayData->pivot);
     }
 
-    const XMLElement *textXML = displayXML->FirstChildElement(ConstValues::TEXT.c_str());
-    if (textXML)
-    {
-        displayData->textData = new TextData();
-        parseTextData(*textXML, *displayData->textData);
-    }
+    //const XMLElement *textXML = displayXML->FirstChildElement(ConstValues::TEXT.c_str());
+    //if (textXML)
+    //{
+    //    displayData->textData = new TextData();
+    //    parseTextData(*textXML, *displayData->textData);
+    //}
 
     return displayData;
 }
@@ -295,19 +335,52 @@ AnimationData* XMLDataParser::parseAnimationData(const XMLElement *animationXML,
     animationData->tweenEasing = getNumber(*animationXML, ConstValues::A_TWEEN_EASING.c_str(), USE_FRAME_TWEEN_EASING, USE_FRAME_TWEEN_EASING);
     animationData->autoTween = getBoolean(*animationXML, ConstValues::A_AUTO_TWEEN.c_str(), true);
     
-    for (const XMLElement *frameXML = animationXML->FirstChildElement(ConstValues::FRAME.c_str()); frameXML; frameXML = frameXML->NextSiblingElement(ConstValues::FRAME.c_str()))
+    for (const XMLElement *frameXML = animationXML->FirstChildElement(ConstValues::FRAME.c_str()); 
+		frameXML; frameXML = frameXML->NextSiblingElement(ConstValues::FRAME.c_str()))
     {
         Frame *frame = parseMainFrame(frameXML);
         animationData->frameList.push_back(frame);
     }
-    
     parseTimeline(*animationXML, *animationData);
     
-    for (const XMLElement *timelineXML = animationXML->FirstChildElement(ConstValues::TIMELINE.c_str()); timelineXML; timelineXML = timelineXML->NextSiblingElement(ConstValues::TIMELINE.c_str()))
-    {
-        TransformTimeline *timeline = parseTransformTimeline(timelineXML, animationData->duration);
-        animationData->timelineList.push_back(timeline);
-    }
+	int lastFrameDuration = animationData->duration;
+	
+	// parse bone timeline
+	for (const XMLElement *timelineXML = animationXML->FirstChildElement(ConstValues::BONE.c_str()); 
+		timelineXML; timelineXML = timelineXML->NextSiblingElement(ConstValues::BONE.c_str()))
+	{
+		TransformTimeline *timeline = parseTransformTimeline(timelineXML, animationData->duration);
+		if (timeline->frameList.size() > 0)
+		{
+			lastFrameDuration = std::min(lastFrameDuration, timeline->frameList[timeline->frameList.size() - 1]->duration);
+			animationData->timelineList.push_back(timeline);
+		}
+	}
+
+	// pase slot timeline
+	for (const XMLElement *timelineXML = animationXML->FirstChildElement(ConstValues::SLOT.c_str()); 
+		timelineXML; timelineXML = timelineXML->NextSiblingElement(ConstValues::SLOT.c_str()))
+	{
+		SlotTimeline *slotTimeline = parseSlotTimeline(timelineXML, animationData->duration);
+		if (slotTimeline->frameList.size() > 0)
+		{
+			lastFrameDuration = std::min(lastFrameDuration, slotTimeline->frameList[slotTimeline->frameList.size() - 1]->duration);
+			animationData->slotTimelineList.push_back(slotTimeline);
+		}
+	}
+
+	if (animationData->frameList.size() > 0)
+	{
+		lastFrameDuration = std::min(lastFrameDuration, animationData->frameList[animationData->frameList.size() - 1]->duration);
+	}
+	animationData->lastFrameDuration = lastFrameDuration;
+
+  //  for (const XMLElement *timelineXML = animationXML->FirstChildElement(ConstValues::TIMELINE.c_str()); 
+		//timelineXML; timelineXML = timelineXML->NextSiblingElement(ConstValues::TIMELINE.c_str()))
+  //  {
+  //      TransformTimeline *timeline = parseTransformTimeline(timelineXML, animationData->duration);
+  //      animationData->timelineList.push_back(timeline);
+  //  }
     
     addHideTimeline(animationData, armatureData);
     transformAnimationData(animationData, armatureData);
@@ -319,18 +392,58 @@ TransformTimeline* XMLDataParser::parseTransformTimeline(const XMLElement *timel
 {
     TransformTimeline *timeline = new TransformTimeline();
     timeline->name = timelineXML->Attribute(ConstValues::A_NAME.c_str());
-    timeline->scale = timelineXML->FloatAttribute(ConstValues::A_SCALE.c_str());
+    timeline->scale = getNumber(*timelineXML, ConstValues::A_SCALE.c_str(), 1.f, 1.f);
     timeline->offset = timelineXML->FloatAttribute(ConstValues::A_OFFSET.c_str());
     timeline->duration = duration;
     
-    for (const XMLElement *frameXML = timelineXML->FirstChildElement(ConstValues::FRAME.c_str()); frameXML; frameXML = frameXML->NextSiblingElement(ConstValues::FRAME.c_str()))
+    for (const XMLElement *frameXML = timelineXML->FirstChildElement(ConstValues::FRAME.c_str()); 
+		frameXML; frameXML = frameXML->NextSiblingElement(ConstValues::FRAME.c_str()))
     {
         TransformFrame *frame = parseTransformFrame(frameXML);
         timeline->frameList.push_back(frame);
     }
-    
     parseTimeline(*timelineXML, *timeline);
+
     return timeline;
+}
+
+SlotTimeline* XMLDataParser::parseSlotTimeline(const XMLElement *timelineXML, int duration) const
+{
+	SlotTimeline *timeline = new SlotTimeline();
+	timeline->name = timelineXML->Attribute(ConstValues::A_NAME.c_str());
+	timeline->scale = getNumber(*timelineXML, ConstValues::A_SCALE.c_str(), 1.f, 1.f);
+	timeline->offset = timelineXML->FloatAttribute(ConstValues::A_OFFSET.c_str());
+	timeline->duration = duration;
+
+	for (const XMLElement *frameXML = timelineXML->FirstChildElement(ConstValues::FRAME.c_str()); 
+		frameXML; frameXML = frameXML->NextSiblingElement(ConstValues::FRAME.c_str()))
+	{
+		SlotFrame *frame = parseSlotFrame(frameXML);
+		timeline->frameList.push_back(frame);
+	}
+	parseTimeline(*timelineXML, *timeline);
+
+	return timeline;
+}
+
+SlotFrame* XMLDataParser::parseSlotFrame(const XMLElement *frameXML) const
+{
+	SlotFrame *frame = new SlotFrame();
+	parseFrame(*frameXML, *frame);
+
+	frame->visible = !getBoolean(*frameXML, ConstValues::A_HIDE.c_str(), false);
+	frame->tweenEasing = getNumber(*frameXML, ConstValues::A_TWEEN_EASING.c_str(), AUTO_TWEEN_EASING, NO_TWEEN_EASING);
+	frame->displayIndex = frameXML->IntAttribute(ConstValues::A_DISPLAY_INDEX.c_str());
+	frame->zOrder = getNumber(*frameXML, ConstValues::A_Z_ORDER.c_str(), 0.f, 0.f);
+
+	const XMLElement *colorTransformXML = frameXML->FirstChildElement(ConstValues::COLOR_TRANSFORM.c_str());
+	if (colorTransformXML)
+	{
+		frame->color = new ColorTransform();
+		parseColorTransform(*colorTransformXML, *frame->color);
+	}
+
+	return frame;
 }
 
 Frame* XMLDataParser::parseMainFrame(const XMLElement *frameXML) const
@@ -350,8 +463,8 @@ TransformFrame* XMLDataParser::parseTransformFrame(const XMLElement *frameXML) c
     frame->tweenEasing = getNumber(*frameXML, ConstValues::A_TWEEN_EASING.c_str(), AUTO_TWEEN_EASING, NO_TWEEN_EASING);
     frame->tweenRotate = frameXML->IntAttribute(ConstValues::A_TWEEN_ROTATE.c_str());
     frame->tweenScale = getBoolean(*frameXML, ConstValues::A_TWEEN_SCALE.c_str(), true);
-    frame->displayIndex = frameXML->IntAttribute(ConstValues::A_DISPLAY_INDEX.c_str());
-    frame->zOrder = getNumber(*frameXML, ConstValues::A_Z_ORDER.c_str(), 0.f, 0.f);
+    //frame->displayIndex = frameXML->IntAttribute(ConstValues::A_DISPLAY_INDEX.c_str());
+    //frame->zOrder = getNumber(*frameXML, ConstValues::A_Z_ORDER.c_str(), 0.f, 0.f);
 
     const XMLElement *transformXML = frameXML->FirstChildElement(ConstValues::TRANSFORM.c_str());
     if (transformXML)
@@ -365,12 +478,12 @@ TransformFrame* XMLDataParser::parseTransformFrame(const XMLElement *frameXML) c
     frame->scaleOffset.x = getNumber(*frameXML, ConstValues::A_SCALE_X_OFFSET.c_str(), 0.f, 0.f);
     frame->scaleOffset.y = getNumber(*frameXML, ConstValues::A_SCALE_Y_OFFSET.c_str(), 0.f, 0.f);
 
-    const XMLElement *colorTransformXML = frameXML->FirstChildElement(ConstValues::COLOR_TRANSFORM.c_str());
-    if (colorTransformXML)
-    {
-        frame->color = new ColorTransform();
-        parseColorTransform(*colorTransformXML, *frame->color);
-    }
+    //const XMLElement *colorTransformXML = frameXML->FirstChildElement(ConstValues::COLOR_TRANSFORM.c_str());
+    //if (colorTransformXML)
+    //{
+    //    frame->color = new ColorTransform();
+    //    parseColorTransform(*colorTransformXML, *frame->color);
+    //}
     
     return frame;
 }
@@ -449,18 +562,20 @@ void XMLDataParser::parseFrame(const XMLElement &frameXML, Frame &frame) const
 
 void XMLDataParser::parseTransform(const XMLElement &transformXML, Transform &transform) const
 {
-    transform.x = transformXML.FloatAttribute(ConstValues::A_X.c_str()) / _armatureScale;
-    transform.y = transformXML.FloatAttribute(ConstValues::A_Y.c_str()) / _armatureScale;
+	// 0
+    transform.x = transformXML.FloatAttribute(ConstValues::A_X.c_str());
+    transform.y = transformXML.FloatAttribute(ConstValues::A_Y.c_str());
     transform.skewX = transformXML.FloatAttribute(ConstValues::A_SKEW_X.c_str()) * ANGLE_TO_RADIAN;
     transform.skewY = transformXML.FloatAttribute(ConstValues::A_SKEW_Y.c_str()) * ANGLE_TO_RADIAN;
-    transform.scaleX = transformXML.FloatAttribute(ConstValues::A_SCALE_X.c_str());
-    transform.scaleY = transformXML.FloatAttribute(ConstValues::A_SCALE_Y.c_str());
+	// 1
+	transform.scaleX = getNumber(transformXML, ConstValues::A_SCALE_X.c_str(), 1.f, 1.f);
+    transform.scaleY = getNumber(transformXML, ConstValues::A_SCALE_Y.c_str(), 1.f, 1.f);
 }
 
 void XMLDataParser::parsePivot(const XMLElement &transformXML, Point &pivot) const
 {
-    pivot.x = transformXML.FloatAttribute(ConstValues::A_PIVOT_X.c_str()) / _armatureScale;
-    pivot.y = transformXML.FloatAttribute(ConstValues::A_PIVOT_Y.c_str()) / _armatureScale;
+    pivot.x = transformXML.FloatAttribute(ConstValues::A_PIVOT_X.c_str());
+    pivot.y = transformXML.FloatAttribute(ConstValues::A_PIVOT_Y.c_str());
 }
 
 void XMLDataParser::parseColorTransform(const XMLElement &colorTransformXML, ColorTransform &colorTransform) const
@@ -475,29 +590,29 @@ void XMLDataParser::parseColorTransform(const XMLElement &colorTransformXML, Col
     colorTransform.blueMultiplier = colorTransformXML.FloatAttribute(ConstValues::A_BLUE_MULTIPLIER.c_str()) * 0.01f;
 }
 
-void XMLDataParser::parseTextData(const XMLElement &textXML, TextData &textData) const
-{
-    textData.bold = getBoolean(textXML, ConstValues::A_BOLD.c_str(), false);
-    textData.italic = getBoolean(textXML, ConstValues::A_ITALIC.c_str(), false);
-
-    textData.size = textXML.UnsignedAttribute(ConstValues::A_SIZE.c_str());
-
-    const XMLElement *colorXML = textXML.FirstChildElement(ConstValues::COLOR.c_str());
-    if (colorXML)
-    {
-        textData.alpha = colorXML->UnsignedAttribute(ConstValues::A_ALPHA.c_str());
-        textData.red = colorXML->UnsignedAttribute(ConstValues::A_RED.c_str());
-        textData.green = colorXML->UnsignedAttribute(ConstValues::A_GREEN.c_str());
-        textData.blue = colorXML->UnsignedAttribute(ConstValues::A_BLUE.c_str());
-    }
-
-    textData.width = textXML.UnsignedAttribute(ConstValues::A_WIDTH.c_str());
-    textData.height = textXML.UnsignedAttribute(ConstValues::A_HEIGHT.c_str());
-
-    textData.face = textXML.Attribute(ConstValues::A_FACE.c_str());
-    textData.text = textXML.Attribute(ConstValues::A_TEXT.c_str());
-
-    textData.alignH = getAlignHType(textXML.Attribute(ConstValues::A_ALIGN_H.c_str()));
-    textData.alignV = getAlignVType(textXML.Attribute(ConstValues::A_ALIGN_V.c_str()));
-}
+//void XMLDataParser::parseTextData(const XMLElement &textXML, TextData &textData) const
+//{
+//    textData.bold = getBoolean(textXML, ConstValues::A_BOLD.c_str(), false);
+//    textData.italic = getBoolean(textXML, ConstValues::A_ITALIC.c_str(), false);
+//
+//    textData.size = textXML.UnsignedAttribute(ConstValues::A_SIZE.c_str());
+//
+//    const XMLElement *colorXML = textXML.FirstChildElement(ConstValues::COLOR.c_str());
+//    if (colorXML)
+//    {
+//        textData.alpha = colorXML->UnsignedAttribute(ConstValues::A_ALPHA.c_str());
+//        textData.red = colorXML->UnsignedAttribute(ConstValues::A_RED.c_str());
+//        textData.green = colorXML->UnsignedAttribute(ConstValues::A_GREEN.c_str());
+//        textData.blue = colorXML->UnsignedAttribute(ConstValues::A_BLUE.c_str());
+//    }
+//
+//    textData.width = textXML.UnsignedAttribute(ConstValues::A_WIDTH.c_str());
+//    textData.height = textXML.UnsignedAttribute(ConstValues::A_HEIGHT.c_str());
+//
+//    textData.face = textXML.Attribute(ConstValues::A_FACE.c_str());
+//    textData.text = textXML.Attribute(ConstValues::A_TEXT.c_str());
+//
+//    textData.alignH = getAlignHType(textXML.Attribute(ConstValues::A_ALIGN_H.c_str()));
+//    textData.alignV = getAlignVType(textXML.Attribute(ConstValues::A_ALIGN_V.c_str()));
+//}
 NAME_SPACE_DRAGON_BONES_END
