@@ -29,6 +29,7 @@ public:
 		,duration(0)
 		,frameType(FrameType::FT_FRAME)
 		,eventParametersParsed(nullptr)
+		,curve(nullptr)
     {}
     Frame(const Frame &copyData)
     {
@@ -57,6 +58,12 @@ public:
             delete eventParametersParsed;
             eventParametersParsed = nullptr;
         }
+
+		if (curve)
+		{
+			delete curve;
+			curve = nullptr;
+		}
     }
 };
 NAME_SPACE_DRAGON_BONES_END

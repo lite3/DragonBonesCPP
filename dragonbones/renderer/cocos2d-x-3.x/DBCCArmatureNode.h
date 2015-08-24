@@ -12,7 +12,6 @@
 #endif // DRAGON_BONES_ENABLE_LUA
 
 
-
 NAME_SPACE_DRAGON_BONES_BEGIN
 class DBCCArmatureNode : public cocos2d::Node, public IAnimatable
 {
@@ -47,7 +46,8 @@ public:
     virtual ~DBCCArmatureNode();
 
 	DBCCArmature* getArmature() const { return _armature; };
-	Animation* getAnimation() const { return _armature->getAnimation(); };
+	//Animation* getAnimation() const { return _armature->getAnimation(); };
+	Animation* getAnimation() { return _armature->getAnimation(); };
 
 	virtual void update(float dt) override;
     virtual void advanceTime(float dt) override;

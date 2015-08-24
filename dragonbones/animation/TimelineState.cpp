@@ -82,8 +82,8 @@ void TimelineState::fadeIn(Bone *bone, AnimationState *animationState, Transform
     _pivot.y = 0.f;
     _durationTransform.x = 0.f;
     _durationTransform.y = 0.f;
-    _durationTransform.scaleX = 0.f;
-    _durationTransform.scaleY = 0.f;
+    _durationTransform.scaleX = 1.f;
+    _durationTransform.scaleY = 1.f;
     _durationTransform.skewX = 0.f;
     _durationTransform.skewY = 0.f;
     _durationPivot.x = 0.f;
@@ -138,6 +138,7 @@ void TimelineState::updateMultipleFrame(float progress)
     int currentPlayTimes = 0;
     int playTimes = _animationState->getPlayTimes();
     
+	// loop
     if (playTimes == 0)
     {
         _isComplete = false;
@@ -264,9 +265,7 @@ void TimelineState::updateMultipleFrame(float progress)
 
 void TimelineState::updateToNextFrame(int currentPlayTimes)
 {
-    bool tweenEnabled = false;
     int nextFrameIndex = _currentFrameIndex + 1;
-    
     if (nextFrameIndex >= (int)(_timelineData->frameList.size()))
     {
         nextFrameIndex = 0;
@@ -274,7 +273,7 @@ void TimelineState::updateToNextFrame(int currentPlayTimes)
     
     const TransformFrame *currentFrame = static_cast<TransformFrame*>(_timelineData->frameList[_currentFrameIndex]);
     const TransformFrame *nextFrame = static_cast<TransformFrame*>(_timelineData->frameList[nextFrameIndex]);
-    
+	bool tweenEnabled = false;
     if (
         nextFrameIndex == 0 &&
         (
@@ -282,7 +281,8 @@ void TimelineState::updateToNextFrame(int currentPlayTimes)
             (
                 _animationState->getPlayTimes() &&
                 _animationState->getCurrentPlayTimes() >= _animationState->getPlayTimes() &&
-                ((_currentFramePosition + _currentFrameDuration) / _totalTime + currentPlayTimes - _timelineData->offset) * _timelineData->scale > 0.999999f
+                ((_currentFramePosition + _currentFrameDuration) / _totalTime + 
+					currentPlayTimes - _timelineData->offset) * _timelineData->scale > 0.999999f
             )
         )
     )
@@ -299,7 +299,8 @@ void TimelineState::updateToNextFrame(int currentPlayTimes)
     {
         _tweenEasing = _animationState->getClip()->tweenEasing;
         
-        if (_tweenEasing == USE_FRAME_TWEEN_EASING)
+        //if (_tweenEasing == USE_FRAME_TWEEN_EASING)
+		if (_tweenEasing == NO_TWEEN_EASING)
         {
             _tweenEasing = currentFrame->tweenEasing;
 			_tweenCurve = currentFrame->curve;
@@ -349,7 +350,9 @@ void TimelineState::updateToNextFrame(int currentPlayTimes)
         _durationTransform.skewY = nextFrame->transform.skewY - currentFrame->transform.skewY;
         _durationTransform.scaleX = nextFrame->transform.scaleX - currentFrame->transform.scaleX + nextFrame->scaleOffset.x;
         _durationTransform.scaleY = nextFrame->transform.scaleY - currentFrame->transform.scaleY + nextFrame->scaleOffset.y;
-        _durationTransform.normalizeRotation();
+        
+		// 有问题？
+		//_durationTransform.normalizeRotation();
 
         if (nextFrameIndex == 0)
         {
@@ -521,10 +524,10 @@ void TimelineState::updateTween()
 			progress = _tweenCurve->getValueByProgress(progress);
 		}
 
-		if (_tweenEasing && _tweenEasing != NO_TWEEN_EASING)
-		{
-			progress = getEaseValue(progress, _tweenEasing);
-		}
+		//if (_tweenEasing && _tweenEasing != NO_TWEEN_EASING)
+		//{
+			//progress = getEaseValue(progress, _tweenEasing);
+		//}
 
         const Transform &currentTransform = currentFrame->transform;
         const Point &currentPivot = currentFrame->pivot;
@@ -565,7 +568,7 @@ void TimelineState::updateTween()
         
         _bone->invalidUpdate();
     }
-    
+
     //if (_tweenColor && _animationState->displayControl)
     //{
     //    if (currentFrame->color)

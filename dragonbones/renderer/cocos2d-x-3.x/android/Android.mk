@@ -8,11 +8,10 @@ LOCAL_MODULE_FILENAME := libdragonbones
 LOCAL_SRC_FILES := ../../../animation/Animation.cpp \
                    ../../../animation/AnimationState.cpp \
                    ../../../animation/TimelineState.cpp \
-				   ../../../animation/SlotTimelineState.cpp \
                    ../../../animation/WorldClock.cpp \
                    ../../../core/Armature.cpp \
                    ../../../core/Bone.cpp \
-                   ../../../core/DBObject.cpp \
+                   ../../../core/Object.cpp \
                    ../../../core/Slot.cpp \
                    ../../../events/EventData.cpp \
                    ../../../factories/BaseFactory.cpp \
