@@ -344,7 +344,7 @@ void TimelineState::updateToNextFrame(int currentPlayTimes)
         _durationTransform.skewY = nextFrame->transform.skewY - currentFrame->transform.skewY;
         _durationTransform.scaleX = nextFrame->transform.scaleX - currentFrame->transform.scaleX + nextFrame->scaleOffset.x;
         _durationTransform.scaleY = nextFrame->transform.scaleY - currentFrame->transform.scaleY + nextFrame->scaleOffset.y;
-        
+
 		// 有问题？
 		//_durationTransform.normalizeRotation();
 

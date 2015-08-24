@@ -33,10 +33,10 @@ public:
     explicit Animation();
     virtual ~Animation();
     
-    virtual void dispose();
-    virtual void clear();
+    void dispose();
+    void clear();
     
-    virtual AnimationState* gotoAndPlay(
+    AnimationState* gotoAndPlay(
         const std::string &animationName,
         float fadeInTime = -1.f,
         float duration = -1.f,
@@ -48,7 +48,7 @@ public:
         bool pauseFadeIn = true
     );
     
-    virtual AnimationState* gotoAndStop(
+    AnimationState* gotoAndStop(
         const std::string &animationName,
         float time,
         float normalizedTime = -1.f,
@@ -59,27 +59,27 @@ public:
         AnimationFadeOutMode fadeOutMode = AnimationFadeOutMode::ALL
     );
     
-    virtual void play();
-    virtual void stop();
-    virtual void advanceTime(float passedTime);
+    void play();
+    void stop();
+    void advanceTime(float passedTime);
     
-    virtual bool hasAnimation(const std::string &animationName) const;
-    virtual AnimationState* getState(const std::string &name, int layer = 0) const;
+    bool hasAnimation(const std::string &animationName) const;
+    AnimationState* getState(const std::string &name, int layer = 0) const;
 
-	virtual bool getIsPlaying() const;
-	virtual bool getIsComplete() const;
-	virtual const std::vector<std::string>& getAnimationList() const;
-	virtual AnimationState* getLastAnimationState() const;
-	virtual float getTimeScale() const;
-	virtual void setTimeScale(float timeScale);
+	bool getIsPlaying() const;
+	bool getIsComplete() const;
+	const std::vector<std::string>& getAnimationList() const;
+	AnimationState* getLastAnimationState() const;
+	float getTimeScale() const;
+	void setTimeScale(float timeScale);
 
-	virtual const std::vector<AnimationData*>& getAnimationDataList() const;
-	virtual void setAnimationDataList(const std::vector<AnimationData*> &animationDataList);
+	const std::vector<AnimationData*>& getAnimationDataList() const;
+	void setAnimationDataList(const std::vector<AnimationData*> &animationDataList);
     
 protected:
-    virtual void addState(AnimationState *animationState);
-    virtual void removeState(AnimationState *animationState);
-    virtual void updateAnimationStates();
+    void addState(AnimationState *animationState);
+    void removeState(AnimationState *animationState);
+    void updateAnimationStates();
 	void resetAnimationStateList();
     
 private:

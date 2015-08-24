@@ -400,7 +400,9 @@ TransformFrame* XMLDataParser::parseTransformFrame(const XMLElement *frameXML) c
     // NaN:no tween, 10:auto tween, [-1, 0):ease in, 0:line easing, (0, 1]:ease out, (1, 2]:ease in out
     frame->tweenEasing = getNumber(*frameXML, ConstValues::A_TWEEN_EASING.c_str(), AUTO_TWEEN_EASING, NO_TWEEN_EASING);
     frame->tweenRotate = frameXML->IntAttribute(ConstValues::A_TWEEN_ROTATE.c_str());
-    frame->tweenScale = getBoolean(*frameXML, ConstValues::A_TWEEN_SCALE.c_str(), true);
+
+	// 这里有待确认
+    frame->tweenScale = getBoolean(*frameXML, ConstValues::A_TWEEN_SCALE.c_str(), false);
 
     const XMLElement *transformXML = frameXML->FirstChildElement(ConstValues::TRANSFORM.c_str());
     if (transformXML)
