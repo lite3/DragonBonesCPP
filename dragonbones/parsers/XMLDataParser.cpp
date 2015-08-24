@@ -196,14 +196,12 @@ BoneData* XMLDataParser::parseBoneData(const XMLElement *boneXML) const
 {
     BoneData *boneData = new BoneData();
     boneData->name = boneXML->Attribute(ConstValues::A_NAME.c_str());
-	if (boneData->name == "root")
+	if (boneXML->FindAttribute(ConstValues::A_PARENT.c_str()))
 	{
-		return boneData;
+		boneData->parent = boneXML->Attribute(ConstValues::A_PARENT.c_str());    
 	}
-
-    boneData->parent = boneXML->Attribute(ConstValues::A_PARENT.c_str());    
     // length目前没什么用，为以后做运行时反向动力学预留
-	boneData->length = boneXML->FloatAttribute(ConstValues::A_LENGTH.c_str());
+	boneData->length = getNumber(*boneXML, ConstValues::A_LENGTH.c_str(), 0.f, 0.f);
 	// 补充文档说明：骨骼是否受到父骨骼的缩放和旋转的影响
     boneData->inheritRotation = getBoolean(*boneXML, ConstValues::A_INHERIT_ROTATION.c_str(), true);
     boneData->inheritScale = getBoolean(*boneXML, ConstValues::A_INHERIT_SCALE.c_str(), true);
