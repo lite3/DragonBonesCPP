@@ -11,15 +11,11 @@
 #include "../geoms/Transform.h"
 
 // objects
-#include "../objects/IAreaData.h"
-#include "../objects/RectangleData.h"
-#include "../objects/EllipseData.h"
 #include "../objects/Frame.h"
 #include "../objects/TransformFrame.h"
 #include "../objects/Timeline.h"
 #include "../objects/TransformTimeline.h"
 #include "../objects/AnimationData.h"
-#include "../objects/TextData.h"
 #include "../objects/DisplayData.h"
 #include "../objects/SlotData.h"
 #include "../objects/SkinData.h"
@@ -34,15 +30,6 @@
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 
-//class ArmatureData;
-//class AnimationData;
-//class TransformTimeline;
-//class Transform;
-//class BoneData;
-//class TransformFrame;
-//class TextureAtlasData;
-//class DragonBonesData;
-
 class BaseDataParser
 {
 public:
@@ -52,10 +39,6 @@ public:
 	virtual DragonBonesData *parseDragonBonesData(const void *rawDragonBonesData) const = 0;
 
 protected:
-    static TextData::AlignHType getAlignHType(const char *alignHString);
-    static TextData::AlignVType getAlignVType(const char *alignVString);
-    static TextData::TextType getTextType(const char *textTypeString);
-    static TextData::LineType getLineType(const char *lineTypeString);
     static void transformArmatureData(ArmatureData *armatureData);
     static void transformArmatureDataAnimations(ArmatureData *armatureData);
     static void transformAnimationData(AnimationData *animationData, const ArmatureData *armatureData, bool isGlobalData = false);

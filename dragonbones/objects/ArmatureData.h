@@ -2,7 +2,6 @@
 #define OBJECTS_ARMATURE_DATA_H
 
 #include "../DragonBones.h"
-#include "IAreaData.h"
 #include "BoneData.h"
 #include "SkinData.h"
 #include "AnimationData.h"
@@ -18,7 +17,6 @@ private:
     
 public:
     std::string name;
-    //std::vector<IAreaData*> areaDataList;
     std::vector<BoneData*> boneDataList;
     std::vector<SkinData*> skinDataList;
 	std::vector<SlotData*> slotDataList;
@@ -34,28 +32,6 @@ public:
     {
         dispose();
         name = copyData.name;
-
-        //areaDataList.reserve(copyData.areaDataList.size());
-        //
-        //for (size_t i = 0, l = areaDataList.size(); i < l; ++i)
-        //{
-        //    switch (copyData.areaDataList[i]->areaType)
-        //    {
-        //        case IAreaData::AreaType::AT_ELLIPSE:
-        //            areaDataList.push_back(new EllipseData());
-        //            *(areaDataList[i]) = *(static_cast<EllipseData*>(copyData.areaDataList[i]));
-        //            break;
-        //            
-        //        case IAreaData::AreaType::AT_RECTANGLE:
-        //            areaDataList.push_back(new RectangleData());
-        //            *(areaDataList[i]) = *(static_cast<RectangleData*>(copyData.areaDataList[i]));
-        //            break;
-        //            
-        //        default:
-        //            // throw
-        //            break;
-        //    }
-        //}
         
         boneDataList.reserve(copyData.boneDataList.size());
         for (size_t i = 0, l = boneDataList.size(); i < l; ++i)
@@ -86,13 +62,7 @@ public:
         dispose();
     }
     void dispose()
-    {
-        //for (size_t i = 0, l = areaDataList.size(); i < l; ++i)
-        //{
-        //    areaDataList[i]->dispose();
-        //    delete areaDataList[i];
-        //}
-        
+    {        
         for (size_t i = 0, l = boneDataList.size(); i < l; ++i)
         {
             boneDataList[i]->dispose();
@@ -114,35 +84,11 @@ public:
             delete animationDataList[i];
         }
         
-        //areaDataList.clear();
         boneDataList.clear();
         skinDataList.clear();
 		slotDataList.clear();
         animationDataList.clear();
     }
-    
-	//IAreaData* getAreaData(const std::string &areaName) const
-	//{
-	//	if (areaDataList.empty())
-	//	{
-	//		return nullptr;
-	//	}
-
-	//	if (areaName.empty())
-	//	{
-	//		return areaDataList.front();
-	//	}
-
-	//	for (size_t i = 0, l = areaDataList.size(); i < l; ++i)
-	//	{
-	//		if (areaDataList[i]->name == areaName)
-	//		{
-	//			return areaDataList[i];
-	//		}
-	//	}
-
-	//	return nullptr;
-	//}
     
     BoneData* getBoneData(const std::string &boneName) const
     {

@@ -16,6 +16,11 @@ public:
         x = 0.f;
         y = 0.f;
     }
+	Point(float x, float y)
+	{
+		x = x;
+		y = y;
+	}
     Point(const Point &copyData)
     {
         operator=(copyData);

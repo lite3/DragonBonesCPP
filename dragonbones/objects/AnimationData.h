@@ -6,6 +6,7 @@
 #include "SlotTimeline.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
+
 class AnimationData : public Timeline
 {
 public:

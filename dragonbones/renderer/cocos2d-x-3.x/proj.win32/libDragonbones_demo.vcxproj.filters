@@ -182,16 +182,7 @@
     <ClInclude Include="..\..\..\objects\DragonBonesData.h">
       <Filter>dragonbones\objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\objects\EllipseData.h">
-      <Filter>dragonbones\objects</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\objects\Frame.h">
-      <Filter>dragonbones\objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\objects\IAreaData.h">
-      <Filter>dragonbones\objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\objects\RectangleData.h">
       <Filter>dragonbones\objects</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\objects\SkinData.h">
@@ -252,9 +243,6 @@
       <Filter>dragonbones\objects</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\objects\SlotTimeline.h">
-      <Filter>dragonbones\objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\objects\TextData.h">
       <Filter>dragonbones\objects</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\animation\SlotTimelineState.h">

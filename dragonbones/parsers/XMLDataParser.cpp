@@ -173,22 +173,6 @@ ArmatureData* XMLDataParser::parseArmatureData(const XMLElement *armatureXML) co
         armatureData->animationDataList.push_back(animationData);
     }
     
-	//// 以后支持
- //   for (const XMLElement *rectangleXML = armatureXML->FirstChildElement(ConstValues::RECTANGLE.c_str()); 
-	//	rectangleXML; rectangleXML = rectangleXML->NextSiblingElement(ConstValues::RECTANGLE.c_str()))
- //   {
- //       RectangleData *rectangleData = parseRectangleData(rectangleXML);
- //       armatureData->areaDataList.push_back(rectangleData);
- //   }
- //   
-	//// 以后支持
- //   for (const XMLElement *ellipseXML = armatureXML->FirstChildElement(ConstValues::ELLIPSE.c_str()); 
-	//	ellipseXML; ellipseXML = ellipseXML->NextSiblingElement(ConstValues::ELLIPSE.c_str()))
- //   {
- //       EllipseData *ellipseData = parseEllipseData(ellipseXML);
- //       armatureData->areaDataList.push_back(ellipseData);
- //   }
-    
     return armatureData;
 }
 
@@ -218,22 +202,6 @@ BoneData* XMLDataParser::parseBoneData(const XMLElement *boneXML) const
 	{
 		boneData->transform = boneData->global;
 	}
-
-	// 以后支持
-    for (const XMLElement *rectangleXML = boneXML->FirstChildElement(ConstValues::RECTANGLE.c_str()); 
-		rectangleXML; rectangleXML = rectangleXML->NextSiblingElement(ConstValues::RECTANGLE.c_str()))
-    {
-        RectangleData *rectangleData = parseRectangleData(rectangleXML);
-        boneData->areaDataList.push_back(rectangleData);
-    }
-    
-	// 以后支持
-    for (const XMLElement *ellipseXML = boneXML->FirstChildElement(ConstValues::ELLIPSE.c_str()); 
-		ellipseXML; ellipseXML = ellipseXML->NextSiblingElement(ConstValues::ELLIPSE.c_str()))
-    {
-        EllipseData *ellipseData = parseEllipseData(ellipseXML);
-        boneData->areaDataList.push_back(ellipseData);
-    }
     
     return boneData;
 }
@@ -287,20 +255,6 @@ DisplayData* XMLDataParser::parseDisplayData(const XMLElement *displayXML) const
     displayData->name = displayXML->Attribute(ConstValues::A_NAME.c_str());
     displayData->type = getDisplayTypeByString(displayXML->Attribute(ConstValues::A_TYPE.c_str()));
 
-    //const XMLElement *scalingGridXML = displayXML->FirstChildElement(ConstValues::SCALING_GRID.c_str());
-    //if (scalingGridXML)
-    //{
-    //    displayData->scalingGrid = true;
-    //    displayData->scalingGridLeft = scalingGridXML->IntAttribute(ConstValues::A_LEFT.c_str());
-    //    displayData->scalingGridRight = scalingGridXML->IntAttribute(ConstValues::A_RIGHT.c_str());
-    //    displayData->scalingGridTop = scalingGridXML->IntAttribute(ConstValues::A_TOP.c_str());
-    //    displayData->scalingGridBottom = scalingGridXML->IntAttribute(ConstValues::A_BOTTOM.c_str());
-    //}
-    //else
-    //{
-    //    displayData->scalingGrid = false;
-    //}
-
     const XMLElement *transformXML = displayXML->FirstChildElement(ConstValues::TRANSFORM.c_str());
     if (transformXML)
     {
@@ -308,13 +262,6 @@ DisplayData* XMLDataParser::parseDisplayData(const XMLElement *displayXML) const
         parseTransform(*transformXML, displayData->transform);
         //parsePivot(*transformXML, displayData->pivot);
     }
-
-    //const XMLElement *textXML = displayXML->FirstChildElement(ConstValues::TEXT.c_str());
-    //if (textXML)
-    //{
-    //    displayData->textData = new TextData();
-    //    parseTextData(*textXML, *displayData->textData);
-    //}
 
     return displayData;
 }
@@ -373,13 +320,6 @@ AnimationData* XMLDataParser::parseAnimationData(const XMLElement *animationXML,
 	}
 	animationData->lastFrameDuration = lastFrameDuration;
 
-  //  for (const XMLElement *timelineXML = animationXML->FirstChildElement(ConstValues::TIMELINE.c_str()); 
-		//timelineXML; timelineXML = timelineXML->NextSiblingElement(ConstValues::TIMELINE.c_str()))
-  //  {
-  //      TransformTimeline *timeline = parseTransformTimeline(timelineXML, animationData->duration);
-  //      animationData->timelineList.push_back(timeline);
-  //  }
-    
     addHideTimeline(animationData, armatureData);
     transformAnimationData(animationData, armatureData);
     return animationData;
@@ -461,8 +401,6 @@ TransformFrame* XMLDataParser::parseTransformFrame(const XMLElement *frameXML) c
     frame->tweenEasing = getNumber(*frameXML, ConstValues::A_TWEEN_EASING.c_str(), AUTO_TWEEN_EASING, NO_TWEEN_EASING);
     frame->tweenRotate = frameXML->IntAttribute(ConstValues::A_TWEEN_ROTATE.c_str());
     frame->tweenScale = getBoolean(*frameXML, ConstValues::A_TWEEN_SCALE.c_str(), true);
-    //frame->displayIndex = frameXML->IntAttribute(ConstValues::A_DISPLAY_INDEX.c_str());
-    //frame->zOrder = getNumber(*frameXML, ConstValues::A_Z_ORDER.c_str(), 0.f, 0.f);
 
     const XMLElement *transformXML = frameXML->FirstChildElement(ConstValues::TRANSFORM.c_str());
     if (transformXML)
@@ -475,49 +413,8 @@ TransformFrame* XMLDataParser::parseTransformFrame(const XMLElement *frameXML) c
     frame->transform = frame->global;
     frame->scaleOffset.x = getNumber(*frameXML, ConstValues::A_SCALE_X_OFFSET.c_str(), 0.f, 0.f);
     frame->scaleOffset.y = getNumber(*frameXML, ConstValues::A_SCALE_Y_OFFSET.c_str(), 0.f, 0.f);
-
-    //const XMLElement *colorTransformXML = frameXML->FirstChildElement(ConstValues::COLOR_TRANSFORM.c_str());
-    //if (colorTransformXML)
-    //{
-    //    frame->color = new ColorTransform();
-    //    parseColorTransform(*colorTransformXML, *frame->color);
-    //}
     
     return frame;
-}
-
-RectangleData* XMLDataParser::parseRectangleData(const XMLElement *rectangleXML) const
-{
-    RectangleData *rectangleData = new RectangleData();
-    rectangleData->name = rectangleXML->Attribute(ConstValues::A_NAME.c_str());
-    rectangleData->width = rectangleXML->FloatAttribute(ConstValues::A_WIDTH.c_str());
-    rectangleData->height = rectangleXML->FloatAttribute(ConstValues::A_HEIGHT.c_str());
-
-    const XMLElement *transformXML = rectangleXML->FirstChildElement(ConstValues::TRANSFORM.c_str());
-    if (transformXML)
-    {
-        parseTransform(*transformXML, rectangleData->transform);
-        parsePivot(*transformXML, rectangleData->pivot);
-    }
-
-    return rectangleData;
-}
-
-EllipseData* XMLDataParser:: parseEllipseData(const XMLElement *ellipseXML) const
-{
-    EllipseData *ellipseData = new EllipseData();
-    ellipseData->name = ellipseXML->Attribute(ConstValues::A_NAME.c_str());
-    ellipseData->width = ellipseXML->FloatAttribute(ConstValues::A_WIDTH.c_str());
-    ellipseData->height = ellipseXML->FloatAttribute(ConstValues::A_HEIGHT.c_str());
-
-    const XMLElement *transformXML = ellipseXML->FirstChildElement(ConstValues::TRANSFORM.c_str());
-    if (transformXML)
-    {
-        parseTransform(*transformXML, ellipseData->transform);
-        parsePivot(*transformXML, ellipseData->pivot);
-    }
-
-    return ellipseData;
 }
 
 void XMLDataParser::parseTimeline(const XMLElement &timelineXML, Timeline &timeline) const
@@ -556,6 +453,20 @@ void XMLDataParser::parseFrame(const XMLElement &frameXML, Frame &frame) const
     {
         frame.sound = frameXML.Attribute(ConstValues::A_SOUND.c_str());
     }
+
+	// curve data
+	if (frameXML.FindAttribute(ConstValues::A_CURVE.c_str()))
+	{
+		frame.curve = new CurveData();
+		for (const XMLElement *curveXML = frameXML.FirstChildElement(ConstValues::A_CURVE.c_str()); 
+			curveXML; curveXML = frameXML.NextSiblingElement(ConstValues::A_CURVE.c_str()))
+		{
+			float x = curveXML->FloatAttribute(ConstValues::A_X.c_str());
+			float y = curveXML->FloatAttribute(ConstValues::A_Y.c_str());
+			
+			frame.curve->_pointList.push_back(new Point(x, y));
+		}
+	}
 }
 
 void XMLDataParser::parseTransform(const XMLElement &transformXML, Transform &transform) const
@@ -588,29 +499,4 @@ void XMLDataParser::parseColorTransform(const XMLElement &colorTransformXML, Col
     colorTransform.blueMultiplier = colorTransformXML.FloatAttribute(ConstValues::A_BLUE_MULTIPLIER.c_str()) * 0.01f;
 }
 
-//void XMLDataParser::parseTextData(const XMLElement &textXML, TextData &textData) const
-//{
-//    textData.bold = getBoolean(textXML, ConstValues::A_BOLD.c_str(), false);
-//    textData.italic = getBoolean(textXML, ConstValues::A_ITALIC.c_str(), false);
-//
-//    textData.size = textXML.UnsignedAttribute(ConstValues::A_SIZE.c_str());
-//
-//    const XMLElement *colorXML = textXML.FirstChildElement(ConstValues::COLOR.c_str());
-//    if (colorXML)
-//    {
-//        textData.alpha = colorXML->UnsignedAttribute(ConstValues::A_ALPHA.c_str());
-//        textData.red = colorXML->UnsignedAttribute(ConstValues::A_RED.c_str());
-//        textData.green = colorXML->UnsignedAttribute(ConstValues::A_GREEN.c_str());
-//        textData.blue = colorXML->UnsignedAttribute(ConstValues::A_BLUE.c_str());
-//    }
-//
-//    textData.width = textXML.UnsignedAttribute(ConstValues::A_WIDTH.c_str());
-//    textData.height = textXML.UnsignedAttribute(ConstValues::A_HEIGHT.c_str());
-//
-//    textData.face = textXML.Attribute(ConstValues::A_FACE.c_str());
-//    textData.text = textXML.Attribute(ConstValues::A_TEXT.c_str());
-//
-//    textData.alignH = getAlignHType(textXML.Attribute(ConstValues::A_ALIGN_H.c_str()));
-//    textData.alignV = getAlignVType(textXML.Attribute(ConstValues::A_ALIGN_V.c_str()));
-//}
 NAME_SPACE_DRAGON_BONES_END

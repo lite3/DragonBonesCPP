@@ -11,9 +11,6 @@
 #include "geoms/Transform.h"
 
 // objects
-#include "objects/IAreaData.h"
-#include "objects/RectangleData.h"
-#include "objects/EllipseData.h"
 #include "objects/Frame.h"
 #include "objects/TransformFrame.h"
 #include "objects/Timeline.h"

@@ -9,18 +9,16 @@ class TextureData
 {
 public:
     bool rotated;
-    
     std::string name;
     Rectangle region;
-    
     Rectangle *frame;
     
 public:
-    TextureData()
-    {
-        rotated = false;
-        frame = nullptr;
-    }
+    TextureData() :
+		rotated(false)
+		,name("")
+		,frame(nullptr)
+    {}
     TextureData(const TextureData &copyData)
     {
         operator=(copyData);

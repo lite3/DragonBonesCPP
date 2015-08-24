@@ -8,9 +8,8 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 class Frame
 {
 public:
-    enum class FrameType {FT_FRAME, FT_TRANSFORM_FRAME};
-    
-public:
+	enum class FrameType {FT_FRAME, FT_TRANSFORM_FRAME};
+
     int position;
     int duration;
     
@@ -18,17 +17,17 @@ public:
     std::string action;
     std::string event;
     std::string sound;
-    std::string eventParameters;
 
-    void* eventParametersParsed;
 	CurveData *curve;
     
 public:
     Frame() :
 		position(0)
 		,duration(0)
+		,action("")
+		,event("")
+		,sound("")
 		,frameType(FrameType::FT_FRAME)
-		,eventParametersParsed(nullptr)
 		,curve(nullptr)
     {}
     Frame(const Frame &copyData)
@@ -43,8 +42,13 @@ public:
         action = copyData.action;
         event = copyData.event;
         sound = copyData.sound;
-        eventParameters = copyData.eventParameters;
-        // eventParamsParsed
+
+		if (copyData.curve)
+		{
+			curve = new CurveData();
+			*curve = *(copyData.curve);
+		}
+
         return *this;
     }
     virtual ~Frame()
@@ -53,12 +57,6 @@ public:
     }
     virtual void dispose() 
     {
-        if (eventParametersParsed)
-        {
-            delete eventParametersParsed;
-            eventParametersParsed = nullptr;
-        }
-
 		if (curve)
 		{
 			delete curve;

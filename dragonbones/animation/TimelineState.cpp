@@ -252,7 +252,6 @@ void TimelineState::updateMultipleFrame(float progress)
                 _tweenEasing = NO_TWEEN_EASING;
                 _tweenTransform = false;
                 _tweenScale = false;
-                //_tweenColor = false;
             }
         }
         
@@ -290,11 +289,6 @@ void TimelineState::updateToNextFrame(int currentPlayTimes)
         _tweenEasing = NO_TWEEN_EASING;
         tweenEnabled = false;
     }
-    //else if (currentFrame->displayIndex < 0 || nextFrame->displayIndex < 0)
-    //{
-    //    _tweenEasing = NO_TWEEN_EASING;
-    //    tweenEnabled = false;
-    //}
     else if (_animationState->autoTween)
     {
         _tweenEasing = _animationState->getClip()->tweenEasing;
@@ -382,71 +376,11 @@ void TimelineState::updateToNextFrame(int currentPlayTimes)
             _tweenTransform = false;
             _tweenScale = false;
         }
-        
-        // color
-        //if (currentFrame->color && nextFrame->color)
-        //{
-        //    _durationColor.alphaOffset = nextFrame->color->alphaOffset - currentFrame->color->alphaOffset;
-        //    _durationColor.redOffset = nextFrame->color->redOffset - currentFrame->color->redOffset;
-        //    _durationColor.greenOffset = nextFrame->color->greenOffset - currentFrame->color->greenOffset;
-        //    _durationColor.blueOffset = nextFrame->color->blueOffset - currentFrame->color->blueOffset;
-        //    _durationColor.alphaMultiplier = nextFrame->color->alphaMultiplier - currentFrame->color->alphaMultiplier;
-        //    _durationColor.redMultiplier = nextFrame->color->redMultiplier - currentFrame->color->redMultiplier;
-        //    _durationColor.greenMultiplier = nextFrame->color->greenMultiplier - currentFrame->color->greenMultiplier;
-        //    _durationColor.blueMultiplier = nextFrame->color->blueMultiplier - currentFrame->color->blueMultiplier;
-        //    
-        //    if (
-        //        _durationColor.alphaOffset ||
-        //        _durationColor.redOffset ||
-        //        _durationColor.greenOffset ||
-        //        _durationColor.blueOffset ||
-        //        _durationColor.alphaMultiplier ||
-        //        _durationColor.redMultiplier ||
-        //        _durationColor.greenMultiplier ||
-        //        _durationColor.blueMultiplier
-        //    )
-        //    {
-        //        _tweenColor = true;
-        //    }
-        //    else
-        //    {
-        //        _tweenColor = false;
-        //    }
-        //}
-        //else if (currentFrame->color)
-        //{
-        //    _tweenColor = true;
-        //    _durationColor.alphaOffset = -currentFrame->color->alphaOffset;
-        //    _durationColor.redOffset = -currentFrame->color->redOffset;
-        //    _durationColor.greenOffset = -currentFrame->color->greenOffset;
-        //    _durationColor.blueOffset = -currentFrame->color->blueOffset;
-        //    _durationColor.alphaMultiplier = 1 - currentFrame->color->alphaMultiplier;
-        //    _durationColor.redMultiplier = 1 - currentFrame->color->redMultiplier;
-        //    _durationColor.greenMultiplier = 1 - currentFrame->color->greenMultiplier;
-        //    _durationColor.blueMultiplier = 1 - currentFrame->color->blueMultiplier;
-        //}
-        //else if (nextFrame->color)
-        //{
-        //    _tweenColor = true;
-        //    _durationColor.alphaOffset = nextFrame->color->alphaOffset;
-        //    _durationColor.redOffset = nextFrame->color->redOffset;
-        //    _durationColor.greenOffset = nextFrame->color->greenOffset;
-        //    _durationColor.blueOffset = nextFrame->color->blueOffset;
-        //    _durationColor.alphaMultiplier = nextFrame->color->alphaMultiplier - 1;
-        //    _durationColor.redMultiplier = nextFrame->color->redMultiplier - 1;
-        //    _durationColor.greenMultiplier = nextFrame->color->greenMultiplier - 1;
-        //    _durationColor.blueMultiplier = nextFrame->color->blueMultiplier - 1;
-        //}
-        //else
-        //{
-        //    _tweenColor = false;
-        //}
     }
     else
     {
         _tweenTransform = false;
         _tweenScale = false;
-        //_tweenColor = false;
     }
     
     if (!_tweenTransform)
@@ -489,28 +423,6 @@ void TimelineState::updateToNextFrame(int currentPlayTimes)
             _transform.scaleY = _originTransform.scaleY * currentFrame->transform.scaleY;
         }
     }
-    
-    //if (!_tweenColor && _animationState->displayControl)
-    //{
-    //    if (currentFrame->color)
-    //    {
-    //        _bone->updateColor(
-    //            currentFrame->color->alphaOffset,
-    //            currentFrame->color->redOffset,
-    //            currentFrame->color->greenOffset,
-    //            currentFrame->color->blueOffset,
-    //            currentFrame->color->alphaMultiplier,
-    //            currentFrame->color->redMultiplier,
-    //            currentFrame->color->greenMultiplier,
-    //            currentFrame->color->blueMultiplier,
-    //            true
-    //        );
-    //    }
-    //    else if (_bone->_isColorChanged)
-    //    {
-    //        _bone->updateColor(0, 0, 0, 0, 1.f, 1.f, 1.f, 1.f, false);
-    //    }
-    //}
 }
 
 void TimelineState::updateTween()
@@ -568,38 +480,6 @@ void TimelineState::updateTween()
         
         _bone->invalidUpdate();
     }
-
-    //if (_tweenColor && _animationState->displayControl)
-    //{
-    //    if (currentFrame->color)
-    //    {
-    //        _bone->updateColor(
-    //            (int)(currentFrame->color->alphaOffset + _durationColor.alphaOffset * progress),
-    //            (int)(currentFrame->color->redOffset + _durationColor.redOffset * progress),
-    //            (int)(currentFrame->color->greenOffset + _durationColor.greenOffset * progress),
-    //            (int)(currentFrame->color->blueOffset + _durationColor.blueOffset * progress),
-    //            currentFrame->color->alphaMultiplier + _durationColor.alphaMultiplier * progress,
-    //            currentFrame->color->redMultiplier + _durationColor.redMultiplier * progress,
-    //            currentFrame->color->greenMultiplier + _durationColor.greenMultiplier * progress,
-    //            currentFrame->color->blueMultiplier + _durationColor.blueMultiplier * progress,
-    //            true
-    //        );
-    //    }
-    //    else
-    //    {
-    //        _bone->updateColor(
-    //            (int)(_durationColor.alphaOffset * progress),
-    //            (int)(_durationColor.redOffset * progress),
-    //            (int)(_durationColor.greenOffset * progress),
-    //            (int)(_durationColor.blueOffset * progress),
-    //            1.f + _durationColor.alphaMultiplier * progress,
-    //            1.f + _durationColor.redMultiplier * progress,
-    //            1.f + _durationColor.greenMultiplier * progress,
-    //            1.f + _durationColor.blueMultiplier * progress,
-    //            true
-    //        );
-    //    }
-    //}
 }
 
 void TimelineState::updateSingleFrame()
@@ -658,28 +538,6 @@ void TimelineState::updateSingleFrame()
         }
         
         _bone->invalidUpdate();
-        
-        //if (_animationState->displayControl)
-        //{
-        //    if (currentFrame->color)
-        //    {
-        //        _bone->updateColor(
-        //            currentFrame->color->alphaOffset,
-        //            currentFrame->color->redOffset,
-        //            currentFrame->color->greenOffset,
-        //            currentFrame->color->blueOffset,
-        //            currentFrame->color->alphaMultiplier,
-        //            currentFrame->color->redMultiplier,
-        //            currentFrame->color->greenMultiplier,
-        //            currentFrame->color->blueMultiplier,
-        //            true
-        //        );
-        //    }
-        //    else if (_bone->_isColorChanged)
-        //    {
-        //        _bone->updateColor(0, 0, 0, 0, 1.f, 1.f, 1.f, 1.f, false);
-        //    }
-        //}
     }
 }
 

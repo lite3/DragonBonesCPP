@@ -143,15 +143,11 @@
     <ClInclude Include="..\..\..\objects\CurveData.h" />
     <ClInclude Include="..\..\..\objects\DisplayData.h" />
     <ClInclude Include="..\..\..\objects\DragonBonesData.h" />
-    <ClInclude Include="..\..\..\objects\EllipseData.h" />
     <ClInclude Include="..\..\..\objects\Frame.h" />
-    <ClInclude Include="..\..\..\objects\IAreaData.h" />
-    <ClInclude Include="..\..\..\objects\RectangleData.h" />
     <ClInclude Include="..\..\..\objects\SkinData.h" />
     <ClInclude Include="..\..\..\objects\SlotData.h" />
     <ClInclude Include="..\..\..\objects\SlotFrame.h" />
     <ClInclude Include="..\..\..\objects\SlotTimeline.h" />
-    <ClInclude Include="..\..\..\objects\TextData.h" />
     <ClInclude Include="..\..\..\objects\Timeline.h" />
     <ClInclude Include="..\..\..\objects\TransformFrame.h" />
     <ClInclude Include="..\..\..\objects\TransformTimeline.h" />

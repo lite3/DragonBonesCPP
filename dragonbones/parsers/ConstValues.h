@@ -107,6 +107,7 @@ public:
     // add scale offset to frame
     static const std::string A_SCALE_X_OFFSET;
     static const std::string A_SCALE_Y_OFFSET;
+	static const std::string A_CURVE;
     
 private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(ConstValues);

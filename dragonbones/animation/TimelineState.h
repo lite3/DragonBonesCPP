@@ -17,14 +17,8 @@ class TimelineState
     friend class AnimationState;
     friend class Bone;
     
-private:
-    enum class UpdateState {UPDATE, UPDATE_ONCE, UNUPDATE};
+	enum class UpdateState {UPDATE, UPDATE_ONCE, UNUPDATE};
 
-    static std::vector<TimelineState*> _pool;
-    static TimelineState* borrowObject();
-    static void returnObject(TimelineState *timelineState);
-    static void clearObjects();
-    
 public:
     std::string name;
     
@@ -33,7 +27,6 @@ private:
     bool _isComplete;
     bool _tweenTransform;
     bool _tweenScale;
-    //bool _tweenColor;
     int _currentTime;
     int _currentFrameIndex;
     int _currentFramePosition;
@@ -50,7 +43,6 @@ private:
     Point _pivot;
     Point _durationPivot;
     Point _originPivot;
-    //ColorTransform _durationColor;
     
     Bone *_bone;
     AnimationState *_animationState;
@@ -62,7 +54,12 @@ public:
     virtual ~TimelineState();
     
 private:
-    void fadeIn(Bone *bone, AnimationState *animationState, TransformTimeline *timeline);
+	static std::vector<TimelineState*> _pool;
+	static TimelineState* borrowObject();
+	static void returnObject(TimelineState *timelineState);
+	static void clearObjects();
+    
+	void fadeIn(Bone *bone, AnimationState *animationState, TransformTimeline *timeline);
     void fadeOut();
     void update(float progress);
     void updateMultipleFrame(float progress);

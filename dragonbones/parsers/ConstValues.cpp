@@ -102,4 +102,6 @@ const std::string ConstValues::A_MAX_CHARACTERS = "maxCharacters";
 const std::string ConstValues::A_SCALE_X_OFFSET = "scXOffset";
 const std::string ConstValues::A_SCALE_Y_OFFSET = "scYOffset";
 
+const std::string ConstValues::A_CURVE = "curve";
+
 NAME_SPACE_DRAGON_BONES_END

@@ -8,8 +8,6 @@
 #include <cmath>
 #include <cstdlib>
 #include <assert.h>
-//#include <cfloat>
-//#include <stdexcept>
 
 #ifndef DBASSERT
 #define DBASSERT(cond, msg) do { \
