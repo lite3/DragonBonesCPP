@@ -13,6 +13,10 @@ class IEventDispatcher;
 class DBObject;
 class DragonBonesData;
 class ArmatureData;
+class Bone;
+class Slot;
+class Animation;
+class AnimationState;
 
 class Armature : public IAnimatable
 {

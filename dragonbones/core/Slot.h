@@ -11,6 +11,7 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 class Frame;
 class SlotData;
 class AnimationState;
+class SlotTimelineState;
 
 class Slot : public DBObject
 {    

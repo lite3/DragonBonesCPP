@@ -6,6 +6,9 @@
 NAME_SPACE_DRAGON_BONES_BEGIN
 
 class AnimationData;
+class SlotTimelineState;
+class TimelineState;
+class Armature;
 
 class AnimationState
 {

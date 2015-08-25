@@ -11,6 +11,8 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 class AnimationData;
 class CurveData;
 class TransformTimeline;
+class Bone;
+class AnimationState;
 
 class TimelineState
 {

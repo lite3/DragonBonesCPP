@@ -7,6 +7,7 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 
 class AnimationState;
 class AnimationData;
+class Armature;
 
 class Animation
 {

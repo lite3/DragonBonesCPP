@@ -4,18 +4,11 @@
 #include "../DragonBones.h"
 #include "DBObject.h"
 
-//#include "../objects/TransformFrame.h"
-//#include "Slot.h"
-//#include "../animation/AnimationState.h"
-//#include "../animation/TimelineState.h"
-//#include "Armature.h"
-
 NAME_SPACE_DRAGON_BONES_BEGIN
 
-//class AnimationState;
-//class TimelineState;
-//class Slot;
-
+class TimelineState;
+class Slot;
+class AnimationState;
 class TransformFrame;
 
 class Bone : public DBObject
