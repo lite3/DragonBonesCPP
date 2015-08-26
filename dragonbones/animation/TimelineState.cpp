@@ -82,8 +82,8 @@ void TimelineState::fadeIn(Bone *bone, AnimationState *animationState, Transform
     _pivot.y = 0.f;
     _durationTransform.x = 0.f;
     _durationTransform.y = 0.f;
-    _durationTransform.scaleX = 1.f;
-    _durationTransform.scaleY = 1.f;
+    _durationTransform.scaleX = 0.f;
+    _durationTransform.scaleY = 0.f;
     _durationTransform.skewX = 0.f;
     _durationTransform.skewY = 0.f;
     _durationPivot.x = 0.f;
@@ -254,7 +254,7 @@ void TimelineState::updateMultipleFrame(float progress)
                 _tweenScale = false;
             }
         }
-        
+
         if (_blendEnabled)
         {
             updateTween();
