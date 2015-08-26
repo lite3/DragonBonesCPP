@@ -1,5 +1,5 @@
-﻿#ifndef ANIMATION_TIMELINE_STATE_H
-#define ANIMATION_TIMELINE_STATE_H
+﻿#ifndef DRAGONBONES_ANIMATION_TIMELINE_STATE_H
+#define DRAGONBONES_ANIMATION_TIMELINE_STATE_H
 
 #include "../DragonBones.h"
 #include "../geoms/ColorTransform.h"
@@ -54,24 +54,28 @@ private:
 public:
     TimelineState();
     virtual ~TimelineState();
-    
-private:
-	static std::vector<TimelineState*> _pool;
+
+	void fadeIn(Bone *bone, AnimationState *animationState, TransformTimeline *timeline);
+	void fadeOut();
+	void update(float progress);
+	void updateMultipleFrame(float progress);
+	void updateToNextFrame(int currentPlayTimes);
+	void updateTween();
+	void updateSingleFrame();
+	void clear();
+
+	// property
+	bool getIsComplete() const { return _isComplete; }
+
 	static TimelineState* borrowObject();
 	static void returnObject(TimelineState *timelineState);
 	static void clearObjects();
     
-	void fadeIn(Bone *bone, AnimationState *animationState, TransformTimeline *timeline);
-    void fadeOut();
-    void update(float progress);
-    void updateMultipleFrame(float progress);
-    void updateToNextFrame(int currentPlayTimes);
-    void updateTween();
-    void updateSingleFrame();
-    void clear();
+private:
+	static std::vector<TimelineState*> _pool;
     
 private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(TimelineState);
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // ANIMATION_TIMELINE_STATE_H
+#endif  // DRAGONBONES_ANIMATION_TIMELINE_STATE_H

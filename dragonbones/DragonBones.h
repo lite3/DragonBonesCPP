@@ -1,5 +1,5 @@
-﻿#ifndef DRAGON_BONES_H
-#define DRAGON_BONES_H
+﻿#ifndef DRAGONBONES_DRAGON_BONES_H
+#define DRAGONBONES_DRAGON_BONES_H
 
 #include <algorithm>
 #include <string>
@@ -208,4 +208,4 @@ inline PixelFormat getPixelFormatByString(const std::string &format)
 
 NAME_SPACE_DRAGON_BONES_END
 
-#endif  // DRAGON_BONES_H
+#endif  // DRAGONBONES_DRAGON_BONES_H

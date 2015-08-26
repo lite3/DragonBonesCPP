@@ -1,5 +1,5 @@
-﻿#ifndef OBJECTS_SKIN_DATA_H
-#define OBJECTS_SKIN_DATA_H
+﻿#ifndef DRAGONBONES_OBJECTS_SKIN_DATA_H
+#define DRAGONBONES_OBJECTS_SKIN_DATA_H
 
 #include "../DragonBones.h"
 #include "SlotData.h"
@@ -60,4 +60,4 @@ public:
     }
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // OBJECTS_SKIN_DATA_H
+#endif  // DRAGONBONES_OBJECTS_SKIN_DATA_H

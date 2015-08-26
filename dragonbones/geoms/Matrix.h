@@ -1,5 +1,5 @@
-﻿#ifndef GEOMS_MATRIX_H
-#define GEOMS_MATRIX_H
+﻿#ifndef DRAGONBONES_GEOMS_MATRIX_H
+#define DRAGONBONES_GEOMS_MATRIX_H
 
 #include "../DragonBones.h"
 #include "Point.h"
@@ -95,4 +95,4 @@ public:
     }
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // GEOMS_MATRIX_H
+#endif  // DRAGONBONES_GEOMS_MATRIX_H

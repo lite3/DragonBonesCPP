@@ -1,5 +1,5 @@
-﻿#ifndef TEXTURES_TEXTURE_DATA_H
-#define TEXTURES_TEXTURE_DATA_H
+﻿#ifndef DRAGONBONES_TEXTURES_TEXTURE_DATA_H
+#define DRAGONBONES_TEXTURES_TEXTURE_DATA_H
 
 #include "../DragonBones.h"
 #include "../geoms/Rectangle.h"
@@ -52,4 +52,4 @@ public:
     }
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // TEXTURES_TEXTURE_DATA_H
+#endif  // DRAGONBONES_TEXTURES_TEXTURE_DATA_H

@@ -1,5 +1,5 @@
-#ifndef OBJECTS_SLOT_FRAME_H
-#define OBJECTS_SLOT_FRAME_H
+#ifndef DRAGONBONES_OBJECTS_SLOT_FRAME_H
+#define DRAGONBONES_OBJECTS_SLOT_FRAME_H
 
 #include "Frame.h"
 #include "../geoms/ColorTransform.h"
@@ -45,4 +45,4 @@ private:
 	}
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif OBJECTS_SLOT_FRAME_H
+#endif DRAGONBONES_OBJECTS_SLOT_FRAME_H

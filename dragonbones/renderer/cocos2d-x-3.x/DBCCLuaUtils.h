@@ -1,5 +1,5 @@
-﻿#ifndef DBCC_LUA_UTILS_H
-#define DBCC_LUA_UTILS_H
+﻿#ifndef DRAGONBONES_RENDERER_DBCC_LUA_UTILS_H
+#define DRAGONBONES_RENDERER_DBCC_LUA_UTILS_H
 
 #include "dbccMacro.h"
 #include "DBCCArmature.h"
@@ -32,4 +32,4 @@ private:
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif // !DRAGON_BONES_ENABLE_LUA
-#endif
+#endif // DRAGONBONES_RENDERER_DBCC_LUA_UTILS_H

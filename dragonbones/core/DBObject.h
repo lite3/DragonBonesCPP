@@ -1,5 +1,5 @@
-﻿#ifndef CORE_OBJECT_H
-#define CORE_OBJECT_H
+﻿#ifndef DRAGONBONES_CORE_OBJECT_H
+#define DRAGONBONES_CORE_OBJECT_H
 
 #include "../DragonBones.h"
 #include "../geoms/Matrix.h"
@@ -55,4 +55,4 @@ private:
 };
 
 NAME_SPACE_DRAGON_BONES_END
-#endif  // CORE_OBJECT_H
+#endif  // DRAGONBONES_CORE_OBJECT_H

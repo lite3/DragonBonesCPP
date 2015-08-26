@@ -1,5 +1,5 @@
-﻿#ifndef CORE_BONE_H
-#define CORE_BONE_H
+﻿#ifndef DRAGONBONES_CORE_BONE_H
+#define DRAGONBONES_CORE_BONE_H
 
 #include "../DragonBones.h"
 #include "DBObject.h"
@@ -89,4 +89,4 @@ private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(Bone);
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // CORE_BONE_H
+#endif  // DRAGONBONES_CORE_BONE_H

@@ -1,5 +1,5 @@
-﻿#ifndef OBJECTS_DISPLAY_DATA_H
-#define OBJECTS_DISPLAY_DATA_H
+﻿#ifndef DRAGONBONES_OBJECTS_DISPLAY_DATA_H
+#define DRAGONBONES_OBJECTS_DISPLAY_DATA_H
 
 #include "../DragonBones.h"
 #include "../geoms/Point.h"
@@ -49,4 +49,4 @@ public:
     }
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // OBJECTS_DISPLAY_DATA_H
+#endif  // DRAGONBONES_OBJECTS_DISPLAY_DATA_H

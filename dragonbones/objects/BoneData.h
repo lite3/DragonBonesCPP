@@ -1,5 +1,5 @@
-﻿#ifndef OBJECTS_BONE_DATA_H
-#define OBJECTS_BONE_DATA_H
+﻿#ifndef DRAGONBONES_OBJECTS_BONE_DATA_H
+#define DRAGONBONES_OBJECTS_BONE_DATA_H
 
 #include "../DragonBones.h"
 #include "../geoms/Transform.h"
@@ -51,4 +51,4 @@ public:
     }
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // OBJECTS_BONE_DATA_H
+#endif  // DRAGONBONES_OBJECTS_BONE_DATA_H

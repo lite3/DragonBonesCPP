@@ -1,5 +1,5 @@
-﻿#ifndef __GEOMS_COLOR_TRANSFORM_H__
-#define __GEOMS_COLOR_TRANSFORM_H__
+﻿#ifndef DRAGONBONES_GEOMS_COLOR_TRANSFORM_H
+#define DRAGONBONES_GEOMS_COLOR_TRANSFORM_H
 
 #include "../DragonBones.h"
 
@@ -47,4 +47,4 @@ public:
     virtual ~ColorTransform() {}
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // __GEOMS_COLOR_TRANSFORM_H__
+#endif  // DRAGONBONES_GEOMS_COLOR_TRANSFORM_H

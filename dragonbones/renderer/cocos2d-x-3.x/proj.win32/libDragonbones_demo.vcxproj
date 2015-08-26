@@ -91,6 +91,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\3rd\tinyxml2\dbtinyxml2.cpp" />
     <ClCompile Include="..\..\..\animation\Animation.cpp" />
     <ClCompile Include="..\..\..\animation\AnimationState.cpp" />
     <ClCompile Include="..\..\..\animation\SlotTimelineState.cpp" />
@@ -104,7 +105,6 @@
     <ClCompile Include="..\..\..\factories\BaseFactory.cpp" />
     <ClCompile Include="..\..\..\parsers\BaseDataParser.cpp" />
     <ClCompile Include="..\..\..\parsers\ConstValues.cpp" />
-    <ClCompile Include="..\..\..\parsers\dbtinyxml2.cpp" />
     <ClCompile Include="..\..\..\parsers\XMLDataParser.cpp" />
     <ClCompile Include="..\DBCCArmature.cpp" />
     <ClCompile Include="..\DBCCArmatureNode.cpp" />
@@ -114,6 +114,37 @@
     <ClCompile Include="..\DBCCUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\3rd\flatbuffers\flatbuffers.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\allocators.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\document.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\encodedstream.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\encodings.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\error\en.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\error\error.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\filereadstream.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\filewritestream.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\internal\biginteger.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\internal\diyfp.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\internal\dtoa.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\internal\ieee754.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\internal\itoa.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\internal\meta.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\internal\pow10.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\internal\stack.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\internal\strfunc.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\internal\strtod.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\internal\swap.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\memorybuffer.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\memorystream.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\msinttypes\inttypes.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\msinttypes\stdint.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\pointer.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\prettywriter.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\rapidjson.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\reader.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\stringbuffer.h" />
+    <ClInclude Include="..\..\..\3rd\rapidjson\writer.h" />
+    <ClInclude Include="..\..\..\3rd\tinyxml2\dbtinyxml2.h" />
     <ClInclude Include="..\..\..\animation\Animation.h" />
     <ClInclude Include="..\..\..\animation\AnimationState.h" />
     <ClInclude Include="..\..\..\animation\IAnimatable.h" />
@@ -123,8 +154,6 @@
     <ClInclude Include="..\..\..\core\Armature.h" />
     <ClInclude Include="..\..\..\core\Bone.h" />
     <ClInclude Include="..\..\..\core\DBObject.h" />
-    <ClInclude Include="..\..\..\core\IAnimationState.h" />
-    <ClInclude Include="..\..\..\core\IArmature.h" />
     <ClInclude Include="..\..\..\core\Slot.h" />
     <ClInclude Include="..\..\..\DragonBones.h" />
     <ClInclude Include="..\..\..\DragonBonesHeaders.h" />
@@ -136,7 +165,6 @@
     <ClInclude Include="..\..\..\geoms\Point.h" />
     <ClInclude Include="..\..\..\geoms\Rectangle.h" />
     <ClInclude Include="..\..\..\geoms\Transform.h" />
-    <ClInclude Include="..\..\..\geoms\TransformUtils.h" />
     <ClInclude Include="..\..\..\objects\AnimationData.h" />
     <ClInclude Include="..\..\..\objects\ArmatureData.h" />
     <ClInclude Include="..\..\..\objects\BoneData.h" />
@@ -153,7 +181,6 @@
     <ClInclude Include="..\..\..\objects\TransformTimeline.h" />
     <ClInclude Include="..\..\..\parsers\BaseDataParser.h" />
     <ClInclude Include="..\..\..\parsers\ConstValues.h" />
-    <ClInclude Include="..\..\..\parsers\dbtinyxml2.h" />
     <ClInclude Include="..\..\..\parsers\XMLDataParser.h" />
     <ClInclude Include="..\..\..\textures\ITextureAtlas.h" />
     <ClInclude Include="..\..\..\textures\TextureAtlasData.h" />

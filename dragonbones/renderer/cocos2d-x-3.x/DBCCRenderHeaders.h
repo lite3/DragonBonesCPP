@@ -1,6 +1,5 @@
-﻿#ifndef DBCC_RENDER_HEADERS_H
-#define DBCC_RENDER_HEADERS_H
-
+﻿#ifndef DRAGONBONES_RENDERER_DBCC_RENDER_HEADERS_H
+#define DRAGONBONES_RENDERER_DBCC_RENDER_HEADERS_H
 
 #include "dbccMacro.h"
 #include "DBCCTextureAtlas.h"
@@ -12,7 +11,4 @@
 #include "DBCCUtils.h"
 #include "DBCCLuaUtils.h"
 
-
-
-
-#endif  // DBCC_RENDER_HEADERS_H
+#endif  // DRAGONBONES_RENDERER_DBCC_RENDER_HEADERS_H

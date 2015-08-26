@@ -1,10 +1,10 @@
-﻿#ifndef PARSERS_XML_DATA_PARSER_H
-#define PARSERS_XML_DATA_PARSER_H
+﻿#ifndef DRAGONBONES_PARSERS_XML_DATA_PARSER_H
+#define DRAGONBONES_PARSERS_XML_DATA_PARSER_H
 
 #include "../DragonBones.h"
 #include "BaseDataParser.h"
 
-#include "dbtinyxml2.h"
+#include "../3rd/tinyxml2/dbtinyxml2.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 class XMLDataParser : public BaseDataParser
@@ -50,4 +50,4 @@ private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(XMLDataParser);
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // PARSERS_XML_DATA_PARSER_H
+#endif  // DRAGONBONES_PARSERS_XML_DATA_PARSER_H

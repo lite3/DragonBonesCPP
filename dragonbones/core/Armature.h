@@ -1,5 +1,5 @@
-﻿#ifndef CORE_ARMATURE_H
-#define CORE_ARMATURE_H
+﻿#ifndef DRAGONBONES_CORE_ARMATURE_H
+#define DRAGONBONES_CORE_ARMATURE_H
 
 #include "../DragonBones.h"
 #include "../animation/IAnimatable.h"
@@ -116,4 +116,4 @@ private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(Armature);
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // CORE_ARMATURE_H
+#endif  // DRAGONBONES_CORE_ARMATURE_H

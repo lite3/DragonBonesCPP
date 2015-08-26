@@ -1,5 +1,5 @@
-﻿#ifndef DBCC_SLOT_H
-#define DBCC_SLOT_H
+﻿#ifndef DRAGONBONES_RENDERER_DBCC_SLOT_H
+#define DRAGONBONES_RENDERER_DBCC_SLOT_H
 
 #include "DragonBonesHeaders.h"
 #include "cocos2d.h"
@@ -44,4 +44,4 @@ private:
 };
 NAME_SPACE_DRAGON_BONES_END
 
-#endif  // DBCC_SLOT_H
+#endif  // DRAGONBONES_RENDERER_DBCC_SLOT_H

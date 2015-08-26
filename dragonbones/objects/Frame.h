@@ -1,5 +1,5 @@
-﻿#ifndef OBJECTS_FRAME_H
-#define OBJECTS_FRAME_H
+﻿#ifndef DRAGONBONES_OBJECTS_FRAME_H
+#define DRAGONBONES_OBJECTS_FRAME_H
 
 #include "../DragonBones.h"
 #include "../objects/CurveData.h"
@@ -65,4 +65,4 @@ public:
     }
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // OBJECTS_FRAME_H
+#endif  // DRAGONBONES_OBJECTS_FRAME_H

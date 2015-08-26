@@ -1,5 +1,5 @@
-﻿#ifndef __OBJECTS_ANIMATION_DATA_H__
-#define __OBJECTS_ANIMATION_DATA_H__
+﻿#ifndef DRAGONBONES_OBJECTS_ANIMATION_DATA_H
+#define DRAGONBONES_OBJECTS_ANIMATION_DATA_H
 
 #include "../DragonBones.h"
 #include "TransformTimeline.h"
@@ -120,4 +120,4 @@ private:
     }
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // __OBJECTS_ANIMATION_DATA_H__
+#endif  // DRAGONBONES_OBJECTS_ANIMATION_DATA_H

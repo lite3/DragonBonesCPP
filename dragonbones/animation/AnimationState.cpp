@@ -734,7 +734,7 @@ void AnimationState::advanceTimelinesTime(float passedTime)
     for (size_t i = 0, l = _timelineStateList.size(); i < l; ++i)
     {
         _timelineStateList[i]->update(progress);
-        _isComplete = _timelineStateList[i]->_isComplete && _isComplete;
+        _isComplete = _timelineStateList[i]->getIsComplete() && _isComplete;
     }
     
     // update main timeline

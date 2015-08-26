@@ -1,7 +1,5 @@
-
-
-#ifndef DBCC_MACRO_H
-#define DBCC_MACRO_H
+#ifndef DRAGONBONES_RENDERER_DBCC_MACRO_H
+#define DRAGONBONES_RENDERER_DBCC_MACRO_H
 
 #include "base/ccMacros.h"
 
@@ -13,4 +11,4 @@
 #define DBASSERT CCASSERT
 
 
-#endif // DBCC_MACRO_H
+#endif // DRAGONBONES_RENDERER_DBCC_MACRO_H
