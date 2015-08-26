@@ -2,7 +2,7 @@
 #define DRAGONBONES_OBJECTS_SLOT_FRAME_H
 
 #include "Frame.h"
-#include "../geoms/ColorTransform.h"
+#include "dragonbones/geoms/ColorTransform.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 class SlotFrame : public Frame

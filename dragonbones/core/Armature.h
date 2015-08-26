@@ -1,8 +1,8 @@
 ﻿#ifndef DRAGONBONES_CORE_ARMATURE_H
 #define DRAGONBONES_CORE_ARMATURE_H
 
-#include "../DragonBones.h"
-#include "../animation/IAnimatable.h"
+#include "dragonbones/DragonBones.h"
+#include "dragonbones/animation/IAnimatable.h"
 #include "geoms/Rectangle.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN

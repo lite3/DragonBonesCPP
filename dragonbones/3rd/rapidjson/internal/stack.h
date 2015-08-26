@@ -15,7 +15,7 @@
 #ifndef RAPIDJSON_INTERNAL_STACK_H_
 #define RAPIDJSON_INTERNAL_STACK_H_
 
-#include "../rapidjson.h"
+#include "dragonbones/rapidjson.h"
 #include "swap.h"
 
 RAPIDJSON_NAMESPACE_BEGIN

@@ -1,7 +1,7 @@
 ﻿#ifndef DRAGONBONES_ANIMATION_ANIMATION_H
 #define DRAGONBONES_ANIMATION_ANIMATION_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 

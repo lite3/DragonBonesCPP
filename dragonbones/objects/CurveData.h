@@ -1,7 +1,7 @@
 #ifndef DRAGONBONES_OBJECTS_CURVEDATA_H
 #define DRAGONBONES_OBJECTS_CURVEDATA_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 

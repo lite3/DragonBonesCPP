@@ -1,12 +1,12 @@
 ﻿#include "Bone.h"
 #include "Armature.h"
 #include "Slot.h"
-#include "../events/IEventDispatcher.h"
-#include "../events/EventData.h"
-#include "../animation/Animation.h"
-#include "../animation/AnimationState.h"
-#include "../animation/TimelineState.h"
-#include "../objects/TransformFrame.h"
+#include "dragonbones/events/IEventDispatcher.h"
+#include "dragonbones/events/EventData.h"
+#include "dragonbones/animation/Animation.h"
+#include "dragonbones/animation/AnimationState.h"
+#include "dragonbones/animation/TimelineState.h"
+#include "dragonbones/objects/TransformFrame.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 

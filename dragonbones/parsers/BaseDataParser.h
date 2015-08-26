@@ -1,32 +1,32 @@
 ﻿#ifndef DRAGONBONES_PARSERS_BASE_DATA_PARSER_H
 #define DRAGONBONES_PARSERS_BASE_DATA_PARSER_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 
 // geoms
-#include "../geoms/ColorTransform.h"
-#include "../geoms/Matrix.h"
-#include "../geoms/Point.h"
-#include "../geoms/Rectangle.h"
-#include "../geoms/Transform.h"
+#include "dragonbones/geoms/ColorTransform.h"
+#include "dragonbones/geoms/Matrix.h"
+#include "dragonbones/geoms/Point.h"
+#include "dragonbones/geoms/Rectangle.h"
+#include "dragonbones/geoms/Transform.h"
 
 // objects
-#include "../objects/Frame.h"
-#include "../objects/TransformFrame.h"
-#include "../objects/Timeline.h"
-#include "../objects/TransformTimeline.h"
-#include "../objects/AnimationData.h"
-#include "../objects/DisplayData.h"
-#include "../objects/SlotData.h"
-#include "../objects/SkinData.h"
-#include "../objects/BoneData.h"
-#include "../objects/ArmatureData.h"
-#include "../objects/DragonBonesData.h"
-#include "../objects/SlotFrame.h"
+#include "dragonbones/objects/Frame.h"
+#include "dragonbones/objects/TransformFrame.h"
+#include "dragonbones/objects/Timeline.h"
+#include "dragonbones/objects/TransformTimeline.h"
+#include "dragonbones/objects/AnimationData.h"
+#include "dragonbones/objects/DisplayData.h"
+#include "dragonbones/objects/SlotData.h"
+#include "dragonbones/objects/SkinData.h"
+#include "dragonbones/objects/BoneData.h"
+#include "dragonbones/objects/ArmatureData.h"
+#include "dragonbones/objects/DragonBonesData.h"
+#include "dragonbones/objects/SlotFrame.h"
 
 // textures
-#include "../textures/TextureData.h"
-#include "../textures/TextureAtlasData.h"
+#include "dragonbones/textures/TextureData.h"
+#include "dragonbones/textures/TextureAtlasData.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 

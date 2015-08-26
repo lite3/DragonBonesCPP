@@ -1,7 +1,7 @@
 ﻿#ifndef DRAGONBONES_ANIMATION_WORLD_CLOCK_H
 #define DRAGONBONES_ANIMATION_WORLD_CLOCK_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 #include "IAnimatable.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN

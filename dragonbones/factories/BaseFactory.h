@@ -1,7 +1,7 @@
 ﻿#ifndef DRAGONBONES_FACTORIES_BASE_FACTORY_H
 #define DRAGONBONES_FACTORIES_BASE_FACTORY_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 

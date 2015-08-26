@@ -1,8 +1,8 @@
 ﻿#ifndef DRAGONBONES_OBJECTS_FRAME_H
 #define DRAGONBONES_OBJECTS_FRAME_H
 
-#include "../DragonBones.h"
-#include "../objects/CurveData.h"
+#include "dragonbones/DragonBones.h"
+#include "dragonbones/objects/CurveData.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 class Frame

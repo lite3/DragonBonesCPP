@@ -1,7 +1,7 @@
 ﻿#ifndef DRAGONBONES_OBJECTS_DRADON_BONES_DATA_H
 #define DRAGONBONES_OBJECTS_DRADON_BONES_DATA_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 #include "ArmatureData.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN

@@ -1,9 +1,9 @@
 ﻿#ifndef DRAGONBONES_OBJECTS_TRANSFORM_TIMELINE_H
 #define DRAGONBONES_OBJECTS_TRANSFORM_TIMELINE_H
 
-#include "../DragonBones.h"
-#include "../geoms/Point.h"
-#include "../geoms/Transform.h"
+#include "dragonbones/DragonBones.h"
+#include "dragonbones/geoms/Point.h"
+#include "dragonbones/geoms/Transform.h"
 #include "Timeline.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN

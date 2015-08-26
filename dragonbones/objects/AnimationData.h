@@ -1,7 +1,7 @@
 ﻿#ifndef DRAGONBONES_OBJECTS_ANIMATION_DATA_H
 #define DRAGONBONES_OBJECTS_ANIMATION_DATA_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 #include "TransformTimeline.h"
 #include "SlotTimeline.h"
 

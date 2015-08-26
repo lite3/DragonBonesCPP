@@ -2,9 +2,9 @@
 #define DRAGONBONES_CORE_SLOT_H
 
 #include "DBObject.h"
-#include "../DragonBones.h"
-#include "../geoms/Rectangle.h"
-#include "../geoms/ColorTransform.h"
+#include "dragonbones/DragonBones.h"
+#include "dragonbones/geoms/Rectangle.h"
+#include "dragonbones/geoms/ColorTransform.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 

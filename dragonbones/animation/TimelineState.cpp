@@ -1,10 +1,10 @@
 ﻿#include <cstdlib>
 #include "TimelineState.h"
-#include "../objects/TransformTimeline.h"
-#include "../objects/CurveData.h"
-#include "../objects/AnimationData.h"
-#include "../core/Bone.h"
-#include "../animation/AnimationState.h"
+#include "dragonbones/objects/TransformTimeline.h"
+#include "dragonbones/objects/CurveData.h"
+#include "dragonbones/objects/AnimationData.h"
+#include "dragonbones/core/Bone.h"
+#include "dragonbones/animation/AnimationState.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 std::vector<TimelineState*> TimelineState::_pool;

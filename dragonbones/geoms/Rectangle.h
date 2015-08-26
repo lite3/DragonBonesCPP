@@ -1,7 +1,7 @@
 ﻿#ifndef DRAGONBONES_GEOMS_RECTANGLE_H
 #define DRAGONBONES_GEOMS_RECTANGLE_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 class Rectangle

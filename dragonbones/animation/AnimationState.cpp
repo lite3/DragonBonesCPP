@@ -4,13 +4,13 @@
 
 #include "TimelineState.h"
 #include "SlotTimelineState.h"
-#include "../objects/AnimationData.h"
-#include "../core/Slot.h"
-#include "../core/Bone.h"
-#include "../core/Armature.h"
-#include "../events/EventData.h"
-#include "../events/IEventDispatcher.h"
-#include "../animation/Animation.h"
+#include "dragonbones/objects/AnimationData.h"
+#include "dragonbones/core/Slot.h"
+#include "dragonbones/core/Bone.h"
+#include "dragonbones/core/Armature.h"
+#include "dragonbones/events/EventData.h"
+#include "dragonbones/events/IEventDispatcher.h"
+#include "dragonbones/animation/Animation.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 std::vector<AnimationState*> AnimationState::_pool;

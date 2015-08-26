@@ -1,7 +1,7 @@
 ﻿#ifndef DRAGONBONES_EVENTS_I_EVENT_DISPATCHER_H
 #define DRAGONBONES_EVENTS_I_EVENT_DISPATCHER_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 #include "EventData.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN

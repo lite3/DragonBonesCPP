@@ -1,7 +1,7 @@
 ﻿#ifndef DRAGONBONES_OBJECTS_TIMELINE_H
 #define DRAGONBONES_OBJECTS_TIMELINE_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 #include "Frame.h"
 #include "TransformFrame.h"
 

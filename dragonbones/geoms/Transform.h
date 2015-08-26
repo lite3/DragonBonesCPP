@@ -1,7 +1,7 @@
 ﻿#ifndef DRAGONBONES_GEOMS_TRANSFORM_H
 #define DRAGONBONES_GEOMS_TRANSFORM_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 #include "Matrix.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN

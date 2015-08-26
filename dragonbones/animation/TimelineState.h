@@ -1,10 +1,10 @@
 ﻿#ifndef DRAGONBONES_ANIMATION_TIMELINE_STATE_H
 #define DRAGONBONES_ANIMATION_TIMELINE_STATE_H
 
-#include "../DragonBones.h"
-#include "../geoms/ColorTransform.h"
-#include "../geoms/Point.h"
-#include "../geoms/Transform.h"
+#include "dragonbones/DragonBones.h"
+#include "dragonbones/geoms/ColorTransform.h"
+#include "dragonbones/geoms/Point.h"
+#include "dragonbones/geoms/Transform.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 

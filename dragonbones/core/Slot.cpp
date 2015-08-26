@@ -1,12 +1,12 @@
 ﻿#include "Slot.h"
 #include "Armature.h"
-#include "../core/Bone.h"
-#include "../objects/SlotData.h"
-#include "../objects/SlotFrame.h"
-#include "../geoms/ColorTransform.h"
-#include "../animation/SlotTimelineState.h"
-#include "../animation/AnimationState.h"
-#include "../animation/Animation.h"
+#include "dragonbones/core/Bone.h"
+#include "dragonbones/objects/SlotData.h"
+#include "dragonbones/objects/SlotFrame.h"
+#include "dragonbones/geoms/ColorTransform.h"
+#include "dragonbones/animation/SlotTimelineState.h"
+#include "dragonbones/animation/AnimationState.h"
+#include "dragonbones/animation/Animation.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 int Slot::getDisplayIndex() const

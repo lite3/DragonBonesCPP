@@ -1,9 +1,9 @@
 ﻿#ifndef DRAGONBONES_CORE_OBJECT_H
 #define DRAGONBONES_CORE_OBJECT_H
 
-#include "../DragonBones.h"
-#include "../geoms/Matrix.h"
-#include "../geoms/Transform.h"
+#include "dragonbones/DragonBones.h"
+#include "dragonbones/geoms/Matrix.h"
+#include "dragonbones/geoms/Transform.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 

@@ -1,11 +1,11 @@
 ﻿#include "BaseFactory.h"
-#include "../objects/ArmatureData.h"
-#include "../objects/DragonBonesData.h"
-#include "../textures/ITextureAtlas.h"
-#include "../core/Slot.h"
-#include "../core/Bone.h"
-#include "../core/Armature.h"
-#include "../animation/Animation.h"
+#include "dragonbones/objects/ArmatureData.h"
+#include "dragonbones/objects/DragonBonesData.h"
+#include "dragonbones/textures/ITextureAtlas.h"
+#include "dragonbones/core/Slot.h"
+#include "dragonbones/core/Bone.h"
+#include "dragonbones/core/Armature.h"
+#include "dragonbones/animation/Animation.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 

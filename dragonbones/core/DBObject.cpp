@@ -1,6 +1,6 @@
 ﻿#include "DBObject.h"
 #include "Armature.h"
-#include "../core/Bone.h"
+#include "dragonbones/core/Bone.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 bool DBObject::getVisible() const

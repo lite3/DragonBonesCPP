@@ -1,7 +1,7 @@
 ﻿#ifndef DRAGONBONES_TEXTURES_I_TEXTURE_ATLAS_H
 #define DRAGONBONES_TEXTURES_I_TEXTURE_ATLAS_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 #include "TextureAtlasData.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN

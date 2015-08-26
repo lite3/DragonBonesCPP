@@ -1,8 +1,8 @@
 ﻿#ifndef DRAGONBONES_TEXTURES_TEXTURE_DATA_H
 #define DRAGONBONES_TEXTURES_TEXTURE_DATA_H
 
-#include "../DragonBones.h"
-#include "../geoms/Rectangle.h"
+#include "dragonbones/DragonBones.h"
+#include "dragonbones/geoms/Rectangle.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 class TextureData

@@ -1,7 +1,7 @@
-﻿#ifndef GEOMS_POINT_H
-#define GEOMS_POINT_H
+﻿#ifndef DRAGONBONES_GEOMS_POINT_H
+#define DRAGONBONES_GEOMS_POINT_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 class Point
@@ -11,11 +11,10 @@ public:
     float y;
     
 public:
-    Point()
-    {
-        x = 0.f;
-        y = 0.f;
-    }
+    Point() :
+		x(0.f)
+		,y(0.f)
+    {}
 	Point(float x, float y)
 	{
 		x = x;
@@ -33,4 +32,4 @@ public:
     virtual ~Point() {}
 };
 NAME_SPACE_DRAGON_BONES_END
-#endif  // GEOMS_POINT_H
+#endif  // DRAGONBONES_GEOMS_POINT_H

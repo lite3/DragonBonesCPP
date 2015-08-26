@@ -1,7 +1,7 @@
 ﻿#ifndef DRAGONBONES_GEOMS_MATRIX_H
 #define DRAGONBONES_GEOMS_MATRIX_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 #include "Point.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
@@ -45,15 +45,14 @@ public:
     float ty;
     
 public:
-    Matrix()
-    {
-        a = 0.f;
-        b = 0.f;
-        c = 0.f;
-        d = 0.f;
-        tx = 0.f;
-        ty = 0.f;
-    }
+    Matrix() : 
+		a(0.f)
+		,b(0.f)
+		,c(0.f)
+		,d(0.f)
+		,tx(0.f)
+		,ty(0.f)
+    {}
     Matrix(const Matrix &copyData)
     {
         operator=(copyData);
@@ -69,7 +68,7 @@ public:
     }
     virtual ~Matrix() {}
     
-    void invert()
+    inline void invert()
     {
         const float a0 = a;
         const float b0 = b;
@@ -86,7 +85,7 @@ public:
         ty = determinant * (b0 * tx0 - a0 * ty0);
     }
     
-    void transformPoint(Point &point)
+    inline void transformPoint(Point &point)
     {
         float x = point.x;
         float y = point.y;

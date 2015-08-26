@@ -1,10 +1,10 @@
 ﻿#ifndef DRAGONBONES_PARSERS_XML_DATA_PARSER_H
 #define DRAGONBONES_PARSERS_XML_DATA_PARSER_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 #include "BaseDataParser.h"
 
-#include "../3rd/tinyxml2/dbtinyxml2.h"
+#include "dragonbones/3rd/tinyxml2/dbtinyxml2.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 class XMLDataParser : public BaseDataParser

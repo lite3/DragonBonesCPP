@@ -1,7 +1,7 @@
 ﻿#ifndef DRAGONBONES_CORE_BONE_H
 #define DRAGONBONES_CORE_BONE_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 #include "DBObject.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN

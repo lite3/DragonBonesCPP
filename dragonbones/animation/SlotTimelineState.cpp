@@ -2,14 +2,14 @@
 
 #include <cstdlib>
 
-#include "../core/Slot.h"
-#include "../core/Armature.h"
-#include "../objects/SlotFrame.h"
-#include "../objects/SlotTimeline.h"
-#include "../objects/CurveData.h"
-#include "../objects/AnimationData.h"
-#include "../animation/Animation.h"
-#include "../animation/AnimationState.h"
+#include "dragonbones/core/Slot.h"
+#include "dragonbones/core/Armature.h"
+#include "dragonbones/objects/SlotFrame.h"
+#include "dragonbones/objects/SlotTimeline.h"
+#include "dragonbones/objects/CurveData.h"
+#include "dragonbones/objects/AnimationData.h"
+#include "dragonbones/animation/Animation.h"
+#include "dragonbones/animation/AnimationState.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 std::vector<SlotTimelineState*> SlotTimelineState::_pool;

@@ -1,7 +1,7 @@
 ﻿#ifndef DRAGONBONES_CONST_VALUES_H
 #define DRAGONBONES_CONST_VALUES_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 class ConstValues

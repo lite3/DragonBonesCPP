@@ -1,7 +1,7 @@
 ﻿#ifndef DRAGONBONES_OBJECTS_ARMATURE_DATA_H
 #define DRAGONBONES_OBJECTS_ARMATURE_DATA_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 #include "BoneData.h"
 #include "SkinData.h"
 #include "AnimationData.h"

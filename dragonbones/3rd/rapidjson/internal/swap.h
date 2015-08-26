@@ -15,7 +15,7 @@
 #ifndef RAPIDJSON_INTERNAL_SWAP_H_
 #define RAPIDJSON_INTERNAL_SWAP_H_
 
-#include "../rapidjson.h"
+#include "dragonbones/rapidjson.h"
 
 RAPIDJSON_NAMESPACE_BEGIN
 namespace internal {

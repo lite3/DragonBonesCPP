@@ -1,11 +1,11 @@
 ﻿#ifndef DRAGONBONES_OBJECTS_TRANSFORM_FRAME_H
 #define DRAGONBONES_OBJECTS_TRANSFORM_FRAME_H
 
-#include "../DragonBones.h"
+#include "dragonbones/DragonBones.h"
 #include "Frame.h"
-#include "../geoms/Point.h"
-#include "../geoms/Transform.h"
-#include "../geoms/ColorTransform.h"
+#include "dragonbones/geoms/Point.h"
+#include "dragonbones/geoms/Transform.h"
+#include "dragonbones/geoms/ColorTransform.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 class TransformFrame : public Frame
