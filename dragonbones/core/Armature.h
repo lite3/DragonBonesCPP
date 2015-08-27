@@ -26,6 +26,56 @@ class Armature : public IAnimatable
 	friend class AnimationState;
 
 public:
+	Armature(ArmatureData *armatureData, Animation *animation, IEventDispatcher *eventDispatcher, void *display);
+	virtual ~Armature();
+	virtual void dispose();
+
+	virtual Rectangle getBoundingBox() = 0;
+	virtual const std::vector<Bone*>& getBones() const;
+	virtual const std::vector<Slot*>& getSlots() const; 
+	virtual const ArmatureData* getArmatureData() const;
+	ArmatureData* getArmatureData() { return _armatureData; }
+
+	virtual Animation* getAnimation() const;
+	virtual void* getDisplay() const;
+	virtual IEventDispatcher* getEventDispatcher() const;
+
+	virtual bool isInheritAnimation() const { return _isInheritAnimation; };
+	virtual void setInheritAnimation(bool b) { _isInheritAnimation = b; };
+	virtual Bone* getBone(const std::string &boneName) const;
+	virtual Bone* getBoneByDisplay(const void *display) const;
+	virtual void addBone(Bone *bone);
+	virtual void addBone(Bone *bone, const std::string &parentBoneName, bool updateLater = false);
+	virtual void removeBone(Bone *bone, bool updateLater = false);
+	virtual Bone* removeBone(const std::string &boneName);
+
+	virtual Slot* getSlot(const std::string &slotName) const;
+	virtual Slot* getSlotByDisplay(const void *display) const;
+	virtual void addSlot(Slot *slot, const std::string &parentBoneName);
+	virtual void removeSlot(Slot *slot);
+	virtual Slot* removeSlotByName(const std::string &slotName);
+	virtual void sortSlotsByZOrder() {}
+
+	void invalidUpdate(const std::string &boneName = "");
+	virtual void advanceTime(float passedTime) override;
+	virtual void resetAnimation();
+	void updateSlotsZOrder();
+	void updateAnimationAfterBoneListChanged(bool ifNeedSortBoneList = true);
+
+protected:
+	static bool sortSlot(const Slot *a, const Slot *b);
+
+	virtual void sortBonesList();
+	virtual void arriveAtFrame(Frame *frame, AnimationState *animationState, bool isCross);
+
+	void addBoneToBoneList(Bone *bone);
+	void removeBoneFromBoneList(Bone *bone);
+	void addSlotToSlotList(Slot *slot);
+	void removeSlotFromSlotList(Slot *slot);
+
+public:
+	static IEventDispatcher *soundEventDispatcher;
+
     std::string name;
     void *userData;
     
@@ -47,68 +97,6 @@ protected:
     IEventDispatcher *_eventDispatcher;
     void *_display;
     
-public:
-	static IEventDispatcher *soundEventDispatcher;
-
-	Armature(ArmatureData *armatureData, Animation *animation, IEventDispatcher *eventDispatcher, void *display);
-	virtual ~Armature();
-	virtual void dispose();
-
-    virtual Rectangle getBoundingBox() = 0;
-	virtual const std::vector<Bone*>& getBones() const;
-    virtual const std::vector<Slot*>& getSlots() const; 
-    virtual const ArmatureData* getArmatureData() const;
-	ArmatureData* getArmatureData() { return _armatureData; }
-
-    virtual Animation* getAnimation() const;
-    virtual void* getDisplay() const;
-    virtual IEventDispatcher* getEventDispatcher() const;
-    
-public:
-    virtual bool isInheritAnimation() const { return _isInheritAnimation; };
-    virtual void setInheritAnimation(bool b) { _isInheritAnimation = b; };
-    virtual Bone* getBone(const std::string &boneName) const;
-    virtual Bone* getBoneByDisplay(const void *display) const;
-    virtual void addBone(Bone *bone);
-    virtual void addBone(Bone *bone, const std::string &parentBoneName, bool updateLater = false);
-    virtual void removeBone(Bone *bone, bool updateLater = false);
-    virtual Bone* removeBone(const std::string &boneName);
-    
-    virtual Slot* getSlot(const std::string &slotName) const;
-    virtual Slot* getSlotByDisplay(const void *display) const;
-    virtual void addSlot(Slot *slot, const std::string &parentBoneName);
-    virtual void removeSlot(Slot *slot);
-    virtual Slot* removeSlotByName(const std::string &slotName);
-    //virtual void replaceSlot(const std::string &boneName, const std::string &oldSlotName, Slot* newSlot);
-    virtual void sortSlotsByZOrder() {}
-    
-    //virtual void invalidUpdate();
-    //virtual void invalidUpdate(const std::string &boneName);
-
-	void invalidUpdate(const std::string &boneName = "");
-    virtual void advanceTime(float passedTime) override;
-
-	//virtual void addSkinList(const std::string &skinName, Skin *list);
-	//virtual void changeSkin(const std::string &skinName);
-	//virtual Skin* getSkin(const std::string &skinName) const;
-
-	virtual void resetAnimation();
-    void updateSlotsZOrder();
-	void updateAnimationAfterBoneListChanged(bool ifNeedSortBoneList = true);
-
-protected:
-    virtual void addObject(DBObject *object);
-    virtual void removeObject(DBObject *object);
-	
-    virtual void sortBonesList();
-    static bool sortSlot(const Slot *a, const Slot *b);
-	
-    virtual void arriveAtFrame(Frame *frame, AnimationState *animationState, bool isCross);
-	
-	void addBoneToBoneList(Bone *bone);
-	void removeBoneFromBoneList(Bone *bone);
-	void addSlotToSlotList(Slot *slot);
-	void removeSlotFromSlotList(Slot *slot);
 private:
 	static bool sortBone(const std::pair<int, Bone*> &a, const std::pair<int, Bone*> &b);
 

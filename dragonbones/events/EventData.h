@@ -24,7 +24,6 @@ public:
     static const std::string LOOP_COMPLETE;
     static const std::string FADE_IN_COMPLETE;
     static const std::string FADE_OUT_COMPLETE;
-    
     static const std::string _ERROR;
     
     enum class EventType
@@ -36,40 +35,34 @@ public:
         FADE_IN, FADE_OUT, START, COMPLETE, LOOP_COMPLETE, FADE_IN_COMPLETE, FADE_OUT_COMPLETE,
         _ERROR
     };
-    
-    static const std::string& typeToString(EventType eventType);
 
-    static EventData* borrowObject(EventType eventType);
-    static void returnObject(EventData *eventData);
-    static void clearObjects();
+public:
+	static const std::string& typeToString(EventType eventType);
+	static EventData* borrowObject(EventType eventType);
+	static void returnObject(EventData *eventData);
+	static void clearObjects();
 
-private:
-    static std::vector<EventData*> _pool;
-    
-public:
-    std::string frameLabel;
-    std::string sound;
-    
-    Armature *armature;
-    Bone *bone;
-    AnimationState *animationState;
-    Frame *frame;
-    
-private:
-    EventType _type;
-    
-public:
+	EventData();
+	EventData(EventType type, Armature *armatureTarget);
+	virtual ~EventData();
+	void clear();
+	void copy(const EventData &copyData);
+
     EventType getType() const;
-    
     const std::string& getStringType() const;
-    
-public:
-    EventData();
-    EventData(EventType type, Armature *armatureTarget);
-    virtual ~EventData();
-    void clear();
-    void copy(const EventData &copyData);
 
+public:
+	std::string frameLabel;
+	std::string sound;
+	Armature *armature;
+	Bone *bone;
+	AnimationState *animationState;
+	Frame *frame;
+
+private:
+	static std::vector<EventData*> _pool;
+	EventType _type;
+    
 private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(EventData);
 };

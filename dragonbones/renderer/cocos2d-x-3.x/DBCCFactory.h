@@ -8,14 +8,10 @@
 NAME_SPACE_DRAGON_BONES_BEGIN
 class DBCCFactory : public BaseFactory
 {
-private:
-    static DBCCFactory *_instance;
-    
 public:
+	static DBCCFactory* getInstance();
+	static void destroyInstance();
 
-    static DBCCFactory* getInstance();
-    static void destroyInstance();
-    
     DBCCFactory();
     virtual ~DBCCFactory();
 
@@ -36,7 +32,10 @@ protected:
     virtual DBCCArmature* generateArmature(const ArmatureData *armatureData) const override;
     virtual DBCCSlot* generateSlot(const SlotData *slotData) const override;
     virtual void* generateDisplay(const ITextureAtlas *textureAtlas, const TextureData *textureData, const DisplayData *displayData) const override;
-    
+
+private:
+	static DBCCFactory *_instance;
+
 private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(DBCCFactory);
 };

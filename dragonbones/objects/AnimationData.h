@@ -10,21 +10,6 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 class AnimationData : public Timeline
 {
 public:
-    std::string name;
-	int frameRate;
-	float fadeTime;
-	int playTimes;
-	// use frame tweenEase, NaN
-	// overwrite frame tweenEase, [-1, 0):ease in, 0:line easing, (0, 1]:ease out, (1, 2]:ease in out
-	float tweenEasing;
-	bool autoTween;
-	int lastFrameDuration;
-
-	std::vector<std::string> hideTimelineList;
-    std::vector<TransformTimeline*> timelineList;
-    std::vector<SlotTimeline*> slotTimelineList;
-
-public:
     AnimationData() :
 		name("")
 		,frameRate(30)
@@ -118,6 +103,21 @@ private:
         timelineList.clear();
         hideTimelineList.clear();
     }
+
+public:
+	std::string name;
+	int frameRate;
+	float fadeTime;
+	int playTimes;
+	// use frame tweenEase, NaN
+	// overwrite frame tweenEase, [-1, 0):ease in, 0:line easing, (0, 1]:ease out, (1, 2]:ease in out
+	float tweenEasing;
+	bool autoTween;
+	int lastFrameDuration;
+
+	std::vector<std::string> hideTimelineList;
+	std::vector<TransformTimeline*> timelineList;
+	std::vector<SlotTimeline*> slotTimelineList;
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif  // DRAGONBONES_OBJECTS_ANIMATION_DATA_H

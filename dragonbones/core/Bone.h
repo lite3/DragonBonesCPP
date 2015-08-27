@@ -17,6 +17,38 @@ class Bone : public DBObject
 	friend class Slot;
 	friend class AnimationState;
 	friend class TimelineState;
+
+public:
+	Bone();
+	virtual ~Bone();
+	virtual void dispose() override;
+
+	virtual void invalidUpdate();
+	virtual bool contains(const DBObject *object) const;
+	virtual void addChildBone(Bone *childBone, bool updateLater = false);
+	virtual void removeChildBone(Bone *childBone, bool updateLater = false);
+
+	virtual void addSlot(Slot *childSlot);
+	virtual void removeSlot(Slot *childSlot);
+	virtual Slot* getSlot() const;
+	virtual const std::vector<Slot*>& getSlots() const;
+	virtual const std::vector<Bone*>& getBones() const;
+	virtual void setVisible(bool vislble) override;
+
+	virtual void removeAllStates();
+
+protected:
+	virtual void setArmature(Armature *armature) override;
+	virtual void update(bool needUpdate = false);
+	virtual void hideSlots();
+	virtual void arriveAtFrame(TransformFrame *frame, const TimelineState *timelineState, AnimationState *animationState, bool isCross);
+	virtual void addState(TimelineState *timelineState);
+	virtual void removeState(TimelineState *timelineState);
+	virtual void blendingTimeline();
+	virtual void calculateRelativeParentTransform() override;
+
+private:
+	static bool sortState(const TimelineState *a, const TimelineState *b);
     
 public:
     std::string displayController;
@@ -42,49 +74,6 @@ private:
 	Transform _tempGlobalTransformForChild;
 	Matrix _tempGlobalTransformMatrixForChild;
 
-public:
-	Bone();
-	virtual ~Bone();
-	virtual void dispose() override;
-
-	virtual void invalidUpdate();
-	virtual bool contains(const DBObject *object) const;
-	virtual void addChildBone(Bone *childBone, bool updateLater = false);
-	virtual void removeChildBone(Bone *childBone, bool updateLater = false);
-
-	virtual void addSlot(Slot *childSlot);
-	virtual void removeSlot(Slot *childSlot);
-	virtual Slot* getSlot() const;
-    virtual const std::vector<Slot*>& getSlots() const;
-    virtual const std::vector<Bone*>& getBones() const;
-    virtual void setVisible(bool vislble) override;
-    
-	virtual void removeAllStates();
-
-protected:
-    virtual void setArmature(Armature *armature) override;
-    virtual void update(bool needUpdate = false);
-    //virtual void updateColor(
-    //    int aOffset,
-    //    int rOffset,
-    //    int gOffset,
-    //    int bOffset,
-    //    float aMultiplier,
-    //    float rMultiplier,
-    //    float gMultiplier,
-    //    float bMultiplier,
-    //    bool colorChanged
-    //);
-    virtual void hideSlots();
-    virtual void arriveAtFrame(TransformFrame *frame, const TimelineState *timelineState, AnimationState *animationState, bool isCross);
-    virtual void addState(TimelineState *timelineState);
-    virtual void removeState(TimelineState *timelineState);
-    virtual void blendingTimeline();
-
-	virtual void calculateRelativeParentTransform() override;
-private:
-	static bool sortState(const TimelineState *a, const TimelineState *b);
-    
 private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(Bone);
 };

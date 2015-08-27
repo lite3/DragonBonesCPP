@@ -7,10 +7,6 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 class Point
 {
 public:
-    float x;
-    float y;
-    
-public:
     Point() :
 		x(0.f)
 		,y(0.f)
@@ -30,6 +26,10 @@ public:
         y = copyData.y;
     }
     virtual ~Point() {}
+
+public:
+	float x;
+	float y;
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif  // DRAGONBONES_GEOMS_POINT_H

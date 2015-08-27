@@ -13,13 +13,6 @@ const float SamplingStep = 0.05f;
 class CurveData
 {
 public:
-	std::vector<Point*> _pointList;
-
-private:
-	bool _dataChanged;
-	std::vector<Point*> sampling;
-
-public:
 	CurveData() : _dataChanged(false)
 	{}
 	virtual ~CurveData()
@@ -73,6 +66,13 @@ public:
 	{
 		return _pointList[0]->x != 0 || _pointList[0]->y != 0 || _pointList[1]->x != 1 || _pointList[1]->y != 1;
 	}
+
+public:
+	std::vector<Point*> _pointList;
+
+private:
+	bool _dataChanged;
+	std::vector<Point*> sampling;
 };
 
 NAME_SPACE_DRAGON_BONES_END

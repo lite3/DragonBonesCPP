@@ -7,17 +7,6 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 class ColorTransform
 {
 public:
-    float alphaMultiplier;
-    float redMultiplier;
-    float greenMultiplier;
-    float blueMultiplier;
-    
-    int alphaOffset;
-    int redOffset;
-    int greenOffset;
-    int blueOffset;
-    
-public:
     ColorTransform()
     {
         alphaMultiplier = 1.f;
@@ -45,6 +34,17 @@ public:
         blueOffset = copyData.blueOffset;
     }
     virtual ~ColorTransform() {}
+
+public:
+	float alphaMultiplier;
+	float redMultiplier;
+	float greenMultiplier;
+	float blueMultiplier;
+
+	int alphaOffset;
+	int redOffset;
+	int greenOffset;
+	int blueOffset;
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif  // DRAGONBONES_GEOMS_COLOR_TRANSFORM_H

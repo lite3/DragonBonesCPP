@@ -7,12 +7,6 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 class Rectangle
 {
 public:
-    float x;
-    float y;
-    float width;
-    float height;
-    
-public:
     Rectangle()
         : x(0)
         , y(0)
@@ -38,6 +32,12 @@ public:
         return *this;
     }
     virtual ~Rectangle() {}
+
+public:
+	float x;
+	float y;
+	float width;
+	float height;
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif  // DRAGONBONES_GEOMS_RECTANGLE_H

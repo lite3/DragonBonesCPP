@@ -8,22 +8,16 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 class DBCCArmature;
 class DBCCSlot : public Slot
 {
-protected:
-    cocos2d::Node *_nodeDisplay;
-    
 public:
     virtual cocos2d::Node* getCCDisplay() const;
     virtual DBCCArmature* getCCChildArmature() const;
-
     virtual cocos2d::Vec2 getGlobalPosition() const;
-
     virtual void setDisplayImage(cocos2d::Node *display, bool disposeExisting = true);
     
 public:
     DBCCSlot(SlotData *slotData);
     virtual ~DBCCSlot();
     virtual void dispose() override;
-
     virtual Rectangle getBoundingBox() override;
     
 protected:
@@ -39,6 +33,9 @@ protected:
     virtual void updateDisplayVisible(bool visible) override;
     virtual void updateDisplayTransform() override;
     
+protected:
+	cocos2d::Node *_nodeDisplay;
+
 private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(DBCCSlot);
 };

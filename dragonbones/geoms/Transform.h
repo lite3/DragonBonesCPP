@@ -8,14 +8,6 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 class Transform
 {
 public:
-    float x;
-    float y;
-    float skewX;
-    float skewY;
-    float scaleX;
-    float scaleY;
-    
-public:
 
 	//这个算法如果用于骨骼间的绝对转相对请改为DBTransform.divParent()方法
 	static void globalToLocal(Transform &transform, Transform &parent)
@@ -177,6 +169,14 @@ private:
 		rotation = rotation > 0 ? rotation : 2 * PI + rotation;
 		return rotation - PI;
 	}
+
+public:
+	float x;
+	float y;
+	float skewX;
+	float skewY;
+	float scaleX;
+	float scaleY;
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif  // DRAGONBONES_GEOMS_TRANSFORM_H

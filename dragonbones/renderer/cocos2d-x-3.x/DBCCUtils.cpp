@@ -24,8 +24,8 @@ void DBCCUtils::setAllBlendFunc(DBCCArmature *armature, int src, int dest)
                 setAllBlendFunc((DBCCArmature*)(entry.first), src, dest);
             } else
             {
-                auto node = (Node*)(entry.first);
-                auto sprite = dynamic_cast<Sprite*>(node);
+                auto node = static_cast<Node*>(entry.first);
+                auto sprite = static_cast<Sprite*>(node);
                 if (sprite)
                 {
                     BlendFunc func = {(GLenum)src, (GLenum)dest};
@@ -58,6 +58,4 @@ void DBCCUtils::setAllGLParamState(DBCCArmature *armature, cocos2d::GLProgramSta
         }
     }
 }
-
-
 NAME_SPACE_DRAGON_BONES_END

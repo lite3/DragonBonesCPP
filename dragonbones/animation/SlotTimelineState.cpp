@@ -47,8 +47,7 @@ void SlotTimelineState::clearObjects()
 	_pool.clear();
 }
 
-SlotTimelineState::SlotTimelineState() :
-	_tweenCurve(nullptr)
+SlotTimelineState::SlotTimelineState() : _tweenCurve(nullptr) 
 {}
 SlotTimelineState::~SlotTimelineState()
 {
@@ -74,29 +73,6 @@ void SlotTimelineState::fadeIn(Slot *slot, AnimationState *animationState, SlotT
 	_currentFrameIndex = -1;
 	_tweenEasing = NO_TWEEN_EASING;
 	_weight = 1.f;
-	
-	//_totalTime = _timeline->duration;
-	//name = _timeline->name;
-	//_transform.x = 0.f;
-	//_transform.y = 0.f;
-	//_transform.scaleX = 0.f;
-	//_transform.scaleY = 0.f;
-	//_transform.skewX = 0.f;
-	//_transform.skewY = 0.f;
-	//_pivot.x = 0.f;
-	//_pivot.y = 0.f;
-	//_durationTransform.x = 0.f;
-	//_durationTransform.y = 0.f;
-	//_durationTransform.scaleX = 0.f;
-	//_durationTransform.scaleY = 0.f;
-	//_durationTransform.skewX = 0.f;
-	//_durationTransform.skewY = 0.f;
-	//_durationPivot.x = 0.f;
-	//_durationPivot.y = 0.f;
-	//// copy
-	//_originTransform = _timeline->originTransform;
-	//// copy
-	//_originPivot = _timeline->originPivot;
 
 	switch (_timelineData->frameList.size())
 	{
@@ -337,43 +313,6 @@ void SlotTimelineState::updateToNextFrame(int currentPlayTimes)
 
 	if (tweenEnabled)
 	{
-		//// transform
-		//_durationTransform.x = nextFrame->transform.x - currentFrame->transform.x;
-		//_durationTransform.y = nextFrame->transform.y - currentFrame->transform.y;
-		//_durationTransform.skewX = nextFrame->transform.skewX - currentFrame->transform.skewX;
-		//_durationTransform.skewY = nextFrame->transform.skewY - currentFrame->transform.skewY;
-		//_durationTransform.scaleX = nextFrame->transform.scaleX - currentFrame->transform.scaleX + nextFrame->scaleOffset.x;
-		//_durationTransform.scaleY = nextFrame->transform.scaleY - currentFrame->transform.scaleY + nextFrame->scaleOffset.y;
-
-		//if (nextFrameIndex == 0)
-		//{
-		//	_durationTransform.skewX = formatRadian(_durationTransform.skewX);
-		//	_durationTransform.skewY = formatRadian(_durationTransform.skewY);
-		//}
-
-		//_durationPivot.x = nextFrame->pivot.x - currentFrame->pivot.x;
-		//_durationPivot.y = nextFrame->pivot.y - currentFrame->pivot.y;
-
-		//if (
-		//	_durationTransform.x ||
-		//	_durationTransform.y ||
-		//	_durationTransform.skewX ||
-		//	_durationTransform.skewY ||
-		//	_durationTransform.scaleX ||
-		//	_durationTransform.scaleY ||
-		//	_durationPivot.x ||
-		//	_durationPivot.y
-		//	)
-		//{
-		//	_tweenTransform = true;
-		//	_tweenScale = currentFrame->tweenScale;
-		//}
-		//else
-		//{
-		//	_tweenTransform = false;
-		//	_tweenScale = false;
-		//}
-
 		// color
 		if (currentFrame->color && nextFrame->color)
 		{
@@ -435,51 +374,8 @@ void SlotTimelineState::updateToNextFrame(int currentPlayTimes)
 	}
 	else
 	{
-		//_tweenTransform = false;
-		//_tweenScale = false;
 		_tweenColor = false;
 	}
-
-	//if (!_tweenTransform)
-	//{
-	//	if (_animationState->additiveBlending)
-	//	{
-	//		_transform.x = currentFrame->transform.x;
-	//		_transform.y = currentFrame->transform.y;
-	//		_transform.skewX = currentFrame->transform.skewX;
-	//		_transform.skewY = currentFrame->transform.skewY;
-	//		_transform.scaleX = currentFrame->transform.scaleX;
-	//		_transform.scaleY = currentFrame->transform.scaleY;
-	//		_pivot.x = currentFrame->pivot.x;
-	//		_pivot.y = currentFrame->pivot.y;
-	//	}
-	//	else
-	//	{
-	//		_transform.x = _originTransform.x + currentFrame->transform.x;
-	//		_transform.y = _originTransform.y + currentFrame->transform.y;
-	//		_transform.skewX = _originTransform.skewX + currentFrame->transform.skewX;
-	//		_transform.skewY = _originTransform.skewY + currentFrame->transform.skewY;
-	//		_transform.scaleX = _originTransform.scaleX + currentFrame->transform.scaleX;
-	//		_transform.scaleY = _originTransform.scaleY + currentFrame->transform.scaleY;
-	//		_pivot.x = _originPivot.x + currentFrame->pivot.x;
-	//		_pivot.y = _originPivot.y + currentFrame->pivot.y;
-	//	}
-
-	//	_bone->invalidUpdate();
-	//}
-	//else if (!_tweenScale)
-	//{
-	//	if (_animationState->additiveBlending)
-	//	{
-	//		_transform.scaleX = currentFrame->transform.scaleX;
-	//		_transform.scaleY = currentFrame->transform.scaleY;
-	//	}
-	//	else
-	//	{
-	//		_transform.scaleX = _originTransform.scaleX + currentFrame->transform.scaleX;
-	//		_transform.scaleY = _originTransform.scaleY + currentFrame->transform.scaleY;
-	//	}
-	//}
 
 	if (!_tweenColor && _animationState->displayControl)
 	{
@@ -506,49 +402,6 @@ void SlotTimelineState::updateToNextFrame(int currentPlayTimes)
 
 void SlotTimelineState::updateTween()
 {
-	//if (_tweenTransform)
-	//{
-	//	const Transform &currentTransform = currentFrame->transform;
-	//	const Point &currentPivot = currentFrame->pivot;
-
-	//	if (_animationState->additiveBlending)
-	//	{
-	//		//additive blending
-	//		_transform.x = currentTransform.x + _durationTransform.x * progress;
-	//		_transform.y = currentTransform.y + _durationTransform.y * progress;
-	//		_transform.skewX = currentTransform.skewX + _durationTransform.skewX * progress;
-	//		_transform.skewY = currentTransform.skewY + _durationTransform.skewY * progress;
-
-	//		if (_tweenScale)
-	//		{
-	//			_transform.scaleX = currentTransform.scaleX + _durationTransform.scaleX * progress;
-	//			_transform.scaleY = currentTransform.scaleY + _durationTransform.scaleY * progress;
-	//		}
-
-	//		_pivot.x = currentPivot.x + _durationPivot.x * progress;
-	//		_pivot.y = currentPivot.y + _durationPivot.y * progress;
-	//	}
-	//	else
-	//	{
-	//		// normal blending
-	//		_transform.x = _originTransform.x + currentTransform.x + _durationTransform.x * progress;
-	//		_transform.y = _originTransform.y + currentTransform.y + _durationTransform.y * progress;
-	//		_transform.skewX = _originTransform.skewX + currentTransform.skewX + _durationTransform.skewX * progress;
-	//		_transform.skewY = _originTransform.skewY + currentTransform.skewY + _durationTransform.skewY * progress;
-
-	//		if (_tweenScale)
-	//		{
-	//			_transform.scaleX = _originTransform.scaleX + currentTransform.scaleX + _durationTransform.scaleX * progress;
-	//			_transform.scaleY = _originTransform.scaleY + currentTransform.scaleY + _durationTransform.scaleY * progress;
-	//		}
-
-	//		_pivot.x = _originPivot.x + currentPivot.x + _durationPivot.x * progress;
-	//		_pivot.y = _originPivot.y + currentPivot.y + _durationPivot.y * progress;
-	//	}
-
-	//	_bone->invalidUpdate();
-	//}
-
 	const SlotFrame *currentFrame = static_cast<SlotFrame*>(_timelineData->frameList[_currentFrameIndex]);
 	if (_tweenColor && _animationState->displayControl)
 	{

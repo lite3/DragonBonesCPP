@@ -37,14 +37,6 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 class Matrix
 {
 public:
-    float a;
-    float b;
-    float c;
-    float d;
-    float tx;
-    float ty;
-    
-public:
     Matrix() : 
 		a(0.f)
 		,b(0.f)
@@ -92,6 +84,14 @@ public:
         point.x = a * x + c * y + tx;
         point.y = d * y + b * x + ty;
     }
+
+public:
+	float a;
+	float b;
+	float c;
+	float d;
+	float tx;
+	float ty;
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif  // DRAGONBONES_GEOMS_MATRIX_H

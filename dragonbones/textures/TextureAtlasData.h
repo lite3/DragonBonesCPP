@@ -8,15 +8,6 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 class TextureAtlasData
 {
 public:
-    bool autoSearch;
-    std::string name;
-    std::string imagePath;
-    PixelFormat format;
-
-    
-    std::vector<TextureData*> textureDataList;
-    
-public:
     TextureAtlasData()
         :autoSearch(false)
         ,name()
@@ -66,10 +57,16 @@ public:
             {
                 return textureDataList[i];
             }
-        }
-        
+        }        
         return nullptr;
     }
+
+public:
+	bool autoSearch;
+	std::string name;
+	std::string imagePath;
+	PixelFormat format;
+	std::vector<TextureData*> textureDataList;
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif  // DRAGONBONES_TEXTURES_TEXTURE_ATLAS_DATA_H

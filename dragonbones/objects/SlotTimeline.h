@@ -7,11 +7,6 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 class SlotTimeline : public Timeline
 {
 public:
-	std::string name;
-	bool transformed;
-	float offset;
-
-public:
 	SlotTimeline() :
 		name("")
 		,transformed(false)
@@ -22,6 +17,11 @@ public:
 	{
 		Timeline::dispose();
 	}
+
+public:
+	std::string name;
+	bool transformed;
+	float offset;
 };
 
 NAME_SPACE_DRAGON_BONES_END

@@ -20,48 +20,6 @@ class AnimationState
 	enum class FadeState {FADE_BEFORE, FADING, FADE_COMPLETE};
 
 public:
-    bool additiveBlending;
-    bool autoTween;
-    bool autoFadeOut;
-    bool displayControl;
-    bool lastFrameAutoTween;
-    float fadeOutTime;
-    float weight;
-    std::string name;
-    
-private:
-    bool _isPlaying;
-    bool _isComplete;
-    bool _isFadeOut;
-    bool _pausePlayheadInFade;
-    int _currentPlayTimes;
-    int _layer;
-    int _playTimes;
-    int _currentTime;
-    int _currentFrameIndex;
-    int _currentFramePosition;
-    int _currentFrameDuration;
-    int _totalTime;
-	int _lastTime;
-    float _time;
-    float _timeScale;
-    float _fadeWeight;
-    float _fadeTotalWeight;
-    float _fadeCurrentTime;
-    float _fadeTotalTime;
-    float _fadeBeginTime;
-    std::string _group;
-    FadeState _fadeState;
-    
-    std::vector<TimelineState*> _timelineStateList;
-    std::vector<std::string> _mixingTransforms;
-	std::vector<SlotTimelineState*> _slotTimelineStateList;
-	std::vector<std::string> _boneMasks;
-    
-    AnimationData *_clip;
-    Armature *_armature;
-    
-public:
 	AnimationState();
 	virtual ~AnimationState();
 
@@ -122,7 +80,50 @@ private:
     void updateMainTimeline(bool isThisComplete);
     void hideBones();
     void clear();
+
+public:
+	bool additiveBlending;
+	bool autoTween;
+	bool autoFadeOut;
+	bool displayControl;
+	bool lastFrameAutoTween;
+	float fadeOutTime;
+	float weight;
+	std::string name;
+
+private:
+	bool _isPlaying;
+	bool _isComplete;
+	bool _isFadeOut;
+	bool _pausePlayheadInFade;
+	int _currentPlayTimes;
+	int _layer;
+	int _playTimes;
+	int _currentTime;
+	int _currentFrameIndex;
+	int _currentFramePosition;
+	int _currentFrameDuration;
+	int _totalTime;
+	int _lastTime;
+	float _time;
+	float _timeScale;
+	float _fadeWeight;
+	float _fadeTotalWeight;
+	float _fadeCurrentTime;
+	float _fadeTotalTime;
+	float _fadeBeginTime;
+	std::string _group;
+	FadeState _fadeState;
+
+	std::vector<TimelineState*> _timelineStateList;
+	std::vector<std::string> _mixingTransforms;
+	std::vector<SlotTimelineState*> _slotTimelineStateList;
+	std::vector<std::string> _boneMasks;
+
+	AnimationData *_clip;
+	Armature *_armature;
     
+private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(AnimationState);
 };
 NAME_SPACE_DRAGON_BONES_END

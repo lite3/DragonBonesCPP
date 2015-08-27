@@ -18,40 +18,7 @@ class SlotFrame;
 
 class SlotTimelineState
 {
-	//friend class AnimationState;
-	//friend class Slot;
-	//friend class Animation;
-
 	enum class UpdateState {UPDATE, UPDATE_ONCE, UNUPDATE};
-
-public:
-	std::string name;
-
-private:
-	float _weight;
-	bool _blendEnabled;
-	bool _isComplete;
-	int _currentTime;
-	int _currentFrameIndex;
-	int _currentFramePosition;
-	int _currentFrameDuration;
-	int _totalTime;
-
-	bool _tweenColor;
-	float _tweenEasing;
-	CurveData *_tweenCurve;
-
-	float _rawAnimationScale;
-
-	//UpdateState _updateState;
-	int _updateMode;
-
-	AnimationState *_animationState;
-	Armature *_armature;
-	Animation *_animation;
-	Slot *_slot;
-	SlotTimeline *_timelineData;
-	ColorTransform _durationColor;
 
 public:
 	static std::vector<SlotTimelineState*> _pool;
@@ -71,6 +38,33 @@ private:
 	void updateTween();
 	void updateSingleFrame();
 	void clear();
+
+public:
+	std::string name;
+
+private:
+	float _weight;
+	bool _blendEnabled;
+	bool _isComplete;
+	int _currentTime;
+	int _currentFrameIndex;
+	int _currentFramePosition;
+	int _currentFrameDuration;
+	int _totalTime;
+
+	bool _tweenColor;
+	float _tweenEasing;
+	CurveData *_tweenCurve;
+
+	float _rawAnimationScale;
+	int _updateMode;
+
+	AnimationState *_animationState;
+	Armature *_armature;
+	Animation *_animation;
+	Slot *_slot;
+	SlotTimeline *_timelineData;
+	ColorTransform _durationColor;
 
 private:
 	DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(SlotTimelineState);

@@ -145,7 +145,7 @@ void DBCCSlot::updateDisplay(void *display)
 
 void DBCCSlot::updateDisplayBlendMode(BlendMode blendMode)
 {
-    cocos2d::Sprite *spriteDisplay = dynamic_cast<cocos2d::Sprite*>(_nodeDisplay);
+    cocos2d::Sprite *spriteDisplay = static_cast<cocos2d::Sprite*>(_nodeDisplay);
     
     if (spriteDisplay)
     {

@@ -8,20 +8,7 @@
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 class ArmatureData
-{
-private:
-    static bool sortBone(const std::pair<int, BoneData*> &a, const std::pair<int, BoneData*> &b)
-    {
-        return a.first < b.first;
-    }
-    
-public:
-    std::string name;
-    std::vector<BoneData*> boneDataList;
-    std::vector<SkinData*> skinDataList;
-	std::vector<SlotData*> slotDataList;
-    std::vector<AnimationData*> animationDataList;
-    
+{    
 public:
     ArmatureData() {}
     ArmatureData(const ArmatureData &copyData)
@@ -244,6 +231,19 @@ public:
             boneDataList[i] = sortedList[i].second;
         }
     }
+
+private:
+	static bool sortBone(const std::pair<int, BoneData*> &a, const std::pair<int, BoneData*> &b)
+	{
+		return a.first < b.first;
+	}
+
+public:
+	std::string name;
+	std::vector<BoneData*> boneDataList;
+	std::vector<SkinData*> skinDataList;
+	std::vector<SlotData*> slotDataList;
+	std::vector<AnimationData*> animationDataList;
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif  // DRAGONBONES_OBJECTS_ARMATURE_DATA_H

@@ -13,6 +13,25 @@ class Bone;
 class DBObject
 {
 public:
+	DBObject();
+	virtual ~DBObject();
+	virtual void dispose();
+
+	virtual bool getVisible() const;
+	virtual void setVisible(bool vislble);
+
+	virtual Armature* getArmature() const;
+	virtual Bone* getParent() const;
+
+protected:
+	virtual void setArmature(Armature *armature);
+	virtual void setParent(Bone *bone);
+	// change
+	virtual void calculateRelativeParentTransform();
+	virtual void calculateParentTransform(Transform &transform, Matrix &matrix);
+	virtual void updateGlobal(Transform &transform, Matrix &matrix);
+
+public:
     bool inheritRotation;
     bool inheritScale;
 	bool inheritTranslation;
@@ -31,25 +50,6 @@ protected:
     Armature *_armature;
     Bone *_parent;
 
-public:
-	DBObject();
-	virtual ~DBObject();
-	virtual void dispose();
-    
-    virtual bool getVisible() const;
-    virtual void setVisible(bool vislble);
-    
-    virtual Armature* getArmature() const;
-    virtual Bone* getParent() const;
-    
-protected:
-    virtual void setArmature(Armature *armature);
-    virtual void setParent(Bone *bone);
-	// change
-	virtual void calculateRelativeParentTransform();
-	virtual void calculateParentTransform(Transform &transform, Matrix &matrix);
-	virtual void updateGlobal(Transform &transform, Matrix &matrix);
-    
 private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(DBObject);
 };

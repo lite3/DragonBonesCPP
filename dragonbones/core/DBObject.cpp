@@ -3,6 +3,37 @@
 #include "dragonbones/core/Bone.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
+
+DBObject::DBObject() :
+	inheritRotation(true)
+	,inheritScale(true)
+	,inheritTranslation(true)
+	,name("")
+	,userData(nullptr)
+	,_visible(true)
+	,_armature(nullptr)
+	,_parent(nullptr)
+{
+	offset.scaleX = offset.scaleY = 1.f;
+}
+
+DBObject::~DBObject()
+{
+	dispose();
+}
+
+void DBObject::dispose()
+{
+	_armature = nullptr;
+	_parent = nullptr;
+
+	if (userData)
+	{
+		delete userData;
+		userData = nullptr;
+	}
+}
+
 bool DBObject::getVisible() const
 {
     return _visible;
@@ -33,39 +64,8 @@ void DBObject::setParent(Bone *bone)
     _parent = bone;
 }
 
-DBObject::DBObject() :
-	inheritRotation(true)
-	,inheritScale(true)
-	,inheritTranslation(true)
-	,name("")
-	,userData(nullptr)
-	,_visible(true)
-	,_armature(nullptr)
-	,_parent(nullptr)
-{
-	offset.scaleX = offset.scaleY = 1.f;
-}
-
-DBObject::~DBObject()
-{
-    dispose();
-}
-
-void DBObject::dispose()
-{
-    _armature = nullptr;
-    _parent = nullptr;
-    
-    if (userData)
-    {
-        delete userData;
-        userData = nullptr;
-    }
-}
-
 void DBObject::calculateRelativeParentTransform()
 {
-
 }
 
 void DBObject::calculateParentTransform( Transform &transform, Matrix &matrix )

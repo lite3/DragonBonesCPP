@@ -10,42 +10,6 @@
 NAME_SPACE_DRAGON_BONES_BEGIN
 
 IEventDispatcher *Armature::soundEventDispatcher = nullptr;
-
-bool Armature::sortBone(const std::pair<int, Bone*> &a, const std::pair<int, Bone*> &b)
-{
-    return a.first > b.first;
-}
-
-bool Armature::sortSlot(const Slot *a, const Slot *b)
-{
-    return a->getZOrder() < b->getZOrder();
-}
-
-const std::vector<Bone*>& Armature::getBones() const
-{
-    return _boneList;
-}
-
-const std::vector<Slot*>& Armature::getSlots() const
-{
-    return _slotList;
-}
-
-const ArmatureData* Armature::getArmatureData() const
-{
-    return _armatureData;
-}
-
-Animation* Armature::getAnimation() const
-{
-    return _animation;
-}
-
-void* Armature::getDisplay() const
-{
-    return _display;
-}
-
 IEventDispatcher* Armature::getEventDispatcher() const
 {
     return _eventDispatcher;
@@ -66,10 +30,12 @@ Armature::Armature(ArmatureData *armatureData, Animation *animation, IEventDispa
 {
 	_animation->_armature = this;
 }
+
 Armature::~Armature()
 {
     dispose();
 }
+
 void Armature::dispose()
 {
     _delayDispose = true;
@@ -138,6 +104,41 @@ void Armature::dispose()
         delete userData;
         userData = nullptr;
     }
+}
+
+bool Armature::sortBone(const std::pair<int, Bone*> &a, const std::pair<int, Bone*> &b)
+{
+	return a.first > b.first;
+}
+
+bool Armature::sortSlot(const Slot *a, const Slot *b)
+{
+	return a->getZOrder() < b->getZOrder();
+}
+
+const std::vector<Bone*>& Armature::getBones() const
+{
+	return _boneList;
+}
+
+const std::vector<Slot*>& Armature::getSlots() const
+{
+	return _slotList;
+}
+
+const ArmatureData* Armature::getArmatureData() const
+{
+	return _armatureData;
+}
+
+Animation* Armature::getAnimation() const
+{
+	return _animation;
+}
+
+void* Armature::getDisplay() const
+{
+	return _display;
 }
 
 Bone* Armature::getBone(const std::string &boneName) const
@@ -308,62 +309,6 @@ Slot* Armature::removeSlotByName(const std::string &slotName)
     return slot;
 }
 
-//void Armature::replaceSlot(const std::string &boneName, const std::string &oldSlotName, Slot* newSlot)
-//{
-//    auto bone = getBone(boneName);
-//    if (!bone) return;
-//
-//    auto slots = bone->getSlots();
-//    auto it = std::find_if(slots.begin(), slots.end(), 
-//        [&oldSlotName](Slot* tmp){return oldSlotName == tmp->name;});
-//    if (it != slots.end())
-//    {
-//        auto oldSlog = *it;
-//        newSlot->_tweenZOrder = oldSlog->_tweenZOrder;
-//        newSlot->_originZOrder = oldSlog->_originZOrder;
-//        newSlot->_offsetZOrder = oldSlog->_offsetZOrder;
-//        newSlot->_blendMode = oldSlog->_blendMode;
-//        removeSlot(oldSlog);
-//    }
-//
-//    newSlot->name = oldSlotName;
-//    bone->addChildBone(newSlot);
-//}
-
-//void Armature::sortSlotsByZOrder()
-//{
-//    std::sort(_slotList.begin() , _slotList.end() , sortSlot);
-//    for (size_t i = 0, l = _slotList.size(); i < l; ++i)
-//    {
-//        Slot *slot = _slotList[i];
-//        
-//        if (slot->_isShowDisplay)
-//        {
-//            slot->removeDisplayFromContainer();
-//        }
-//    }
-//    
-//    for (size_t i = 0, l = _slotList.size(); i < l; ++i)
-//    {
-//        Slot *slot = _slotList[i];
-//        
-//        if (slot->_isShowDisplay)
-//        {
-//            slot->addDisplayToContainer(_display, -1);
-//        }
-//    }
-//    
-//    _slotsZOrderChanged = false;
-//}
-
-//void Armature::invalidUpdate()
-//{
-//    for (size_t i = 0, l = _boneList.size(); i < l; ++i)
-//    {
-//        _boneList[i]->invalidUpdate();
-//    }
-//}
-
 void Armature::invalidUpdate(const std::string &boneName)
 {
     if (boneName.empty())
@@ -438,55 +383,6 @@ void Armature::advanceTime(float passedTime)
     }
 }
 
-void Armature::addObject(DBObject *object)
-{
-    Bone *bone = dynamic_cast<Bone*>(object);
-    Slot *slot = dynamic_cast<Slot*>(object);
-    
-    if (bone)
-    {
-        auto iterator = std::find(_boneList.cbegin(), _boneList.cend(), bone);        
-        if (iterator == _boneList.cend())
-        {
-            _boneList.push_back(bone);
-            sortBonesList();
-            _animation->updateAnimationStates();
-        }
-    }
-    else if (slot)
-    {
-        auto iterator = std::find(_slotList.cbegin(), _slotList.cend(), slot);
-        if (iterator == _slotList.cend())
-        {
-            _slotList.push_back(slot);
-        }
-    }
-}
-
-void Armature::removeObject(DBObject *object)
-{
-    Bone *bone = dynamic_cast<Bone*>(object);
-    Slot *slot = dynamic_cast<Slot*>(object);
-    
-    if (bone)
-    {
-        auto iterator = std::find(_boneList.begin(), _boneList.end(), bone);
-        if (iterator != _boneList.end())
-        {
-            _boneList.erase(iterator);
-            _animation->updateAnimationStates();
-        }
-    }
-    else if (slot)
-    {
-        auto iterator = std::find(_slotList.begin(), _slotList.end(), slot);
-        if (iterator != _slotList.end())
-        {
-            _slotList.erase(iterator);
-        }
-    }
-}
-
 void Armature::sortBonesList()
 {
     if (_boneList.empty())
@@ -546,37 +442,6 @@ void Armature::arriveAtFrame(Frame *frame, AnimationState *animationState, bool 
         }
     }
 }
-
-//void Armature::addSkinList( const std::string &skinName, Skin *list )
-//{
-//	if (!skinName.empty())
-//	{
-//		_skinLists.push_back(list);
-//	}
-//}
-//
-//void Armature::changeSkin( const std::string &skinName )
-//{
-//	SkinData *skinData = _armatureData->getSkinData(skinName);
-//	//if (!skinData || !getSkin(skinName))
-//	//{
-//	//	return;
-//	//}	
-//}
-//
-//Skin* Armature::getSkin( const std::string &skinName ) const
-//{
-//	if (skinName.empty()) return nullptr;
-//
-//	for (size_t i = 0, l = _skinLists.size(); i < l; ++i)
-//	{
-//		if (_skinLists[i]->name == skinName)
-//		{
-//			return _skinLists[i];
-//		}
-//	}
-//	return nullptr;
-//}
 
 void Armature::resetAnimation()
 {

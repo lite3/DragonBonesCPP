@@ -3,7 +3,34 @@
 #include <stdio.h>
 #include <cstring>
 
+// geoms
+#include "dragonbones/geoms/ColorTransform.h"
+#include "dragonbones/geoms/Matrix.h"
+#include "dragonbones/geoms/Point.h"
+#include "dragonbones/geoms/Rectangle.h"
+#include "dragonbones/geoms/Transform.h"
+// objects
+#include "dragonbones/objects/Frame.h"
+#include "dragonbones/objects/TransformFrame.h"
+#include "dragonbones/objects/Timeline.h"
+#include "dragonbones/objects/TransformTimeline.h"
+#include "dragonbones/objects/AnimationData.h"
+#include "dragonbones/objects/DisplayData.h"
+#include "dragonbones/objects/SlotData.h"
+#include "dragonbones/objects/SkinData.h"
+#include "dragonbones/objects/BoneData.h"
+#include "dragonbones/objects/ArmatureData.h"
+#include "dragonbones/objects/DragonBonesData.h"
+#include "dragonbones/objects/SlotFrame.h"
+// textures
+#include "dragonbones/textures/TextureData.h"
+#include "dragonbones/textures/TextureAtlasData.h"
+
 NAME_SPACE_DRAGON_BONES_BEGIN
+
+BaseDataParser::BaseDataParser() {}
+BaseDataParser::~BaseDataParser() {}
+
 void BaseDataParser::transformArmatureData(ArmatureData *armatureData)
 {
     for (size_t i = armatureData->boneDataList.size(); i--;)
@@ -319,6 +346,4 @@ void BaseDataParser::getTimelineTransform(const TransformTimeline *timeline, int
     }
 }
 
-BaseDataParser::BaseDataParser() {}
-BaseDataParser::~BaseDataParser() {}
 NAME_SPACE_DRAGON_BONES_END

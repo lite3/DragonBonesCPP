@@ -14,22 +14,8 @@ class Animation
     friend class Armature;
     friend class Slot;
     
-public:
-    enum class AnimationFadeOutMode {NONE, SAME_LAYER, SAME_GROUP, SAME_LAYER_AND_GROUP, ALL};
-    bool autoTween;
-    
-protected:
-    bool _isFading;
-    bool _isPlaying;
-    float _timeScale;
-    
-    std::vector<std::string> _animationList;
-    std::vector<AnimationData*> _animationDataList;
-    std::vector<AnimationState*> _animationStateList;
-    
-    Armature *_armature;
-    AnimationState *_lastAnimationState;
-      
+	enum class AnimationFadeOutMode {NONE, SAME_LAYER, SAME_GROUP, SAME_LAYER_AND_GROUP, ALL};
+
 public:
     explicit Animation();
     virtual ~Animation();
@@ -82,6 +68,21 @@ protected:
     void removeState(AnimationState *animationState);
     void updateAnimationStates();
 	void resetAnimationStateList();
+
+public:
+	bool autoTween;
+
+protected:
+	bool _isFading;
+	bool _isPlaying;
+	float _timeScale;
+
+	std::vector<std::string> _animationList;
+	std::vector<AnimationData*> _animationDataList;
+	std::vector<AnimationState*> _animationStateList;
+
+	Armature *_armature;
+	AnimationState *_lastAnimationState;
     
 private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(Animation);

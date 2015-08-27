@@ -17,13 +17,12 @@ class DBCCArmatureNode;
 class DBCCArmature : public Armature
 {
 public:
-    virtual cocos2d::Node* getCCDisplay() const;
-    virtual cocos2d::EventDispatcher* getCCEventDispatcher() const;
-    
-public:
     DBCCArmature(ArmatureData *armatureData, Animation *animation, IEventDispatcher *eventDispatcher, cocos2d::Node *display);
     virtual ~DBCCArmature();
     virtual void dispose() override;
+
+	virtual cocos2d::Node* getCCDisplay() const;
+	virtual cocos2d::EventDispatcher* getCCEventDispatcher() const;
 
     virtual Rectangle getBoundingBox() override;
     virtual cocos2d::Rect getCCBoundingBox();

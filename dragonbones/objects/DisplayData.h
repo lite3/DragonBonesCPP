@@ -9,13 +9,6 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 class DisplayData
 {
 public:
-    std::string name;
-	std::string slotName;
-    DisplayType type;
-    Transform transform;
-	Point pivot;
-
-public:
     DisplayData():
         name("")
 		,slotName("")
@@ -47,6 +40,13 @@ public:
         name.clear();
         type = DisplayType::DT_IMAGE;
     }
+
+public:
+	std::string name;
+	std::string slotName;
+	DisplayType type;
+	Transform transform;
+	Point pivot;
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif  // DRAGONBONES_OBJECTS_DISPLAY_DATA_H

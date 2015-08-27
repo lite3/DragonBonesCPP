@@ -6,13 +6,7 @@
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 class DragonBonesData
-{
-public:
-    bool autoSearch;
-    bool isGlobalData;
-	std::string name;
-    std::vector<ArmatureData*> armatureDataList;
-    
+{    
 public:
     DragonBonesData() : 
 		autoSearch(false)
@@ -65,6 +59,12 @@ public:
         
         return nullptr;
     }
+
+public:
+	bool autoSearch;
+	bool isGlobalData;
+	std::string name;
+	std::vector<ArmatureData*> armatureDataList;
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif  // DRAGONBONES_OBJECTS_DRADON_BONES_DATA_H

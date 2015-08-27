@@ -6,16 +6,7 @@
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 class SlotData
-{
-public:
-	int displayIndex;
-    float zOrder;
-    std::string name;
-    std::string parent;
-    BlendMode blendMode;
-
-    std::vector<DisplayData*> displayDataList;
-    
+{    
 public:
     SlotData():
 		displayIndex(0)
@@ -76,9 +67,17 @@ public:
                 return displayDataList[i];
             }
         }
-        
         return nullptr;
     }
+
+public:
+	int displayIndex;
+	float zOrder;
+	std::string name;
+	std::string parent;
+	BlendMode blendMode;
+
+	std::vector<DisplayData*> displayDataList;
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif  // DRAGONBONES_OBJECTS_SLOT_DATA_H

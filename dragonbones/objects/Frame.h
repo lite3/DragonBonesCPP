@@ -8,19 +8,6 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 class Frame
 {
 public:
-	enum class FrameType {FT_FRAME, FT_TRANSFORM_FRAME};
-
-    int position;
-    int duration;
-    
-    FrameType frameType;
-    std::string action;
-    std::string event;
-    std::string sound;
-
-	CurveData *curve;
-    
-public:
     Frame() :
 		position(0)
 		,duration(0)
@@ -63,6 +50,19 @@ public:
 			curve = nullptr;
 		}
     }
+
+public:
+	enum class FrameType {FT_FRAME, FT_TRANSFORM_FRAME};
+
+	int position;
+	int duration;
+
+	FrameType frameType;
+	std::string action;
+	std::string event;
+	std::string sound;
+
+	CurveData *curve;
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif  // DRAGONBONES_OBJECTS_FRAME_H

@@ -6,11 +6,7 @@
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 class SkinData
-{
-public:
-    std::string name;
-    std::vector<SlotData*> slotDataList;
-    
+{    
 public:
     SkinData() {}
     SkinData(const SkinData &copyData)
@@ -58,6 +54,10 @@ public:
         
         return nullptr;
     }
+
+public:
+	std::string name;
+	std::vector<SlotData*> slotDataList;
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif  // DRAGONBONES_OBJECTS_SKIN_DATA_H

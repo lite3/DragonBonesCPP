@@ -8,15 +8,7 @@
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 class TransformTimeline : public Timeline
-{
-public:
-    bool transformed;
-    float offset;
-    
-    std::string name;
-    Transform originTransform;
-    Point originPivot;
-    
+{    
 public:
     TransformTimeline()
     {
@@ -48,6 +40,14 @@ public:
         Timeline::dispose();
         //_dispose();
     }
+
+public:
+	bool transformed;
+	float offset;
+
+	std::string name;
+	Transform originTransform;
+	Point originPivot;
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif  // DRAGONBONES_OBJECTS_TRANSFORM_TIMELINE_H

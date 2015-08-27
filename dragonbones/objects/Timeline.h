@@ -9,11 +9,6 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 class Timeline
 {
 public:
-    int duration;
-    float scale;
-    std::vector<Frame*> frameList;
-    
-public:
     Timeline() :
 		duration(0)
 		,scale(1.f)
@@ -65,6 +60,11 @@ public:
         
         frameList.clear();
     }
+
+public:
+	int duration;
+	float scale;
+	std::vector<Frame*> frameList;
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif  // DRAGONBONES_OBJECTS_TIMELINE_H

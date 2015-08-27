@@ -1,23 +1,34 @@
 ﻿#ifndef DRAGONBONES_PARSERS_XML_DATA_PARSER_H
 #define DRAGONBONES_PARSERS_XML_DATA_PARSER_H
 
+#include "dragonbones/3rd/tinyxml2/dbtinyxml2.h"
+
 #include "dragonbones/DragonBones.h"
 #include "BaseDataParser.h"
 
-#include "dragonbones/3rd/tinyxml2/dbtinyxml2.h"
-
 NAME_SPACE_DRAGON_BONES_BEGIN
+
+class TextureAtlasData;
+class DragonBonesData;
+class ArmatureData;
+class AnimationData;
+class BoneData;
+class TransformFrame;
+class TransformTimeline;
+class Transform;
+class TextureData;
+class SkinData;
+class SlotData;
+class DisplayData;
+class SlotTimeline;
+class SlotFrame;
+class Frame;
+class Timeline;
+class Point;
+class ColorTransform;
+
 class XMLDataParser : public BaseDataParser
 {
-private:
-    static bool getBoolean(const XMLElement &data, const char *key, bool defaultValue);
-    static float getNumber(const XMLElement &data, const char *key, float defaultValue, float nanValue);
-    
-private:
-    mutable float _textureScale;
-    mutable int _frameRate;
-	mutable bool _isGlobalData;
-    
 public:
     XMLDataParser();
     virtual ~XMLDataParser();
@@ -25,8 +36,10 @@ public:
     virtual DragonBonesData* parseDragonBonesData(const void *rawDragonBonesData) const;
     
 private:
-    TextureData* parseTextureData(const XMLElement *textureXML) const;
-    
+	static bool getBoolean(const XMLElement &data, const char *key, bool defaultValue);
+	static float getNumber(const XMLElement &data, const char *key, float defaultValue, float nanValue);
+
+    TextureData* parseTextureData(const XMLElement *textureXML) const;    
     ArmatureData* parseArmatureData(const XMLElement *armatureXML) const;
     BoneData* parseBoneData(const XMLElement *boneXML) const;
     SkinData* parseSkinData(const XMLElement *skinXML) const;
@@ -46,6 +59,11 @@ private:
     void parsePivot(const XMLElement &transformXML, Point &pivot) const;
     void parseColorTransform(const XMLElement &colorTransformXML, ColorTransform &colorTransform) const;
     
+private:
+	mutable float _textureScale;
+	mutable int _frameRate;
+	mutable bool _isGlobalData;
+
 private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(XMLDataParser);
 };

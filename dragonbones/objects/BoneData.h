@@ -6,17 +6,7 @@
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 class BoneData
-{
-public:
-    bool inheritScale;
-    bool inheritRotation;
-    float length;
-    
-    std::string name;
-    std::string parent;
-    Transform global;
-    Transform transform;
-    
+{    
 public:
     BoneData() :
 		inheritScale(false)
@@ -49,6 +39,16 @@ public:
     void dispose()
     {
     }
+
+public:
+	bool inheritScale;
+	bool inheritRotation;
+	float length;
+
+	std::string name;
+	std::string parent;
+	Transform global;
+	Transform transform;
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif  // DRAGONBONES_OBJECTS_BONE_DATA_H

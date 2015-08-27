@@ -8,13 +8,6 @@ NAME_SPACE_DRAGON_BONES_BEGIN
 class SlotFrame : public Frame
 {
 public:
-	float tweenEasing;
-	int displayIndex;
-	bool visible;
-	float zOrder;
-	ColorTransform *color;
-
-public:
 	SlotFrame() :
 		tweenEasing(10)
 		,displayIndex(0)
@@ -43,6 +36,13 @@ private:
 			color = nullptr;
 		}
 	}
+
+public:
+	float tweenEasing;
+	int displayIndex;
+	bool visible;
+	float zOrder;
+	ColorTransform *color;
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif DRAGONBONES_OBJECTS_SLOT_FRAME_H

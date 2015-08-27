@@ -22,36 +22,6 @@ class TimelineState
 	enum class UpdateState {UPDATE, UPDATE_ONCE, UNUPDATE};
 
 public:
-    std::string name;
-    
-private:
-    bool _blendEnabled;
-    bool _isComplete;
-    bool _tweenTransform;
-    bool _tweenScale;
-    int _currentTime;
-    int _currentFrameIndex;
-    int _currentFramePosition;
-    int _currentFrameDuration;
-	int _lastTime;
-    int _totalTime;
-    float _weight;
-    float _tweenEasing;
-    
-    UpdateState _updateState;
-    Transform _transform;
-    Transform _durationTransform;
-    Transform _originTransform;
-    Point _pivot;
-    Point _durationPivot;
-    Point _originPivot;
-    
-    Bone *_bone;
-    AnimationState *_animationState;
-    TransformTimeline *_timelineData;
-	CurveData *_tweenCurve;
-    
-public:
     TimelineState();
     virtual ~TimelineState();
 
@@ -71,9 +41,38 @@ public:
 	static void returnObject(TimelineState *timelineState);
 	static void clearObjects();
     
+public:
+	std::string name;
+
 private:
 	static std::vector<TimelineState*> _pool;
-    
+
+	bool _blendEnabled;
+	bool _isComplete;
+	bool _tweenTransform;
+	bool _tweenScale;
+	int _currentTime;
+	int _currentFrameIndex;
+	int _currentFramePosition;
+	int _currentFrameDuration;
+	int _lastTime;
+	int _totalTime;
+	float _weight;
+	float _tweenEasing;
+
+	UpdateState _updateState;
+	Transform _transform;
+	Transform _durationTransform;
+	Transform _originTransform;
+	Point _pivot;
+	Point _durationPivot;
+	Point _originPivot;
+
+	Bone *_bone;
+	AnimationState *_animationState;
+	TransformTimeline *_timelineData;
+	CurveData *_tweenCurve;
+
 private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(TimelineState);
 };

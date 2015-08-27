@@ -18,28 +18,16 @@ class TextureData;
 
 class BaseFactory
 {
-protected:
     enum class AutoSearchType {AST_ALL, AST_AUTO, AST_NONE};
-    
-public:
-    bool autoSearchDragonBonesData;
-    bool autoSearchTexture;
-    
-protected:
-    mutable std::string _currentDragonBonesDataName;
-    mutable std::string _currentTextureAtlasName;
-    std::map<std::string, DragonBonesData*> _dragonBonesDataMap;
-    std::map<std::string, ITextureAtlas*> _textureAtlasMap;
-    
-public:
-    const std::map<std::string, DragonBonesData*>& getDragonBonesDataMap() const;
-    const std::map<std::string, ITextureAtlas*>& getTextureAtlasMap() const;
     
 public:
     BaseFactory();
     virtual ~BaseFactory();
     virtual void dispose(bool disposeData = true);
     
+	const std::map<std::string, DragonBonesData*>& getDragonBonesDataMap() const;
+	const std::map<std::string, ITextureAtlas*>& getTextureAtlasMap() const;
+
     virtual DragonBonesData* getDragonBonesData(const std::string &name) const;
     virtual void addDragonBonesData(DragonBonesData *data, const std::string &name = "");
     virtual void removeDragonBonesData(const std::string &name, bool disposeData = true);
@@ -54,7 +42,6 @@ public:
     virtual void* getTextureDisplay(const std::string &textureName, const std::string &textureAtlasName = "", const DisplayData *displayData = nullptr) const;
     
 protected:
-
     virtual void buildBones(Armature *armature, const ArmatureData *armatureData) const;
     virtual void buildSlots(Armature *armature, const ArmatureData *armatureData, const SkinData *skinData, const SkinData *skinDataCopy) const;
     
@@ -62,6 +49,16 @@ protected:
     virtual Slot* generateSlot(const SlotData *slotData) const = 0;
     virtual void* generateDisplay(const ITextureAtlas *textureAtlas, const TextureData *textureData, const DisplayData *displayData) const = 0;
     
+public:
+	bool autoSearchDragonBonesData;
+	bool autoSearchTexture;
+
+protected:
+	mutable std::string _currentDragonBonesDataName;
+	mutable std::string _currentTextureAtlasName;
+	std::map<std::string, DragonBonesData*> _dragonBonesDataMap;
+	std::map<std::string, ITextureAtlas*> _textureAtlasMap;
+
 private:
     DRAGON_BONES_DISALLOW_COPY_AND_ASSIGN(BaseFactory);
 };

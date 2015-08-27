@@ -400,7 +400,7 @@ void Slot::arriveAtFrame( Frame *frame, const SlotTimelineState *timelineState, 
 	bool displayControl = animationState->displayControl && animationState->containsBoneMask(name);
 	if (displayControl)
 	{
-		SlotFrame *slotFrame = dynamic_cast<SlotFrame*>(frame);
+		SlotFrame *slotFrame = static_cast<SlotFrame*>(frame);
 		const int displayIndex = slotFrame->displayIndex;
 		Slot *childSlot = nullptr;
 

@@ -6,13 +6,7 @@
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 class TextureData
-{
-public:
-    bool rotated;
-    std::string name;
-    Rectangle region;
-    Rectangle *frame;
-    
+{    
 public:
     TextureData() :
 		rotated(false)
@@ -50,6 +44,12 @@ public:
             frame = nullptr;
         }
     }
+
+public:
+	bool rotated;
+	std::string name;
+	Rectangle region;
+	Rectangle *frame;
 };
 NAME_SPACE_DRAGON_BONES_END
 #endif  // DRAGONBONES_TEXTURES_TEXTURE_DATA_H
