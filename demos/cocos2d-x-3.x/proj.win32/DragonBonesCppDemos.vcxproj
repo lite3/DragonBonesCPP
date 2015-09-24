@@ -162,7 +162,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ResourceCompile Include="game.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\dragonbones\renderer\cocos2d-x-3.x\proj.win32\libDragonbones_demo.vcxproj">
+    <ProjectReference Include="..\..\..\dragonbones\renderer\cocos2d-x-3.x\proj.win32\libDragonbones.vcxproj">
       <Project>{2633e5d1-c31e-466b-844c-67e6b82d9682}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\..\engines\cocos2d-x-3.x\cocos\2d\libcocos2d.vcxproj">
