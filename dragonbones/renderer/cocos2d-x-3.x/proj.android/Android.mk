@@ -5,19 +5,21 @@ LOCAL_MODULE := dragonbones_static
 LOCAL_MODULE_FILENAME := libdragonbones
 
 
-LOCAL_SRC_FILES := ../../../animation/Animation.cpp \
+LOCAL_SRC_FILES := ../../../3rd/tinyxml2/dbtinyxml2.cpp \
+				   ../../../animation/Animation.cpp \
                    ../../../animation/AnimationState.cpp \
+				   ../../../animation/SlotTimelineState.cpp \
                    ../../../animation/TimelineState.cpp \
                    ../../../animation/WorldClock.cpp \
                    ../../../core/Armature.cpp \
                    ../../../core/Bone.cpp \
-                   ../../../core/Object.cpp \
+                   ../../../core/DBObject.cpp \
                    ../../../core/Slot.cpp \
                    ../../../events/EventData.cpp \
                    ../../../factories/BaseFactory.cpp \
                    ../../../parsers/BaseDataParser.cpp \
                    ../../../parsers/ConstValues.cpp \
-                   ../../../parsers/dbtinyxml2.cpp \
+                   ../../../parsers/JSONDataParser.cpp \
                    ../../../parsers/XMLDataParser.cpp \
                    ../DBCCArmature.cpp \
                    ../DBCCArmatureNode.cpp \
