@@ -5,6 +5,23 @@
 #include "DBCCArmature.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
+
+namespace
+{
+	std::string getFilePosfix(const std::string &filename)
+	{
+		std::string reDir = filename;
+		std::string file_extension = "";
+		size_t pos = reDir.find_last_of('.');
+		if (pos != std::string::npos)
+		{
+			file_extension = reDir.substr(pos, reDir.length());
+			std::transform(file_extension.begin(),file_extension.end(), file_extension.begin(), (int(*)(int))toupper);
+		}
+		return file_extension;
+	}
+}
+
 DBCCFactory* DBCCFactory::_instance = nullptr;
 
 DBCCFactory* DBCCFactory::getInstance()
@@ -70,22 +87,34 @@ DragonBonesData* DBCCFactory::loadDragonBonesData(const std::string &dragonBones
     {
         return existDragonBonesData;
     }
-
-    const auto &data = cocos2d::FileUtils::getInstance()->getDataFromFile(dragonBonesFilePath);
-    if (data.getSize() == 0)
+	const std::string data = cocos2d::FileUtils::getInstance()->getStringFromFile(dragonBonesFilePath);
+    if (data.empty())
     {
+		CCLOG("read file [%s] error!", dragonBonesFilePath.c_str());
         return nullptr;
     }
 
-    // armature scale
-    //float scale = cocos2d::Director::getInstance()->getContentScaleFactor();
+	DragonBonesData *dragonBonesData = nullptr;
+	const std::string filePosfix = getFilePosfix(dragonBonesFilePath);
+	if (".JSON" == filePosfix)
+	{
+		dragonBonesData = JSONDataParser::parseDragonBonesData(data.c_str());
+	}
+	else if (".XML" == filePosfix)
+	{
+		// load skeleton.xml using XML parser.
+		dragonBones::XMLDocument doc;
+		doc.Parse(data.c_str(), data.size());
+		// paser dragonbones skeleton data.
+		dragonBones::XMLDataParser parser;
+		dragonBonesData = parser.parseDragonBonesData(doc.RootElement());
+	}
+	else
+	{
+		CCLOG("read file [%s] error!", dragonBonesFilePath.c_str());
+		return nullptr;
+	}
 
-    // load skeleton.xml using XML parser.
-    dragonBones::XMLDocument doc;
-    doc.Parse(reinterpret_cast<char*>(data.getBytes()), data.getSize());
-    // paser dragonbones skeleton data.
-    dragonBones::XMLDataParser parser;
-    DragonBonesData *dragonBonesData = parser.parseDragonBonesData(doc.RootElement());
     addDragonBonesData(dragonBonesData, name);
     return dragonBonesData;
 }
@@ -100,23 +129,36 @@ ITextureAtlas* DBCCFactory::loadTextureAtlas(const std::string &textureAtlasFile
         return existTextureAtlas;
     }
 
-    const auto &data = cocos2d::FileUtils::getInstance()->getDataFromFile(textureAtlasFile);
-    if (data.getSize() == 0)
-    {
-        return nullptr;
-    }
+	const std::string data = cocos2d::FileUtils::getInstance()->getStringFromFile(textureAtlasFile);
+	if (data.empty())
+	{
+		CCLOG("read file [%s] error!", textureAtlasFile.c_str());
+		return nullptr;
+	}
 
-    // textureAtlas scale
-    float scale = cocos2d::Director::getInstance()->getContentScaleFactor();
-
-    dragonBones::XMLDocument doc;
-    doc.Parse(reinterpret_cast<char*>(data.getBytes()), data.getSize());
-    dragonBones::XMLDataParser parser;
-    DBCCTextureAtlas *textureAtlas = new DBCCTextureAtlas();
-    textureAtlas->textureAtlasData = parser.parseTextureAtlasData(doc.RootElement(), scale);
+	DBCCTextureAtlas *textureAtlas = new DBCCTextureAtlas();
+	const std::string filePosfix = getFilePosfix(textureAtlasFile);
+	if (".JSON" == filePosfix)
+	{
+		textureAtlas->textureAtlasData = JSONDataParser::parseTextureAtlasData(data.c_str());
+	}
+	else if (".XML" == filePosfix)
+	{
+		// textureAtlas scale
+		float scale = cocos2d::Director::getInstance()->getContentScaleFactor();
+		dragonBones::XMLDocument doc;
+		doc.Parse(data.c_str(), data.size());
+		dragonBones::XMLDataParser parser;
+		DBCCTextureAtlas *textureAtlas = new DBCCTextureAtlas();
+		textureAtlas->textureAtlasData = parser.parseTextureAtlasData(doc.RootElement(), scale);
+	}
+	else
+	{
+		CCLOG("read file [%s] error!", textureAtlasFile.c_str());
+		return nullptr;
+	}
 
     int pos = textureAtlasFile.find_last_of("/");
-
     if (std::string::npos != pos)
     {
         std::string base_path = textureAtlasFile.substr(0, pos + 1);

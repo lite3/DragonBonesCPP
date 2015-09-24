@@ -112,7 +112,7 @@ DragonBonesData* JSONDataParser::parseDragonBonesData(const char *rawDragonBones
 
 	DragonBonesData *dragonBonesData = new DragonBonesData();
     dragonBonesData->name = GET_STRING(document, ConstValues::A_NAME.c_str());
-	dragonBonesData->isGlobalData = (GET_STRING(document, ConstValues::A_IS_GLOBAL.c_str()) == "0") ? false : true;
+	dragonBonesData->isGlobalData = (GET_INT(document, ConstValues::A_IS_GLOBAL.c_str()) == 0) ? false : true;
     
 	const rapidjson::Value& armatures = document[ConstValues::ARMATURE.c_str()];
 	assert(armatures.IsArray());
@@ -176,10 +176,14 @@ BoneData* JSONDataParser::parseBoneData(const rapidjson::Value &inBones)
 	// 补充文档说明：骨骼是否受到父骨骼的缩放和旋转的影响
     boneData->inheritRotation = GET_BOOL(inBones, ConstValues::A_INHERIT_ROTATION.c_str(), true);
     boneData->inheritScale = GET_BOOL(inBones, ConstValues::A_INHERIT_SCALE.c_str(), true);
-	const rapidjson::Value& transforms = inBones[ConstValues::TRANSFORM.c_str()];
-	if (!transforms.Empty())
+
+	if (inBones.HasMember(ConstValues::TRANSFORM.c_str()))
 	{
-		parseTransform(transforms, boneData->transform);
+		const rapidjson::Value& transforms = inBones[ConstValues::TRANSFORM.c_str()];
+		if (!transforms.IsArray() && !transforms.IsNull())
+		{
+			parseTransform(transforms, boneData->transform);
+		}
 	}
     return boneData;
 }
@@ -226,11 +230,15 @@ DisplayData* JSONDataParser::parseDisplayData(const rapidjson::Value &inDisplay)
     DisplayData *displayData = new DisplayData();
     displayData->name = GET_STRING(inDisplay, ConstValues::A_NAME.c_str());
     displayData->type = getDisplayTypeByString(GET_STRING(inDisplay, ConstValues::A_TYPE.c_str()));
-	const rapidjson::Value& transforms = inDisplay[ConstValues::TRANSFORM.c_str()];
-	if (!transforms.Empty())
+
+	if (inDisplay.HasMember(ConstValues::TRANSFORM.c_str()))
 	{
-		// 4.x取消pivot轴动画的支持
-		parseTransform(transforms, displayData->transform);
+		const rapidjson::Value& transforms = inDisplay[ConstValues::TRANSFORM.c_str()];
+		if (!transforms.IsArray() && !transforms.IsNull())
+		{
+			// 4.x取消pivot轴动画的支持
+			parseTransform(transforms, displayData->transform);
+		}
 	}
     return displayData;
 }
@@ -338,15 +346,30 @@ SlotFrame* JSONDataParser::parseSlotFrame(const rapidjson::Value &inTimeline)
 	parseFrame(inTimeline, *frame);
 
 	frame->visible = !GET_BOOL(inTimeline, ConstValues::A_HIDE.c_str(), false);
-	frame->tweenEasing = GET_FLOAT(inTimeline, ConstValues::A_TWEEN_EASING.c_str(), AUTO_TWEEN_EASING);
+	//frame->tweenEasing = GET_FLOAT(inTimeline, ConstValues::A_TWEEN_EASING.c_str(), AUTO_TWEEN_EASING);
+	if (inTimeline.HasMember(ConstValues::A_TWEEN_EASING.c_str()))
+	{
+		if (inTimeline[ConstValues::A_TWEEN_EASING.c_str()].IsNull())
+		{
+			frame->tweenEasing = NO_TWEEN_EASING;
+		}
+		else
+		{
+			frame->tweenEasing = inTimeline[ConstValues::A_TWEEN_EASING.c_str()].GetDouble();
+		}
+	}
+
 	frame->displayIndex = GET_INT(inTimeline, ConstValues::A_DISPLAY_INDEX.c_str());
 	frame->zOrder = GET_FLOAT(inTimeline, ConstValues::A_Z_ORDER.c_str(), 0.f);
 
-	const rapidjson::Value& colorTransform = inTimeline[ConstValues::COLOR_TRANSFORM.c_str()];
-	if (!colorTransform.Empty())
+	if (inTimeline.HasMember(ConstValues::COLOR_TRANSFORM.c_str()))
 	{
-		frame->color = new ColorTransform();
-		parseColorTransform(colorTransform, *frame->color);
+		const rapidjson::Value& colorTransform = inTimeline[ConstValues::COLOR_TRANSFORM.c_str()];
+		if (!colorTransform.IsArray() && !colorTransform.IsNull())
+		{
+			frame->color = new ColorTransform();
+			parseColorTransform(colorTransform, *frame->color);
+		}
 	}
 	return frame;
 }
@@ -365,15 +388,30 @@ TransformFrame* JSONDataParser::parseTransformFrame(const rapidjson::Value &inFr
 
     frame->visible = !GET_BOOL(inFrame, ConstValues::A_HIDE.c_str(), false);
     // NaN:no tween, 10:auto tween, [-1, 0):ease in, 0:line easing, (0, 1]:ease out, (1, 2]:ease in out
-    frame->tweenEasing = GET_FLOAT(inFrame, ConstValues::A_TWEEN_EASING.c_str(), AUTO_TWEEN_EASING);
+    //frame->tweenEasing = GET_FLOAT(inFrame, , AUTO_TWEEN_EASING);
+	if (inFrame.HasMember(ConstValues::A_TWEEN_EASING.c_str()))
+	{
+		if (inFrame[ConstValues::A_TWEEN_EASING.c_str()].IsNull())
+		{
+			frame->tweenEasing = NO_TWEEN_EASING;
+		}
+		else
+		{
+			frame->tweenEasing = inFrame[ConstValues::A_TWEEN_EASING.c_str()].GetDouble();
+		}
+	}
+
     frame->tweenRotate = GET_INT(inFrame, ConstValues::A_TWEEN_ROTATE.c_str());
     frame->tweenScale = GET_BOOL(inFrame, ConstValues::A_TWEEN_SCALE.c_str(), true);
 
-	const rapidjson::Value& transform = inFrame[ConstValues::TRANSFORM.c_str()];
-	if (!transform.Empty())
+	if (inFrame.HasMember(ConstValues::TRANSFORM.c_str()))
 	{
-		parseTransform(transform, frame->global);
-		parsePivot(transform, frame->pivot);
+		const rapidjson::Value& transform = inFrame[ConstValues::TRANSFORM.c_str()];
+		if (!transform.IsArray() && !transform.IsNull())
+		{
+			parseTransform(transform, frame->global);
+			parsePivot(transform, frame->pivot);
+		}
 	}
 
 	// copy
