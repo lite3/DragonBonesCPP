@@ -43,10 +43,10 @@ std::string DemoDragonBoy::subtitle()
 void DemoDragonBoy::demoInit()
 {
     // factory
-    DBCCFactory::getInstance()->loadDragonBonesData("armatures/DragonBoy/skeleton.json", "Dragon");
-    DBCCFactory::getInstance()->loadTextureAtlas("armatures/DragonBoy/texture.json", "Dragon");
+    DBCCFactory::getInstance()->loadDragonBonesData("armatures/paotai/paotai.xml", "armature");
+    DBCCFactory::getInstance()->loadTextureAtlas("armatures/paotai/texture.xml", "armature");
     // armature
-    _armatureNode = DBCCFactory::getInstance()->buildArmatureNode("Dragon");
+    _armatureNode = DBCCFactory::getInstance()->buildArmatureNode("armature");
     _armatureNode->setPosition(480.f, 200.f);
     _armatureNode->setScale(0.5f);
     addChild(_armatureNode);

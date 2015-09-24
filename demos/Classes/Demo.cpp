@@ -8,6 +8,7 @@
 
 #include "Demo.h"
 
+#include "examples/DemoTest.h"
 #include "examples/DemoDragonBoy.h"
 #include "examples/DemoKnight.h"
 #include "examples/DemoChaseStarling.h"
@@ -27,6 +28,7 @@ static DemoBase* create##__TYPE__() \
     return __TYPE__::create(); \
 }
 
+DBDEMO_CREATE_FUNC(DemoTest);
 DBDEMO_CREATE_FUNC(DemoDragonBoy);
 DBDEMO_CREATE_FUNC(DemoKnight);
 DBDEMO_CREATE_FUNC(DemoChaseStarling);
@@ -35,6 +37,7 @@ DBDEMO_CREATE_FUNC(TrimTextureTest);
 
 static NEW_DB_DEMO_FUNC createFunctions[] =
 {
+	createDemoTest,
     createDemoDragonBoy,
     createDemoKnight,
     createDemoChaseStarling,
@@ -102,7 +105,7 @@ void DemoBase::onEnter()
 {
     LayerColor::onEnter();
     
-    Label* pLabel = Label::createWithSystemFont("DragonBonesCPP for cocos2d-x 3.x", "Arial", 28);
+    Label* pLabel = Label::createWithSystemFont("DragonBonesCPP 4.x for cocos2d-x 3.x", "Arial", 28);
     
     // position the label on the center of the screen
     pLabel->setPosition(VisibleRect::top(0, -20));

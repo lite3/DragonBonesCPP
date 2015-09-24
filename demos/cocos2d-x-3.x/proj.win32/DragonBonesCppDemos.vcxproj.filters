@@ -48,6 +48,9 @@
     <ClCompile Include="..\..\Classes\test\TrimTextureTest.cpp">
       <Filter>Classes\test</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Classes\examples\DemoTest.cpp">
+      <Filter>Classes\examples</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -76,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Classes\test\TrimTextureTest.h">
       <Filter>Classes\test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\examples\DemoTest.h">
+      <Filter>Classes\examples</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

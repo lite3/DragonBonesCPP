@@ -130,39 +130,50 @@ ArmatureData* JSONDataParser::parseArmatureData(const rapidjson::Value &inArmatu
     ArmatureData *armatureData = new ArmatureData();
     armatureData->name = GET_STRING(inArmatures, ConstValues::A_NAME.c_str());
     
-	const rapidjson::Value& bones = inArmatures[ConstValues::BONE.c_str()];
-	assert(bones.IsArray());
-	for (rapidjson::SizeType i = 0; i < bones.Size(); i++)
+	if (inArmatures.HasMember(ConstValues::BONE.c_str()))
 	{
-		BoneData *boneData = parseBoneData(bones[i]);
-		armatureData->boneDataList.push_back(boneData);
-	}
-	
-	const rapidjson::Value& slots = inArmatures[ConstValues::SLOT.c_str()];
-	assert(slots.IsArray());
-	for (rapidjson::SizeType i = 0; i < slots.Size(); i++)
-	{
-		SlotData *slotData = parseSlotData(slots[i]);
-		armatureData->slotDataList.push_back(slotData);
+		const rapidjson::Value& bones = inArmatures[ConstValues::BONE.c_str()];
+		assert(bones.IsArray());
+		for (rapidjson::SizeType i = 0; i < bones.Size(); i++)
+		{
+			BoneData *boneData = parseBoneData(bones[i]);
+			armatureData->boneDataList.push_back(boneData);
+		}
 	}
 
-	const rapidjson::Value& skins = inArmatures[ConstValues::SKIN.c_str()];
-	assert(skins.IsArray());
-	for (rapidjson::SizeType i = 0; i < skins.Size(); i++)
+	if (inArmatures.HasMember(ConstValues::SLOT.c_str()))
 	{
-		SkinData *skinData = parseSkinData(skins[i]);
-		armatureData->skinDataList.push_back(skinData);
+		const rapidjson::Value& slots = inArmatures[ConstValues::SLOT.c_str()];
+		assert(slots.IsArray());
+		for (rapidjson::SizeType i = 0; i < slots.Size(); i++)
+		{
+			SlotData *slotData = parseSlotData(slots[i]);
+			armatureData->slotDataList.push_back(slotData);
+		}
 	}
+
+	if (inArmatures.HasMember(ConstValues::SKIN.c_str()))
+	{
+		const rapidjson::Value& skins = inArmatures[ConstValues::SKIN.c_str()];
+		assert(skins.IsArray());
+		for (rapidjson::SizeType i = 0; i < skins.Size(); i++)
+		{
+			SkinData *skinData = parseSkinData(skins[i]);
+			armatureData->skinDataList.push_back(skinData);
+		}
+	}
+
     armatureData->sortBoneDataList();
-    
-	const rapidjson::Value& animations = inArmatures[ConstValues::ANIMATION.c_str()];
-	assert(animations.IsArray());
-	for (rapidjson::SizeType i = 0; i < animations.Size(); i++)
+	if (inArmatures.HasMember(ConstValues::ANIMATION.c_str()))
 	{
-		AnimationData *animationData = parseAnimationData(animations[i], armatureData);
-		armatureData->animationDataList.push_back(animationData);
+		const rapidjson::Value& animations = inArmatures[ConstValues::ANIMATION.c_str()];
+		assert(animations.IsArray());
+		for (rapidjson::SizeType i = 0; i < animations.Size(); i++)
+		{
+			AnimationData *animationData = parseAnimationData(animations[i], armatureData);
+			armatureData->animationDataList.push_back(animationData);
+		}
 	}
-
     return armatureData;
 }
 
@@ -254,40 +265,60 @@ AnimationData* JSONDataParser::parseAnimationData(const rapidjson::Value &inAnim
     animationData->scale = GET_FLOAT(inAnimations, ConstValues::A_SCALE.c_str(), 1.f);
     // use frame tweenEase, NaN
     // overwrite frame tweenEase, [-1, 0):ease in, 0:line easing, (0, 1]:ease out, (1, 2]:ease in out
-    animationData->tweenEasing = GET_FLOAT(inAnimations, ConstValues::A_TWEEN_EASING.c_str(), USE_FRAME_TWEEN_EASING);
-    animationData->autoTween = GET_BOOL(inAnimations, ConstValues::A_AUTO_TWEEN.c_str(), true);
-    
-	const rapidjson::Value& frames = inAnimations[ConstValues::FRAME.c_str()];
-	for (rapidjson::SizeType i = 0; i < frames.Size(); i++)
+    //animationData->tweenEasing = GET_FLOAT(inAnimations, ConstValues::A_TWEEN_EASING.c_str(), USE_FRAME_TWEEN_EASING);
+	if (inAnimations.HasMember(ConstValues::A_TWEEN_EASING.c_str()))
 	{
-		Frame *frame = parseMainFrame(frames[i], frameRate);
-		animationData->frameList.push_back(frame);
+		if (inAnimations[ConstValues::A_TWEEN_EASING.c_str()].IsNull())
+		{
+			animationData->tweenEasing = NO_TWEEN_EASING;
+		}
+		else
+		{
+			animationData->tweenEasing = inAnimations[ConstValues::A_TWEEN_EASING.c_str()].GetDouble();
+		}
+	}
+    animationData->autoTween = (GET_INT(inAnimations, ConstValues::A_AUTO_TWEEN.c_str()) == 1) ? true : false;
+    
+	if (inAnimations.HasMember(ConstValues::FRAME.c_str()))
+	{
+		const rapidjson::Value& frames = inAnimations[ConstValues::FRAME.c_str()];
+		for (rapidjson::SizeType i = 0; i < frames.Size(); i++)
+		{
+			Frame *frame = parseMainFrame(frames[i], frameRate);
+			animationData->frameList.push_back(frame);
+		}
 	}
 	parseTimeline(*animationData);
 
 	int lastFrameDuration = animationData->duration;
 	
 	// parse bone timeline
-	const rapidjson::Value& bones = inAnimations[ConstValues::BONE.c_str()];
-	for (rapidjson::SizeType i = 0; i < bones.Size(); i++)
+	if (inAnimations.HasMember(ConstValues::BONE.c_str()))
 	{
-		TransformTimeline *timeline = parseTransformTimeline(bones[i], animationData->duration);
-		if (timeline->frameList.size() > 0)
+		const rapidjson::Value& bones = inAnimations[ConstValues::BONE.c_str()];
+		for (rapidjson::SizeType i = 0; i < bones.Size(); i++)
 		{
-			lastFrameDuration = std::min(lastFrameDuration, timeline->frameList[timeline->frameList.size() - 1]->duration);
-			animationData->timelineList.push_back(timeline);
+			TransformTimeline *timeline = parseTransformTimeline(bones[i], animationData->duration);
+			if (timeline->frameList.size() > 0)
+			{
+				lastFrameDuration = std::min(lastFrameDuration, timeline->frameList[timeline->frameList.size() - 1]->duration);
+				animationData->timelineList.push_back(timeline);
+			}
 		}
 	}
 
 	// pase slot timeline
-	const rapidjson::Value& slots = inAnimations[ConstValues::SLOT.c_str()];
-	for (rapidjson::SizeType i = 0; i < slots.Size(); i++)
+	if (inAnimations.HasMember(ConstValues::SLOT.c_str()))
 	{
-		SlotTimeline *slotTimeline = parseSlotTimeline(slots[i], animationData->duration);
-		if (slotTimeline->frameList.size() > 0)
+		const rapidjson::Value& slots = inAnimations[ConstValues::SLOT.c_str()];
+		for (rapidjson::SizeType i = 0; i < slots.Size(); i++)
 		{
-			lastFrameDuration = std::min(lastFrameDuration, slotTimeline->frameList[slotTimeline->frameList.size() - 1]->duration);
-			animationData->slotTimelineList.push_back(slotTimeline);
+			SlotTimeline *slotTimeline = parseSlotTimeline(slots[i], animationData->duration);
+			if (slotTimeline->frameList.size() > 0)
+			{
+				lastFrameDuration = std::min(lastFrameDuration, slotTimeline->frameList[slotTimeline->frameList.size() - 1]->duration);
+				animationData->slotTimelineList.push_back(slotTimeline);
+			}
 		}
 	}
 

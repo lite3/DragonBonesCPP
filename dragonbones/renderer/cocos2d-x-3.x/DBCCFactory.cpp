@@ -149,7 +149,6 @@ ITextureAtlas* DBCCFactory::loadTextureAtlas(const std::string &textureAtlasFile
 		dragonBones::XMLDocument doc;
 		doc.Parse(data.c_str(), data.size());
 		dragonBones::XMLDataParser parser;
-		DBCCTextureAtlas *textureAtlas = new DBCCTextureAtlas();
 		textureAtlas->textureAtlasData = parser.parseTextureAtlasData(doc.RootElement(), scale);
 	}
 	else
