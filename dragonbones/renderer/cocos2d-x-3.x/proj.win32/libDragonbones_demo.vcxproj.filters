@@ -117,6 +117,9 @@
     <ClCompile Include="..\..\..\3rd\tinyxml2\dbtinyxml2.cpp">
       <Filter>dragonbones\3rd\tinyxml2</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\parsers\JSONDataParser.cpp">
+      <Filter>dragonbones\parsers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DBCCArmature.h">
@@ -361,6 +364,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\3rd\rapidjson\msinttypes\stdint.h">
       <Filter>dragonbones\3rd\rapidjson\msinttypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\parsers\JSONDataParser.h">
+      <Filter>dragonbones\parsers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

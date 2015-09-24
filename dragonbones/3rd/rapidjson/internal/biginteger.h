@@ -15,7 +15,7 @@
 #ifndef RAPIDJSON_BIGINTEGER_H_
 #define RAPIDJSON_BIGINTEGER_H_
 
-#include "dragonbones/rapidjson.h"
+#include "../rapidjson.h"
 
 #if defined(_MSC_VER) && defined(_M_AMD64)
 #include <intrin.h> // for _umul128

@@ -1,7 +1,7 @@
 ﻿#ifndef DRAGONBONES_GEOMS_POINT_H
 #define DRAGONBONES_GEOMS_POINT_H
 
-#include "dragonbones/DragonBones.h"
+#include "DragonBones.h"
 
 NAME_SPACE_DRAGON_BONES_BEGIN
 class Point

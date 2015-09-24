@@ -15,7 +15,7 @@
 #ifndef RAPIDJSON_STRTOD_
 #define RAPIDJSON_STRTOD_
 
-#include "dragonbones/rapidjson.h"
+#include "../rapidjson.h"
 #include "ieee754.h"
 #include "biginteger.h"
 #include "diyfp.h"

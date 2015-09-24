@@ -15,7 +15,7 @@
 #ifndef RAPIDJSON_ERROR_ERROR_H__
 #define RAPIDJSON_ERROR_ERROR_H__
 
-#include "dragonbones/rapidjson.h"
+#include "../rapidjson.h"
 
 /*! \file error.h */
 
